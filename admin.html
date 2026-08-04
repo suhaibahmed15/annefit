@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Anneloes Fit Coaching</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bone: #f7f6f0;
+            --chalk: #181816;
+            --ink: #181816;
+            --surface: #ffffff;
+            --surface-card: #ffffff;
+            --steel: #6b6a63;
+            --line: #e2dfd5;
+            --flare: #e63712;
+            --gold: #d49e1f;
+            --gold-light: #b07d0f;
+            --max: 1280px;
+            --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bone);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        @media (max-width: 768px) {
+            .wrap {
+                padding: 0 16px;
+            }
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .eyebrow::before {
+            /* content: ""; */
+            width: 20px;
+            height: 1px;
+            background: var(--gold);
+            display: inline-block;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Anton', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+        }
+
+        header.site {
+            background: rgba(247, 246, 240, .95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 90px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-inner {
+                height: auto;
+                padding: 16px 0;
+            }
+        }
+
+        .logo-mark img {
+            height: 46px;
+            width: auto;
+            display: block;
+        }
+
+        .notification-badge-wrapper {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bone);
+            border: 1px solid var(--line);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .notification-count {
+            background: var(--flare);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .notif-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 320px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+            z-index: 60;
+        }
+
+        .notif-dropdown.open {
+            display: block;
+        }
+
+        .notif-dropdown-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--ink);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .notif-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            border-bottom: 1px solid var(--line);
+            padding: 14px 20px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .notif-item:last-child {
+            border-bottom: none;
+        }
+
+        .notif-item:hover {
+            background: var(--bone);
+        }
+
+        .notif-item-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .notif-item-sub {
+            font-size: 12px;
+            color: var(--steel);
+            margin-top: 2px;
+        }
+
+        .notif-empty {
+            padding: 24px 20px;
+            text-align: center;
+            color: var(--steel);
+            font-size: 13px;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: calc(100vh - 90px);
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--line);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 16px;
+                border-right: none;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .sidebar .eyebrow {
+                display: none;
+            }
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--steel);
+            padding: 14px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all .2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background: var(--bone);
+            color: var(--ink);
+        }
+
+        .tab-btn.active {
+            background: var(--gold);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(212, 158, 31, 0.3);
+        }
+
+        .content-area {
+            padding: 50px;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 20px 16px;
+            }
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn .4s ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .admin-card {
+                padding: 20px;
+                border-radius: 14px;
+            }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+        }
+
+        .btn-danger {
+            background: var(--flare);
+            color: #ffffff;
+            padding: 8px 14px;
+            font-size: 11px;
+            border-radius: 8px;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--line);
+            color: var(--flare);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Responsive Table Wrapper */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 20px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            white-space: nowrap;
+        }
+
+        th,
+        td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+        }
+
+        th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            background: var(--bone);
+            color: var(--steel);
+        }
+
+        .gallery-manager-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .gallery-manager-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gallery-admin-item {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .gallery-admin-item img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-admin-actions {
+            padding: 12px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background: var(--bone);
+            border-top: 1px solid var(--line);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Supabase client library, then our public config (defines supabaseClient) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // This redirect is a UX convenience for logged-out visitors, not the
+        // real security boundary. Anything sensitive this page fetches from
+        // Supabase must be locked down separately with Row Level Security
+        // policies tied to auth.uid() on the server side.
+        (async function guard() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html';
+            }
+        })();
+
+        async function handleLogout() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header class="site">
+        <div class="wrap nav-inner">
+            <a href="index.html" class="logo-mark">
+                <img src="assets/Brandlogo/logo.png" alt="Anneloes Fit Coaching Logo">
+            </a>
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <div class="notif-wrapper" style="position: relative;">
+                    <div class="notification-badge-wrapper" onclick="toggleNotifications(event)">
+                        <span class="mono"
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Notifications</span>
+                        <span class="notification-count" id="notifCount">0</span>
+                    </div>
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <div class="notif-dropdown-header">Notifications</div>
+                        <div id="notifDropdownList">
+                            <div class="notif-empty">No notifications.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mono"
+                    style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--gold);">Admin
+                    Panel</div>
+                <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <div class="sidebar">
+            <div class="eyebrow">Modules</div>
+            <button class="tab-btn active" data-tab="clients" onclick="switchTab('clients', event)">Clients</button>
+            <button class="tab-btn" data-tab="articles" onclick="switchTab('articles', event)">Articles</button>
+            <button class="tab-btn" data-tab="leads" onclick="switchTab('leads', event)">Leads</button>
+            <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery', event)">Gallery</button>
+            <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz', event)">Quiz</button>
+        </div>
+
+        <div class="content-area">
+            <!-- MODULE 1: CLIENT DATABASE -->
+            <div class="tab-panel active" id="tab-clients">
+                <div class="eyebrow">Purchased Programs & Memberships</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Client Database & Unique IDs</h2>
+
+                <div class="admin-card">
+                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">All verified customer orders
+                        and checkouts from local storage.</p>
+                    <div class="form-group" style="max-width: 360px; margin-bottom: 0;">
+                        <label for="clientSearchInput">Search Client By Name</label>
+                        <input type="text" id="clientSearchInput" placeholder="Type a client name..."
+                            oninput="loadClients()">
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Unique ID</th>
+                                    <th>Client Name</th>
+                                    <th>Email & Phone</th>
+                                    <th>Purchased Program</th>
+                                    <th>Purchase Date</th>
+                                    <th>Subscription Expiry</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientTableBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--steel);">No client orders
+                                        found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 2: MANAGE ARTICLES -->
+            <div class="tab-panel" id="tab-articles">
+                <div class="eyebrow">Content Publishing</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Add Latest Articles & Blogs</h2>
+
+                <div class="admin-card">
+                    <form id="articleForm" onsubmit="addArticle(event)">
+                        <div class="form-group">
+                            <label for="artTitle">Article Title*</label>
+                            <input type="text" id="artTitle" placeholder="e.g. Advanced Hyrox Transition Strategies"
+                                required>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="artDate">Publication Date*</label>
+                                <input type="text" id="artDate" placeholder="e.g. August 3, 2026" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="artCategory">Category / Tag*</label>
+                                <input type="text" id="artCategory" placeholder="e.g. Strength Training" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="artContent">Article Body Content*</label>
+                            <textarea id="artContent" rows="6" placeholder="Write full article content here..."
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold">Publish Article</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3 style="font-size: 24px; margin-bottom: 16px;">Published Articles</h3>
+                    <div id="publishedArticlesList" style="display: flex; flex-direction: column; gap: 14px;">
+                        <span style="color: var(--steel);">No articles found.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 3: LEADS & INQUIRIES -->
+            <div class="tab-panel" id="tab-leads">
+                <div class="eyebrow">Prospects & Submissions</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">All Leads & Contact Inquiries</h2>
+
+                <div class="admin-card">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Contact Details</th>
+                                    <th>Message / Inquiry</th>
+                                    <th>Source</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="leadsTableBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: var(--steel);">No leads found.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 4: GALLERY MANAGER -->
+            <div class="tab-panel" id="tab-gallery">
+                <div class="eyebrow">Visual Asset Management</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Manage Gallery Images</h2>
+
+                <div class="admin-card">
+                    <form id="galleryForm" onsubmit="addGalleryImage(event)">
+                        <div class="form-group">
+                            <label for="deviceImage">Upload Image From Device Gallery*</label>
+                            <input type="file" id="deviceImage" accept="image/*" required
+                                style="padding: 10px; background: var(--bone);">
+                        </div>
+                        <button type="submit" class="btn btn-gold" id="galleryUploadBtn">Upload Image</button>
+                        <div id="galleryUploadStatus" class="mono"
+                            style="font-size: 12px; color: var(--steel); margin-top: 12px;"></div>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3 style="font-size: 24px; margin-bottom: 16px;">Gallery Inventory</h3>
+                    <div class="gallery-manager-grid" id="adminGalleryContainer">
+                        <!-- Rendered via LocalStorage -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 5: QUIZ SUBMISSIONS -->
+            <div class="tab-panel" id="tab-quiz">
+                <div class="eyebrow">Diagnostic Quiz Leads</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Quiz Results & Submissions</h2>
+
+                <div class="admin-card">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Client Name</th>
+                                    <th>Email & Instagram</th>
+                                    <th>Recommended Program / Result</th>
+                                    <th>Timestamp</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="quizTableBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: var(--steel);">No quiz submissions
+                                        found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId, event) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            } else {
+                const fallbackBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+                if (fallbackBtn) fallbackBtn.classList.add('active');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            loadClients();
+            loadArticles();
+            loadLeads();
+            loadGallery();
+            loadQuizSubmissions();
+            updateNotificationCount();
+        });
+
+        // Close the notification dropdown when clicking outside of it
+        document.addEventListener('click', (e) => {
+            const wrapper = document.querySelector('.notif-wrapper');
+            const dropdown = document.getElementById('notifDropdown');
+            if (wrapper && dropdown && !wrapper.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+
+        // 1. CLIENTS (LocalStorage Checkouts)
+        function loadClients() {
+            const tbody = document.getElementById('clientTableBody');
+            const checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
+            const searchInput = document.getElementById('clientSearchInput');
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            tbody.innerHTML = '';
+
+            const matches = checkouts
+                .map((item, index) => ({ item, index }))
+                .filter(({ item }) => !query || (item.name || '').toLowerCase().includes(query));
+
+            if (matches.length > 0) {
+                matches.forEach(({ item, index }) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="mono" style="color: var(--gold); font-weight: 700;">AFC-${849200 + index}</td>
+                        <td><b>${item.name}</b></td>
+                        <td>${item.email}<br><span style="font-size: 12px; color: var(--steel);">${item.phone}</span></td>
+                        <td>${item.program} (€${item.price})</td>
+                        <td>${item.date || 'Recent'}</td>
+                        <td>${item.expiry ? item.expiry : '<span style="color: var(--steel);">N/A</span>'}</td>
+                        <td><button class="btn btn-danger" onclick="deleteClient(${index})">Delete</button></td>
+                    `;
+                    tbody.prepend(tr);
+                });
+            } else if (checkouts.length > 0 && query) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No clients match "${searchInput.value}".</td></tr>`;
+            } else {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No client orders recorded yet.</td></tr>`;
+            }
+        }
+
+        function deleteClient(index) {
+            if (!confirm('Remove this client order from the database?')) return;
+            let checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
+            checkouts.splice(index, 1);
+            localStorage.setItem('local_checkouts', JSON.stringify(checkouts));
+            loadClients();
+            updateNotificationCount();
+        }
+
+        // 2. ARTICLES
+        function addArticle(e) {
+            e.preventDefault();
+            const title = document.getElementById('artTitle').value.trim();
+            const date = document.getElementById('artDate').value.trim();
+            const category = document.getElementById('artCategory').value.trim();
+            const content = document.getElementById('artContent').value.trim();
+
+            if (title && date && content) {
+                let articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
+                articles.push({ title, date, category, content });
+                localStorage.setItem('local_articles', JSON.stringify(articles));
+                document.getElementById('articleForm').reset();
+                loadArticles();
+                alert('Article successfully published locally!');
+            }
+        }
+
+        function loadArticles() {
+            const list = document.getElementById('publishedArticlesList');
+            const articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
+            list.innerHTML = '';
+            if (articles.length > 0) {
+                articles.forEach((art, index) => {
+                    const item = document.createElement('div');
+                    item.style = "background: var(--bone); padding: 16px 20px; border-radius: 12px; border: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;";
+                    item.innerHTML = `
+                        <div>
+                            <h4 style="font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;">${art.title}</h4>
+                            <span class="mono" style="font-size: 11px; color: var(--steel);">${art.date} &bull; ${art.category || 'General'}</span>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteArticle(${index})">Delete</button>
+                    `;
+                    list.prepend(item);
+                });
+            } else {
+                list.innerHTML = `<span style="color: var(--steel);">No published articles found.</span>`;
+            }
+        }
+
+        function deleteArticle(index) {
+            let articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
+            articles.splice(index, 1);
+            localStorage.setItem('local_articles', JSON.stringify(articles));
+            loadArticles();
+        }
+
+        // 3. LEADS (LocalStorage Contacts)
+        function loadLeads() {
+            const tbody = document.getElementById('leadsTableBody');
+            const leads = JSON.parse(localStorage.getItem('local_contacts') || '[]');
+            tbody.innerHTML = '';
+            if (leads.length > 0) {
+                leads.forEach((lead, index) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><b>${lead.firstName} ${lead.secondName}</b></td>
+                        <td>${lead.email}<br><span style="font-size: 12px; color: var(--steel);">${lead.mobile}</span></td>
+                        <td>"${lead.message}"</td>
+                        <td><span class="mono" style="color: var(--gold);">Contact Form</span></td>
+                        <td><button class="btn btn-danger" onclick="deleteLead(${index})">Delete</button></td>
+                    `;
+                    tbody.prepend(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No contact inquiries found.</td></tr>`;
+            }
+        }
+
+        function deleteLead(index) {
+            if (!confirm('Delete this lead permanently?')) return;
+            let leads = JSON.parse(localStorage.getItem('local_contacts') || '[]');
+            leads.splice(index, 1);
+            localStorage.setItem('local_contacts', JSON.stringify(leads));
+            loadLeads();
+            updateNotificationCount();
+        }
+
+        // 4. GALLERY MANAGER (Device Gallery Upload, No Title)
+        // Images are downscaled and re-compressed on the canvas before being
+        // stored, since raw phone photos are often several MB each and will
+        // silently blow past the browser's localStorage quota (~5-10MB total),
+        // which is the most common reason an "upload" appears to do nothing.
+        function resizeImageFile(file, maxDimension, quality) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onerror = () => reject(new Error('Could not read the selected file.'));
+                reader.onload = (readEvent) => {
+                    const img = new Image();
+                    img.onerror = () => reject(new Error('Could not decode the selected image.'));
+                    img.onload = () => {
+                        let { width, height } = img;
+                        if (width > maxDimension || height > maxDimension) {
+                            if (width > height) {
+                                height = Math.round(height * (maxDimension / width));
+                                width = maxDimension;
+                            } else {
+                                width = Math.round(width * (maxDimension / height));
+                                height = maxDimension;
+                            }
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.src = readEvent.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function addGalleryImage(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('deviceImage');
+            const statusEl = document.getElementById('galleryUploadStatus');
+            const submitBtn = document.getElementById('galleryUploadBtn');
+
+            if (!fileInput.files || !fileInput.files[0]) return;
+
+            submitBtn.disabled = true;
+            statusEl.style.color = 'var(--steel)';
+            statusEl.innerText = 'Processing image…';
+
+            try {
+                const compressedImage = await resizeImageFile(fileInput.files[0], 1280, 0.75);
+
+                let gallery = JSON.parse(localStorage.getItem('local_gallery') || '[]');
+                gallery.push(compressedImage);
+                localStorage.setItem('local_gallery', JSON.stringify(gallery));
+
+                document.getElementById('galleryForm').reset();
+                loadGallery();
+                statusEl.style.color = 'var(--gold)';
+                statusEl.innerText = 'Image uploaded successfully from device!';
+            } catch (err) {
+                console.error('Gallery upload failed:', err);
+                statusEl.style.color = 'var(--flare)';
+                if (err && err.name === 'QuotaExceededError') {
+                    statusEl.innerText = 'Storage is full. Delete a few existing gallery images and try again.';
+                } else {
+                    statusEl.innerText = 'Upload failed: ' + (err && err.message ? err.message : 'please try a different image.');
+                }
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
+
+        function loadGallery() {
+            const container = document.getElementById('adminGalleryContainer');
+            const gallery = JSON.parse(localStorage.getItem('local_gallery') || '[]');
+            container.innerHTML = '';
+            if (gallery.length > 0) {
+                gallery.forEach((imgSrc, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'gallery-admin-item';
+                    card.innerHTML = `
+                        <img src="${imgSrc}" alt="Gallery upload">
+                        <div class="gallery-admin-actions">
+                            <button class="btn btn-danger" onclick="deleteGalleryImage(${index})">Delete</button>
+                        </div>
+                    `;
+                    container.prepend(card);
+                });
+            } else {
+                container.innerHTML = `<span style="color: var(--steel);">No gallery images stored.</span>`;
+            }
+        }
+
+        function deleteGalleryImage(index) {
+            if (!confirm('Delete this image from the gallery?')) return;
+            let gallery = JSON.parse(localStorage.getItem('local_gallery') || '[]');
+            gallery.splice(index, 1);
+            localStorage.setItem('local_gallery', JSON.stringify(gallery));
+            loadGallery();
+        }
+
+        // 5. QUIZ SUBMISSIONS
+        function loadQuizSubmissions() {
+            const tbody = document.getElementById('quizTableBody');
+            const quizList = JSON.parse(localStorage.getItem('local_quiz') || '[]');
+            tbody.innerHTML = '';
+            if (quizList.length > 0) {
+                quizList.forEach((quiz, index) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><b>${quiz.name}</b></td>
+                        <td>${quiz.email}<br><span style="font-size: 12px; color: var(--steel);">@${quiz.insta || 'N/A'}</span></td>
+                        <td><b style="color: var(--gold);">${quiz.recommendation}</b></td>
+                        <td>${quiz.timestamp || 'Recent'}</td>
+                        <td><button class="btn btn-danger" onclick="deleteQuizSubmission(${index})">Delete</button></td>
+                    `;
+                    tbody.prepend(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No quiz submissions recorded yet.</td></tr>`;
+            }
+        }
+
+        function deleteQuizSubmission(index) {
+            if (!confirm('Delete this quiz submission?')) return;
+            let quizList = JSON.parse(localStorage.getItem('local_quiz') || '[]');
+            quizList.splice(index, 1);
+            localStorage.setItem('local_quiz', JSON.stringify(quizList));
+            loadQuizSubmissions();
+            updateNotificationCount();
+        }
+
+        // NOTIFICATIONS (Leads, Quiz Submissions & New Orders)
+        function toggleNotifications(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('notifDropdown');
+            const wasOpen = dropdown.classList.contains('open');
+            dropdown.classList.toggle('open', !wasOpen);
+            if (!wasOpen) renderNotificationDropdown();
+        }
+
+        function renderNotificationDropdown() {
+            const list = document.getElementById('notifDropdownList');
+            const leads = JSON.parse(localStorage.getItem('local_contacts') || '[]');
+            const quiz = JSON.parse(localStorage.getItem('local_quiz') || '[]');
+            const checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
+
+            const items = [];
+            leads.forEach(l => items.push({
+                tab: 'leads',
+                title: `${l.firstName || ''} ${l.secondName || ''}`.trim() || 'New Contact Inquiry',
+                sub: `Contact form &bull; ${l.date || 'Recent'}`
+            }));
+            quiz.forEach(q => items.push({
+                tab: 'quiz',
+                title: q.name || 'New Quiz Submission',
+                sub: `Quiz result: ${q.recommendation || ''} &bull; ${q.timestamp || 'Recent'}`
+            }));
+            checkouts.forEach(c => items.push({
+                tab: 'clients',
+                title: c.name || 'New Client Order',
+                sub: `Purchased ${c.program || ''} &bull; ${c.date || 'Recent'}`
+            }));
+
+            if (items.length === 0) {
+                list.innerHTML = `<div class="notif-empty">No notifications.</div>`;
+                return;
+            }
+
+            list.innerHTML = items.map(item => `
+                <button class="notif-item" onclick="switchTab('${item.tab}'); document.getElementById('notifDropdown').classList.remove('open');">
+                    <div class="notif-item-title">${item.title}</div>
+                    <div class="notif-item-sub">${item.sub}</div>
+                </button>
+            `).join('');
+        }
+
+        function updateNotificationCount() {
+            const leads = JSON.parse(localStorage.getItem('local_contacts') || '[]').length;
+            const quiz = JSON.parse(localStorage.getItem('local_quiz') || '[]').length;
+            const checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]').length;
+            document.getElementById('notifCount').innerText = leads + quiz + checkouts;
+        }
+    </script>
+</body>
+
+</html>

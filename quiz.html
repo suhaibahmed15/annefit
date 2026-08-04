@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find My Starting Point | Quiz | Anneloes Fit Coaching</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bone: #f7f6f0;
+            --chalk: #181816;
+            --ink: #181816;
+            --surface: #ffffff;
+            --surface-card: #ffffff;
+            --steel: #6b6a63;
+            --line: #e2dfd5;
+            --flare: #e63712;
+            --flare-dim: rgba(230, 55, 18, .08);
+            --flare-ink: #c22a0b;
+            --gold: #d49e1f;
+            --gold-light: #b07d0f;
+            --gold-dim: rgba(212, 158, 31, .1);
+            --sage: #9fb68b;
+            --sage-dark: #889e74;
+            --max: 800px;
+            --glow-flare: rgba(230, 55, 18, .15);
+            --glow-gold: rgba(212, 158, 31, .15);
+            --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
+            --shadow-lift: 0 20px 40px -10px rgba(230, 55, 18, .15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                animation: none !important;
+                transition-duration: .001ms !important;
+            }
+        }
+
+        body {
+            background: var(--bone);
+            color: var(--ink);
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bone);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold), var(--flare));
+            border-radius: 4px;
+        }
+
+        ::selection {
+            background: var(--flare);
+            color: var(--chalk);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--flare);
+            outline-offset: 3px;
+        }
+
+        /* Subtle Noise Overlay */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            pointer-events: none;
+            opacity: .025;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+        }
+
+        /* Header / Navbar Matching Index */
+        header.site {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            background: rgba(247, 246, 240, .9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        header.site::after {
+            content: "";
+            display: block;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--flare), var(--gold));
+            opacity: .8;
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 96px;
+        }
+
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-mark img {
+            height: 52px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(212, 158, 31, .15));
+            transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .logo-mark:hover img {
+            transform: scale(1.03);
+        }
+
+        nav.links {
+            display: flex;
+            gap: 34px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        nav.links a {
+            position: relative;
+            padding: 4px 0;
+            color: var(--ink);
+            opacity: .75;
+            transition: opacity .3s ease;
+        }
+
+        nav.links a:hover {
+            opacity: 1;
+        }
+
+        nav.links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        nav.links a:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            padding: 14px 28px;
+            border-radius: 50px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1), background .3s ease, color .3s ease, box-shadow .3s ease;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            border-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px var(--glow-gold);
+        }
+
+        .btn-sage {
+            background: var(--sage);
+            color: #ffffff;
+            border-color: var(--sage);
+        }
+
+        .btn-sage:hover {
+            background: var(--sage-dark);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 120;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            margin: 5px 0;
+            transition: transform .25s ease, opacity .25s ease;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 100;
+            background: var(--bone);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-24px);
+            transition: opacity .4s ease, transform .4s ease, visibility 0s linear .4s;
+        }
+
+        .mobile-menu.open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity .4s ease, transform .4s ease;
+        }
+
+        .mobile-menu a {
+            font-family: 'Anton', sans-serif;
+            font-size: 12vw;
+            color: var(--ink);
+            text-transform: uppercase;
+            line-height: 1.05;
+            display: block;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        @media (max-width: 900px) {
+            nav.links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Quiz Section */
+        section {
+            padding: 100px 0;
+        }
+
+        .quiz-hero-text {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .quiz-hero-text h1 {
+            font-size: clamp(38px, 6vw, 56px);
+            margin-bottom: 14px;
+        }
+
+        .quiz-hero-text p {
+            font-size: 18px;
+            color: var(--steel);
+        }
+
+        .quiz-box {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* States */
+        .quiz-state,
+        .info-form-screen,
+        .result-screen {
+            display: none;
+        }
+
+        .quiz-state.active,
+        .info-form-screen.active,
+        .result-screen.active {
+            display: block;
+            animation: fadeIn .5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-progress {
+            font-size: 12px;
+            color: var(--steel);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .quiz-question-title {
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 30px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .option-btn {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--ink);
+            text-align: left;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--sage);
+            background: var(--surface);
+        }
+
+        .option-btn.selected {
+            background: var(--sage);
+            border-color: var(--sage);
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Info Form Styling */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--ink);
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .form-group input:focus {
+            border-color: var(--sage);
+            outline: none;
+        }
+
+        /* Results Display */
+        .result-screen h2 {
+            font-size: clamp(32px, 5vw, 42px);
+            margin-bottom: 20px;
+        }
+
+        .result-screen p {
+            color: var(--steel);
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        /* Premium Footer Styling */
+        footer.site-footer {
+            background: var(--surface);
+            color: var(--ink);
+            border-top: 1px solid var(--line);
+            padding: 80px 0 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .footer-col h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 16px;
+            color: var(--ink);
+        }
+
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links-list a {
+            font-size: 14px;
+            color: var(--steel);
+            transition: color .2s ease;
+        }
+
+        .footer-links-list a:hover {
+            color: var(--gold);
+        }
+
+        /* Newsletter Input Styles */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .newsletter-input {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            width: 100%;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-top: 1px solid var(--line);
+            padding-top: 30px;
+        }
+    </style>
+
+    <!-- EmailJS: sends an email notification whenever this page's form is
+         submitted, without needing a backend server. -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // ============================================================
+        // EMAIL NOTIFICATION SETUP — fill these in once with your own
+        // free EmailJS account (emailjs.com):
+        //   1. Sign up, then "Email Services" -> connect Gmail/Outlook/etc
+        //      -> copy the Service ID.
+        //   2. "Email Templates" -> create a template (the "To Email"
+        //      field in the template should be YOUR inbox, e.g.
+        //      anneloes@yourdomain.com) -> copy the Template ID.
+        //      Use variables like {{form_type}}, {{name}}, {{email}},
+        //      {{phone}}, {{message}}, {{extra}} in the template body.
+        //   3. "Account" -> "General" -> copy the Public Key.
+        // Paste the three values below. Use the exact same three values
+        // in contact.html, quiz.html, and checkout.html.
+        // ============================================================
+        const EMAILJS_PUBLIC_KEY = 'G2ow6aT057vwlnp0M';
+        const EMAILJS_SERVICE_ID = 'service_a5e9tmx';
+        const EMAILJS_TEMPLATE_ID = 'template_847lr9o';
+
+        if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        }
+
+        // Sends the notification email; fails silently (logged to console
+        // only) so a missing/invalid EmailJS setup never blocks the form.
+        function sendAdminEmailNotification(params) {
+            if (!window.emailjs || EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+                console.warn('EmailJS is not configured yet — skipping email notification.', params);
+                return;
+            }
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+                .catch(err => console.error('Email notification failed:', err));
+        }
+    </script>
+</head>
+
+<body>
+    <div class="grain"></div>
+
+    <!-- Header / Navbar matching index.html style -->
+    <header class="site">
+        <div class="wrap nav-inner" style="max-width: 1180px; margin: 0 auto;">
+            <a href="index.html" class="logo-mark">
+                <img src="assets/Brandlogo/logo.png" alt="Anneloes Fit Coaching Logo">
+            </a>
+            <nav class="links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="programs.html">All Programs</a>
+                <a href="reviews.html">Reviews & Results</a>
+                <a href="articles.html">Latest Articles</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div style="display:flex; align-items:center; gap:16px;">
+                <a href="contact.html#rightContactCol" class="btn btn-gold"
+                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="./index.html" onclick="closeMobile()">Home</a>
+        <a href="./about.html" onclick="closeMobile()">About Us</a>
+        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
+        <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
+        <a href="./contact.html" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <!-- Quiz Hero Text -->
+    <div class="wrap" style="padding-top: 60px;">
+        <div class="quiz-hero-text">
+            <h1>Find your starting point</h1>
+            <p>5 questions. Honest answers. I'll tell you exactly where to begin. 💛</p>
+        </div>
+    </div>
+
+    <!-- Quiz Section -->
+    <section style="padding-top: 0;">
+        <div class="wrap">
+            <div class="quiz-box" id="quizBox">
+
+                <!-- STEP 1: Questions 1 to 5 -->
+                <div class="quiz-state active" id="questionContainer">
+                    <div class="quiz-progress" id="quizProgress">Question 1 of 5</div>
+                    <h2 class="quiz-question-title" id="quizTitle">Loading Question...</h2>
+                    <div class="options-list" id="optionsList"></div>
+                    <button class="btn btn-sage" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next
+                        Question →</button>
+                </div>
+
+                <!-- STEP 2: Contact Details Collection -->
+                <div class="info-form-screen" id="infoFormScreen">
+                    <div class="quiz-progress">Almost There</div>
+                    <h2 style="font-size: 32px; margin-bottom: 12px;">Where should I send your results?</h2>
+                    <p style="color: var(--steel); margin-bottom: 30px; font-size: 16px;">Enter your details below to
+                        unlock your custom coaching recommendation.</p>
+
+                    <form id="userMetaForm" onsubmit="handleMetaSubmit(event)">
+                        <div class="form-group">
+                            <label for="firstName">First name*</label>
+                            <input type="text" id="firstName" placeholder="e.g. Sarah" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailAddress">Email address*</label>
+                            <input type="email" id="emailAddress" placeholder="e.g. sarah@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="instaHandle">Instagram handle</label>
+                            <input type="text" id="instaHandle" placeholder="So I can personally follow up 💛">
+                        </div>
+                        <div style="margin-top: 30px;">
+                            <button type="submit" class="btn btn-sage" style="width: 100%; justify-content: center;">See
+                                My Results →</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STEP 3: Results Display -->
+                <div class="result-screen" id="resultScreen">
+                    <div
+                        style="font-size: 13px; color: var(--sage-dark); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px;">
+                        Your Personalized Match</div>
+                    <h2 id="resultHeading">Results Heading</h2>
+                    <p id="resultText">Results explanation text goes here...</p>
+                    <div id="resultActionContainer"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer matching Quiz/Home style -->
+    <footer class="site-footer">
+        <div class="wrap" style="max-width: 1180px;">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div
+                        style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">
+                        ANNELOES FIT COACHING</div>
+                    <div
+                        style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
+                        Online Hyrox & Strength Coach for Women</div>
+                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random
+                        workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite
+                        physical conditioning through calculated methodology.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="reviews.html">Reviews & Results</a></li>
+                        <li><a href="articles.html">Blogs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
+                                (@anneloes.fitcoaching)</a></li>
+                        <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
+                        <!-- <li><a href="admin.html">Admin Portal</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Stay Ahead</h4>
+                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive
+                        exclusive training tips, programming breakdowns, and early intake updates.</p>
+                    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Quiz Page')">
+                        <div style="position: relative;">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required
+                                style="padding-right: 40px;">
+                            <span
+                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
+                        </div>
+                        <button type="submit" class="newsletter-btn">Join Newsletter →</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div
+                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    &copy; 2026 Anneloes Fit Coaching. All rights reserved.
+                </div>
+                <div
+                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    Engineered for absolute strength & hybrid dominance 💛
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+        function closeMobile() {
+            menuToggle.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+
+        const quizData = [
+            {
+                question: "How would you describe your training right now?",
+                options: [
+                    { text: "I train pretty consistently, 3x a week or more, but I'm not really seeing results anymore", type: "A" },
+                    { text: "I train when I can, but life gets in the way and I don't have a real structure", type: "B" },
+                    { text: "I'm getting back into it after a break, injury, or baby — I want to do it right this time", type: "C" },
+                    { text: "I'm training for a specific event (like Hyrox) and I want to actually perform well", type: "D" }
+                ]
+            },
+            {
+                question: "When it comes to nutrition, what's most true for you?",
+                options: [
+                    { text: "I eat reasonably well but I have no idea if it's actually right for my goals", type: "A" },
+                    { text: "I know I'm probably not eating enough, but I'm scared to eat more", type: "B" },
+                    { text: "I eat pretty healthy but I've never really tracked or paid attention to macros", type: "C" },
+                    { text: "Nutrition around training and race day is something I want to figure out", type: "D" }
+                ]
+            },
+            {
+                question: "What's the main thing getting in your way right now?",
+                options: [
+                    { text: "I don't know what to change, I'm already doing \"all the right things\"", type: "A" },
+                    { text: "I don't have accountability, I start strong then fall off", type: "B" },
+                    { text: "My body has changed (hormones, age, postpartum) and I don't know how to train for it now", type: "C" },
+                    { text: "I want a structured plan that actually fits my race schedule", type: "D" }
+                ]
+            },
+            {
+                question: "How much support do you want from a coach?",
+                options: [
+                    { text: "I want real, weekly contact and someone who actually reads my check-ins", type: "A" },
+                    { text: "I want a solid starting plan I can follow on my own first, before committing to coaching", type: "B" },
+                    { text: "I want high-level support: someone I can reach easily, who knows my whole picture", type: "C" },
+                    { text: "I mainly want the programming and race strategy, I'll handle the rest", type: "D" }
+                ]
+            },
+            {
+                question: "What would success look like for you in 3 months?",
+                options: [
+                    { text: "I feel stronger, my body is changing, and I actually understand why", type: "A" },
+                    { text: "I've built consistency and I'm not starting over every Monday", type: "B" },
+                    { text: "I feel like myself again, in a body I recognise and trust", type: "C" },
+                    { text: "I cross the finish line knowing I trained smart, not just hard", type: "D" }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let selectedAnswers = [];
+        let tempSelectedType = null;
+
+        const quizProgressEl = document.getElementById('quizProgress');
+        const quizTitleEl = document.getElementById('quizTitle');
+        const optionsListEl = document.getElementById('optionsList');
+        const nextBtn = document.getElementById('nextBtn');
+        const questionContainer = document.getElementById('questionContainer');
+        const infoFormScreen = document.getElementById('infoFormScreen');
+        const resultScreen = document.getElementById('resultScreen');
+
+        function loadQuestion() {
+            const currentQ = quizData[currentQuestionIndex];
+            quizProgressEl.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            quizTitleEl.innerText = currentQ.question;
+            tempSelectedType = null;
+            nextBtn.style.display = 'none';
+
+            optionsListEl.innerHTML = currentQ.options.map((opt) => `
+                <button class="option-btn" onclick="selectOption('${opt.type}', this)">
+                    <span>${opt.text}</span>
+                </button>
+            `).join('');
+        }
+
+        function selectOption(type, btnElement) {
+            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+            btnElement.classList.add('selected');
+            tempSelectedType = type;
+            nextBtn.style.display = 'inline-flex';
+        }
+
+        function nextQuestion() {
+            if (!tempSelectedType) return;
+            selectedAnswers.push(tempSelectedType);
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                questionContainer.classList.remove('active');
+                infoFormScreen.classList.add('active');
+            }
+        }
+
+        let quizUserMeta = { firstName: '', email: '', insta: '' };
+
+        function handleMetaSubmit(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value.trim();
+            const email = document.getElementById('emailAddress').value.trim();
+            const insta = document.getElementById('instaHandle').value.trim();
+
+            if (firstName && email) {
+                quizUserMeta = { firstName, email, insta };
+                infoFormScreen.classList.remove('active');
+                calculateAndShowResults();
+            }
+        }
+
+        function saveQuizLead(recommendationText) {
+            let quizLeads = JSON.parse(localStorage.getItem('local_quiz') || '[]');
+            quizLeads.push({
+                name: quizUserMeta.firstName,
+                email: quizUserMeta.email,
+                insta: quizUserMeta.insta,
+                recommendation: recommendationText,
+                timestamp: new Date().toLocaleString()
+            });
+            localStorage.setItem('local_quiz', JSON.stringify(quizLeads));
+
+            sendAdminEmailNotification({
+                form_type: 'New Quiz Submission',
+                name: quizUserMeta.firstName,
+                email: quizUserMeta.email,
+                phone: '',
+                message: `Recommendation: ${recommendationText}`,
+                extra: quizUserMeta.insta ? `Instagram: @${quizUserMeta.insta}` : ''
+            });
+        }
+
+        function calculateAndShowResults() {
+            resultScreen.classList.add('active');
+
+            const counts = { A: 0, B: 0, C: 0, D: 0 };
+            selectedAnswers.forEach(ans => counts[ans]++);
+
+            const maxCount = Math.max(counts.A, counts.B, counts.C, counts.D);
+            const leaders = Object.keys(counts).filter(k => counts[k] === maxCount);
+
+            const headingEl = document.getElementById('resultHeading');
+            const textEl = document.getElementById('resultText');
+            const actionContainer = document.getElementById('resultActionContainer');
+
+            if (leaders.length > 1 || maxCount <= 1) {
+                headingEl.innerText = "You're in the right place, let's just talk.";
+                textEl.innerText = "Your situation is a mix of things — which usually means a quick conversation will tell us more than any quiz. Send me a DM and tell me where you're at. No sales pitch, no pressure, just a real conversation.";
+                actionContainer.innerHTML = `<a href="https://instagram.com/anneloes.fitcoaching" target="_blank" class="btn btn-sage">DM "STRONG" on Instagram →</a>`;
+            } else {
+                const winner = leaders[0];
+                if (winner === 'A') {
+                    headingEl.innerText = "You're ready for the next level.";
+                    textEl.innerText = "You're already putting in the work — the missing piece is a real system behind it. Strong Foundation gives you personalized training, nutrition guidance and weekly check-ins so the effort you're already making actually starts showing. This is where results get consistent.";
+                    actionContainer.innerHTML = `<a href="programs.html#strong-foundation" class="btn btn-sage">Start with Strong Foundation →</a>`;
+                } else if (winner === 'B') {
+                    headingEl.innerText = "Let's build your foundation first.";
+                    textEl.innerText = "Before committing to a full program, it makes sense to experience what coaching actually feels like with you in it. Kickstart Coaching is 4 weeks, one-time investment — you get a real plan, real check-ins, and a clear picture of what comes next. No pressure, no long commitment.";
+                    actionContainer.innerHTML = `<a href="programs.html#kickstart" class="btn btn-sage">Start with Kickstart →</a>`;
+                } else if (winner === 'C') {
+                    headingEl.innerText = "You need more than a plan. You need a partner.";
+                    textEl.innerText = "Your body has shifted, and generic programming isn't going to cut it. Full Strength is the most supported level of coaching I offer: personalized training, nutrition, a monthly call, and priority access to me. This is for women who are serious about getting it right for where they are now, not where they were five years ago.";
+                    actionContainer.innerHTML = `<a href="programs.html#full-strength" class="btn btn-sage">Start with Full Strength →</a>`;
+                } else if (winner === 'D') {
+                    headingEl.innerText = "You're an athlete. Train like one.";
+                    textEl.innerText = "You've got a race on the calendar and you want to show up ready. Hyrox-specific programming — pacing, running structure, station transitions, race-day nutrition — can be built into either Strong Foundation or Full Strength. Tell me your race date and we'll build backwards from there.";
+                    actionContainer.innerHTML = `<a href="https://instagram.com/anneloes.fitcoaching" target="_blank" class="btn btn-sage">DM "HYROX" on Instagram →</a>`;
+                }
+            }
+
+            saveQuizLead(headingEl.innerText);
+        }
+
+        // Initialize quiz
+        loadQuestion();
+
+        // ============================================================
+        // NEWSLETTER SIGNUP -> GOOGLE SHEET
+        // Fill this in once with your own Google Apps Script Web App URL
+        // (Extensions -> Apps Script in your Google Sheet, paste the
+        // provided doPost() script, Deploy -> New deployment -> Web app,
+        // "Who has access: Anyone", then copy the deployment URL below).
+        // Use the exact same URL in articles.html, checkout.html,
+        // contact.html, gallery.html, and quiz.html.
+        // ============================================================
+        const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
+
+        function handleNewsletterSubmit(e, sourcePage) {
+            e.preventDefault();
+            const form = e.target;
+            const emailInput = form.querySelector('.newsletter-input');
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
+                console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
+            } else {
+                // mode: 'no-cors' + text/plain avoids a CORS preflight that
+                // Apps Script web apps don't handle; the request still goes
+                // through, we just can't read the response back.
+                fetch(GOOGLE_SHEET_WEBAPP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        email: email,
+                        source: sourcePage,
+                        timestamp: new Date().toISOString()
+                    })
+                }).catch(err => console.error('Newsletter signup failed to save:', err));
+            }
+
+            alert('Welcome to the elite newsletter! 💛');
+            form.reset();
+        }
+
+    </script>
+</body>
+
+</html>

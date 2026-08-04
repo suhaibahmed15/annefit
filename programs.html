@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Coaching Programs & Guides | Anneloes Fit Coaching</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bone: #f7f6f0;
+            --chalk: #181816;
+            --ink: #181816;
+            --surface: #ffffff;
+            --surface-card: #ffffff;
+            --steel: #6b6a63;
+            --line: #e2dfd5;
+            --flare: #e63712;
+            --flare-dim: rgba(230, 55, 18, .08);
+            --gold: #d49e1f;
+            --gold-light: #b07d0f;
+            --max: 1180px;
+            --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
+            --shadow-lift: 0 20px 40px -10px rgba(230, 55, 18, .15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bone);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bone);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold), var(--flare));
+            border-radius: 4px;
+        }
+
+        ::selection {
+            background: var(--flare);
+            color: #ffffff;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .eyebrow::before {
+            width: 22px;
+            height: 1px;
+            background: var(--gold);
+            display: inline-block;
+            /* content: ""; */
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Anton', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+            line-height: .98;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--flare);
+            outline-offset: 3px;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            pointer-events: none;
+            opacity: .025;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+        }
+
+        /* Header / Navbar */
+        header.site {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            background: rgba(247, 246, 240, .9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        header.site::after {
+            content: "";
+            display: block;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--flare), var(--gold));
+            opacity: .8;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 96px;
+        }
+
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-mark img {
+            height: 52px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(212, 158, 31, .15));
+            transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .logo-mark:hover img {
+            transform: scale(1.03);
+        }
+
+        nav.links {
+            display: flex;
+            gap: 34px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        nav.links a {
+            position: relative;
+            padding: 4px 0;
+            color: var(--ink);
+            opacity: .75;
+            transition: opacity .3s ease;
+        }
+
+        nav.links a:hover {
+            opacity: 1;
+        }
+
+        nav.links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        nav.links a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border-radius: 50px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1), background .3s ease, color .3s ease, box-shadow .3s ease;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            border-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(212, 158, 31, .25);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 120;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            margin: 5px 0;
+            transition: transform .25s ease, opacity .25s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 100;
+            background: var(--bone);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-24px);
+            transition: opacity .4s ease, transform .4s ease, visibility 0s linear .4s;
+        }
+
+        .mobile-menu.open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity .4s ease, transform .4s ease;
+        }
+
+        .mobile-menu a {
+            font-family: 'Anton', sans-serif;
+            font-size: 12vw;
+            color: var(--ink);
+            text-transform: uppercase;
+            line-height: 1.05;
+            display: block;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        @media (max-width: 900px) {
+            nav.links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Hero */
+        .programs-hero {
+            padding: 160px 0 80px;
+            text-align: center;
+        }
+
+        .programs-hero h1 {
+            font-size: clamp(48px, 7vw, 84px);
+            margin-top: 16px;
+            color: var(--ink);
+        }
+
+        .programs-hero h1 .accent {
+            background: linear-gradient(100deg, var(--gold) 20%, var(--flare) 60%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        section {
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        /* Programs Grid */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Light Color Gradient Themes for Program Cards */
+        .program-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f4f2ea 100%);
+            color: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-soft);
+            transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1), border-color .4s ease, box-shadow .4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px -10px rgba(212, 158, 31, .2);
+        }
+
+        /* Mid Box (Most Popular - €219) Distinct Color Theme */
+        .program-card.featured {
+            background: linear-gradient(135deg, #fffbf0 0%, #fdf5e2 100%);
+            border: 2px solid var(--gold);
+            box-shadow: 0 15px 35px rgba(212, 158, 31, 0.15);
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: var(--gold);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .ribbon-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--flare);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            padding: 6px 35px;
+            text-transform: uppercase;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .program-card h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--ink);
+        }
+
+        .program-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            color: var(--steel);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 14px;
+        }
+
+        .program-price {
+            font-family: 'Anton', sans-serif;
+            font-size: 40px;
+            color: var(--ink);
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .program-price span {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold-light);
+            text-transform: uppercase;
+        }
+
+        .program-card p {
+            color: var(--steel);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .program-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+            font-size: 13.5px;
+            color: var(--ink);
+            border-top: 1px solid var(--line);
+            padding-top: 18px;
+        }
+
+        .program-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        .program-features li svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--gold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .buy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+        }
+
+        .buy-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Pop-in Scroll Animation Styles */
+        .pop-reveal {
+            opacity: 0;
+            transform: scale(0.9) translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .pop-reveal.in {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Premium Footer Styling */
+        footer.site-footer {
+            background: var(--surface);
+            color: var(--ink);
+            border-top: 1px solid var(--line);
+            padding: 80px 0 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .footer-col h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 16px;
+            color: var(--ink);
+        }
+
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links-list a {
+            font-size: 14px;
+            color: var(--steel);
+            transition: color .2s ease;
+        }
+
+        .footer-links-list a:hover {
+            color: var(--gold);
+        }
+
+        /* Newsletter Input Styles */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .newsletter-input {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            width: 100%;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-top: 1px solid var(--line);
+            padding-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grain"></div>
+
+    <!-- Header / Navbar -->
+    <header class="site">
+        <div class="wrap nav-inner">
+            <a href="index.html" class="logo-mark">
+                <img src="assets/Brandlogo/logo.png" alt="Anneloes Fit Coaching Logo">
+            </a>
+            <nav class="links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="programs.html" style="opacity: 1; color: var(--gold);">All Programs</a>
+                <a href="reviews.html">Reviews & Results</a>
+                <a href="articles.html">Latest Articles</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div style="display:flex; align-items:center; gap:16px;">
+                <a href="contact.html#rightContactCol" class="btn btn-gold"
+                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="./index.html" onclick="closeMobile()">Home</a>
+        <a href="./about.html" onclick="closeMobile()">About Us</a>
+        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
+        <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
+        <a href="./contact.html" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="programs-hero">
+        <div class="wrap">
+            <div class="eyebrow" style="justify-content:center;">Complete Program & Guide Matrix</div>
+            <h1>All Coaching & <br><span class="accent">Guides Catalog.</span></h1>
+            <p style="font-size: 19px; color: var(--steel); max-width: 650px; margin: 0 auto; line-height: 1.6;">Every
+                package includes personalized training, nutrition guidance and direct access to me. Choose your path or
+                explore self-paced guides below.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 1: SELF-PACED GUIDES (Placed First) -->
+    <section style="background: var(--surface);">
+        <div class="wrap">
+            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
+                <div class="eyebrow" style="justify-content: center;">Self-Paced Programs</div>
+                <h2>Not Ready For Full Coaching? Start With A Guide</h2>
+                <p style="color: var(--steel); margin-top: 10px;">Self-paced programs you can start today, no
+                    commitment, no intake call needed.</p>
+            </div>
+
+            <div class="programs-grid">
+                <!-- Guide 1 -->
+                <div class="program-card pop-reveal">
+                    <div>
+                        <div class="program-price">€24 <span>/ One-Time</span></div>
+                        <div class="program-subtitle">Cycle & Training Guide</div>
+                        <h3>Train and Eat With Your Hormones</h3>
+                        <p>Understand your 4 cycle phases, and what to train and eat in each one.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Train%20and%20Eat%20With%20Your%20Hormones&price=24&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Guide 2 -->
+                <div class="program-card pop-reveal" style="transition-delay: 0.15s;">
+                    <div>
+                        <div class="program-price">€29 <span>/ One-Time</span></div>
+                        <div class="program-subtitle">Nutrition Kickstart Guide</div>
+                        <h3>Eat for Your Hormones</h3>
+                        <p>Key hormones explained simply, a 5-day menu, and supplement guidance.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Eat%20for%20Your%20Hormones&price=29&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Guide 3 -->
+                <div class="program-card pop-reveal" style="transition-delay: 0.3s;">
+                    <div>
+                        <div class="program-price">€57 <span>/ One-Time</span></div>
+                        <div class="program-subtitle">Peach Plan Starter (4 weeks)</div>
+                        <h3>Sterk is geen leeftijd.</h3>
+                        <p>4-week glute, core and functional strength starter block with full exercise cues.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Sterk%20is%20geen%20leeftijd&price=57&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Guide 4 -->
+                <div class="program-card pop-reveal" style="transition-delay: 0.45s;">
+                    <div>
+                        <div class="program-price">€67 <span>/ One-Time</span></div>
+                        <div class="program-subtitle">6-Week Training & Macro Plan</div>
+                        <h3>Strength Training + Nutrition Guide</h3>
+                        <p>Complete 6-week training structure with daily macro targets and routines.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Strength%20Training%20%2b%20Nutrition%20Guide&price=67&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: VALUE BUNDLES (Placed Second) -->
+    <section style="background: var(--bone);">
+        <div class="wrap">
+            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
+                <div class="eyebrow" style="justify-content: center;">Value Bundles</div>
+                <h2>Save Big With Combined Packs</h2>
+            </div>
+
+            <div class="programs-grid">
+                <!-- Bundle 1 -->
+                <div class="program-card pop-reveal">
+                    <div class="ribbon-badge">Save 24%</div>
+                    <div>
+                        <div class="program-price">€99 <span
+                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€131</span>
+                        </div>
+                        <div class="program-subtitle">Complete Starter Pack</div>
+                        <h3>Everything for month one without the monthly fee.</h3>
+                        <p>Three foundational guides combined for strength training and macro tracking.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Complete%20Starter%20Pack&price=99&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bundle 2 -->
+                <div class="program-card pop-reveal" style="transition-delay: 0.15s;">
+                    <div class="ribbon-badge">Save 20%</div>
+                    <div>
+                        <div class="program-price">€99 <span
+                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€124</span>
+                        </div>
+                        <div class="program-subtitle">Strength & Shape</div>
+                        <h3>Two plans. One stronger, shaped you.</h3>
+                        <p>6-week strength foundation paired with a dedicated lower-body shaping block.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Strength%20%26%20Shape&price=99&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bundle 3 -->
+                <div class="program-card pop-reveal" style="transition-delay: 0.3s;">
+                    <div class="ribbon-badge">Save 23%</div>
+                    <div>
+                        <div class="program-price">€65 <span
+                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€84</span>
+                        </div>
+                        <div class="program-subtitle">Cycle-Smart Peach</div>
+                        <h3>Train with your hormones. Shape at your pace.</h3>
+                        <p>Hormone-aware cycle education combined with a focused 4-week glute and strength program.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Cycle-Smart%20Peach&price=65&duration=One-Time" class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: PERSONAL MENTORSHIP / 1:1 COACHING PACKAGES (Placed Last, Aligned €169, €219, €299) -->
+    <section style="background: var(--surface);">
+        <div class="wrap">
+            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
+                <div class="eyebrow" style="justify-content: center;">Personal Mentorship</div>
+                <h2>1-on-1 Coaching Packages</h2>
+            </div>
+
+            <div class="programs-grid">
+                <!-- Box 1: €169 Strong Foundation -->
+                <div class="program-card pop-reveal">
+                    <div>
+                        <div class="program-price">€169 <span>/ Month</span></div>
+                        <div class="program-subtitle">Minimum 6 months</div>
+                        <h3>Strong Foundation</h3>
+                        <p>Solid coaching, built for consistent progress and steady support.</p>
+                        <ul class="program-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Personalized training program</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Weekly check-ins & macro targets</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Direct chat access</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Strong%20Foundation&price=169&duration=Minimum%206%20months"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Box 2: €219 Full Strength (Featured / Most Popular with Distinct Gradient Theme & Pop Stagger) -->
+                <div class="program-card featured pop-reveal" style="transition-delay: 0.15s;">
+                    <div class="featured-tag">Most Popular</div>
+                    <div>
+                        <div class="program-price">€219 <span>/ Month</span></div>
+                        <div class="program-subtitle">Minimum 6 months</div>
+                        <h3>Full Strength</h3>
+                        <p>Highest level of accountability, priority response, and direct access.</p>
+                        <ul class="program-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Everything in Strong Foundation</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Weekly meal plan & monthly video call</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Priority response times & mindset support</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Full%20Strength&price=219&duration=Minimum%206%20months"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Box 3: €299 Kickstart Coaching -->
+                <div class="program-card pop-reveal" style="transition-delay: 0.3s;">
+                    <div>
+                        <div class="program-price">€299 <span>/ One-Time</span></div>
+                        <div class="program-subtitle">4-Week Program</div>
+                        <h3>Kickstart Coaching</h3>
+                        <p>Test out coaching with a focused 4-week intensive intake and plan.</p>
+                        <ul class="program-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> 4-week personalized plan</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Goal-setting session & weekly check-ins</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg> Clear roadmap for next steps</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Kickstart%20Coaching&price=299&duration=4-Week%20Program"
+                            class="buy-btn">
+                            Buy Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer matching Quiz/Home style -->
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div
+                        style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">
+                        ANNELOES FIT COACHING</div>
+                    <div
+                        style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
+                        Online Hyrox & Strength Coach for Women</div>
+                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random
+                        workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite
+                        physical conditioning through calculated methodology.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="reviews.html">Reviews & Results</a></li>
+                        <li><a href="articles.html">Blogs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
+                                (@anneloes.fitcoaching)</a></li>
+                        <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Stay Ahead</h4>
+                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive
+                        exclusive training tips, programming breakdowns, and early intake updates.</p>
+                    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Programs Page')">
+                        <div style="position: relative;">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required
+                                style="padding-right: 40px;">
+                            <span
+                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
+                        </div>
+                        <button type="submit" class="newsletter-btn">Join Newsletter →</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div
+                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    &copy; 2026 Anneloes Fit Coaching. All rights reserved.
+                </div>
+                <div
+                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    Engineered for absolute strength & hybrid dominance 💛
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+        function closeMobile() {
+            menuToggle.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+
+        /* Scroll Pop-In Observer for Smooth Pop Animations */
+        const observerOptions = { threshold: 0.12 };
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.pop-reveal').forEach(el => observer.observe(el));
+
+        // ============================================================
+        // NEWSLETTER SIGNUP -> GOOGLE SHEET
+        // Fill this in once with your own Google Apps Script Web App URL
+        // (Extensions -> Apps Script in your Google Sheet, paste the
+        // provided doPost() script, Deploy -> New deployment -> Web app,
+        // "Who has access: Anyone", then copy the deployment URL below).
+        // Use the exact same URL in articles.html, checkout.html,
+        // contact.html, gallery.html, and quiz.html.
+        // ============================================================
+        const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
+
+        function handleNewsletterSubmit(e, sourcePage) {
+            e.preventDefault();
+            const form = e.target;
+            const emailInput = form.querySelector('.newsletter-input');
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
+                console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
+            } else {
+                // mode: 'no-cors' + text/plain avoids a CORS preflight that
+                // Apps Script web apps don't handle; the request still goes
+                // through, we just can't read the response back.
+                fetch(GOOGLE_SHEET_WEBAPP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        email: email,
+                        source: sourcePage,
+                        timestamp: new Date().toISOString()
+                    })
+                }).catch(err => console.error('Newsletter signup failed to save:', err));
+            }
+
+            alert('Welcome to the elite newsletter! 💛');
+            form.reset();
+        }
+
+    </script>
+</body>
+
+</html>
