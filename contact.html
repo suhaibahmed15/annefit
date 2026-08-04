@@ -687,6 +687,11 @@
         }
     </style>
 
+    <!-- Supabase: shared database so form submissions from any device show
+         up in the admin panel on any other device. -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+
     <!-- EmailJS: sends an email notification whenever this page's form is
          submitted, without needing a backend server. -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -1066,7 +1071,7 @@
 
         document.querySelectorAll('.form-animate').forEach(el => formObserver.observe(el));
 
-        function handleTalkSubmit(e) {
+        async function handleTalkSubmit(e) {
             e.preventDefault();
 
             const firstName = document.getElementById('firstName').value.trim();
@@ -1075,12 +1080,19 @@
             const mobile = document.getElementById('mobile').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            let contacts = JSON.parse(localStorage.getItem('local_contacts') || '[]');
-            contacts.push({
-                firstName, secondName, email, mobile, message,
-                date: new Date().toLocaleString()
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            if (submitBtn) submitBtn.disabled = true;
+
+            const { error } = await supabaseClient.from('contacts').insert({
+                first_name: firstName, second_name: secondName, email, mobile, message
             });
-            localStorage.setItem('local_contacts', JSON.stringify(contacts));
+
+            if (error) {
+                console.error('Contact form save failed:', error);
+                alert('Something went wrong sending your message. Please try again.');
+                if (submitBtn) submitBtn.disabled = false;
+                return;
+            }
 
             sendAdminEmailNotification({
                 form_type: 'New Contact Inquiry',

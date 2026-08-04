@@ -501,8 +501,19 @@
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
                 window.location.href = 'login.html';
+                return;
             }
+            // Make sure Realtime uses the logged-in admin's token too, since the
+            // contacts/quiz_submissions/checkouts tables are RLS-locked to
+            // "authenticated" — without this, live updates would silently stop
+            // getting rows once a session is loaded from a previous page.
+            supabaseClient.realtime.setAuth(session.access_token);
         })();
+
+        // Keep Realtime's token in sync if the session refreshes in the background.
+        supabaseClient.auth.onAuthStateChange((_event, session) => {
+            if (session) supabaseClient.realtime.setAuth(session.access_token);
+        });
 
         async function handleLogout() {
             await supabaseClient.auth.signOut();
@@ -559,7 +570,7 @@
                     <div class="form-group" style="max-width: 360px; margin-bottom: 0;">
                         <label for="clientSearchInput">Search Client By Name</label>
                         <input type="text" id="clientSearchInput" placeholder="Type a client name..."
-                            oninput="loadClients()">
+                            oninput="renderClientsTable()">
                     </div>
                     <div class="table-responsive">
                         <table>
@@ -728,7 +739,7 @@
             loadLeads();
             loadGallery();
             loadQuizSubmissions();
-            updateNotificationCount();
+            setupRealtime();
         });
 
         // Close the notification dropdown when clicking outside of it
@@ -740,46 +751,97 @@
             }
         });
 
-        // 1. CLIENTS (LocalStorage Checkouts)
-        function loadClients() {
+        // ------------------------------------------------------------------
+        // LIVE SYNC (Supabase)
+        // Everything below reads from / writes to the shared Supabase tables
+        // instead of this browser's localStorage, so:
+        //   1. Any submission from anywhere in the world (contact.html,
+        //      quiz.html, checkout.html) lands in one shared database, and
+        //   2. Every admin dashboard that's open — phone, laptop, anywhere —
+        //      gets it pushed to it instantly via Supabase Realtime, no
+        //      refresh needed.
+        // Each table keeps a small in-memory cache (leadsCache, quizCache,
+        // checkoutsCache, galleryCache) so the UI (search box, notification
+        // dropdown, counts) can re-render instantly without re-hitting the
+        // network every time.
+        // ------------------------------------------------------------------
+        let checkoutsCache = [];
+        let leadsCache = [];
+        let quizCache = [];
+        let galleryCache = [];
+
+        function setupRealtime() {
+            supabaseClient
+                .channel('admin-dashboard-live')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'contacts' }, () => loadLeads())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_submissions' }, () => loadQuizSubmissions())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'checkouts' }, () => loadClients())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadGallery())
+                .subscribe((status) => {
+                    if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+                        console.error('Realtime subscription problem:', status);
+                    }
+                });
+        }
+
+        function formatDate(iso) {
+            if (!iso) return 'Recent';
+            const d = new Date(iso);
+            return isNaN(d) ? iso : d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // 1. CLIENTS (Supabase "checkouts")
+        async function loadClients() {
+            const { data, error } = await supabaseClient
+                .from('checkouts')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) {
+                console.error('Failed to load checkouts:', error);
+                return;
+            }
+            checkoutsCache = data || [];
+            renderClientsTable();
+            updateNotificationCount();
+        }
+
+        function renderClientsTable() {
             const tbody = document.getElementById('clientTableBody');
-            const checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
             const searchInput = document.getElementById('clientSearchInput');
             const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
             tbody.innerHTML = '';
 
-            const matches = checkouts
-                .map((item, index) => ({ item, index }))
-                .filter(({ item }) => !query || (item.name || '').toLowerCase().includes(query));
+            const matches = checkoutsCache.filter(item => !query || (item.name || '').toLowerCase().includes(query));
 
             if (matches.length > 0) {
-                matches.forEach(({ item, index }) => {
+                matches.forEach(item => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td class="mono" style="color: var(--gold); font-weight: 700;">AFC-${849200 + index}</td>
+                        <td class="mono" style="color: var(--gold); font-weight: 700;">AFC-${849200 + item.id}</td>
                         <td><b>${item.name}</b></td>
                         <td>${item.email}<br><span style="font-size: 12px; color: var(--steel);">${item.phone}</span></td>
                         <td>${item.program} (€${item.price})</td>
-                        <td>${item.date || 'Recent'}</td>
-                        <td>${item.expiry ? item.expiry : '<span style="color: var(--steel);">N/A</span>'}</td>
-                        <td><button class="btn btn-danger" onclick="deleteClient(${index})">Delete</button></td>
+                        <td>${item.purchase_date || formatDate(item.created_at)}</td>
+                        <td>${item.expiry_date ? item.expiry_date : '<span style="color: var(--steel);">N/A</span>'}</td>
+                        <td><button class="btn btn-danger" onclick="deleteClient(${item.id})">Delete</button></td>
                     `;
-                    tbody.prepend(tr);
+                    tbody.appendChild(tr);
                 });
-            } else if (checkouts.length > 0 && query) {
+            } else if (checkoutsCache.length > 0 && query) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No clients match "${searchInput.value}".</td></tr>`;
             } else {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No client orders recorded yet.</td></tr>`;
             }
         }
 
-        function deleteClient(index) {
+        async function deleteClient(id) {
             if (!confirm('Remove this client order from the database?')) return;
-            let checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
-            checkouts.splice(index, 1);
-            localStorage.setItem('local_checkouts', JSON.stringify(checkouts));
+            const { error } = await supabaseClient.from('checkouts').delete().eq('id', id);
+            if (error) {
+                alert('Delete failed: ' + error.message);
+                return;
+            }
             loadClients();
-            updateNotificationCount();
         }
 
         // 2. ARTICLES
@@ -829,35 +891,49 @@
             loadArticles();
         }
 
-        // 3. LEADS (LocalStorage Contacts)
-        function loadLeads() {
+        // 3. LEADS (Supabase "contacts")
+        async function loadLeads() {
+            const { data, error } = await supabaseClient
+                .from('contacts')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) {
+                console.error('Failed to load contacts:', error);
+                return;
+            }
+            leadsCache = data || [];
+            renderLeadsTable();
+            updateNotificationCount();
+        }
+
+        function renderLeadsTable() {
             const tbody = document.getElementById('leadsTableBody');
-            const leads = JSON.parse(localStorage.getItem('local_contacts') || '[]');
             tbody.innerHTML = '';
-            if (leads.length > 0) {
-                leads.forEach((lead, index) => {
+            if (leadsCache.length > 0) {
+                leadsCache.forEach(lead => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td><b>${lead.firstName} ${lead.secondName}</b></td>
+                        <td><b>${lead.first_name} ${lead.second_name}</b></td>
                         <td>${lead.email}<br><span style="font-size: 12px; color: var(--steel);">${lead.mobile}</span></td>
                         <td>"${lead.message}"</td>
                         <td><span class="mono" style="color: var(--gold);">Contact Form</span></td>
-                        <td><button class="btn btn-danger" onclick="deleteLead(${index})">Delete</button></td>
+                        <td><button class="btn btn-danger" onclick="deleteLead(${lead.id})">Delete</button></td>
                     `;
-                    tbody.prepend(tr);
+                    tbody.appendChild(tr);
                 });
             } else {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No contact inquiries found.</td></tr>`;
             }
         }
 
-        function deleteLead(index) {
+        async function deleteLead(id) {
             if (!confirm('Delete this lead permanently?')) return;
-            let leads = JSON.parse(localStorage.getItem('local_contacts') || '[]');
-            leads.splice(index, 1);
-            localStorage.setItem('local_contacts', JSON.stringify(leads));
+            const { error } = await supabaseClient.from('contacts').delete().eq('id', id);
+            if (error) {
+                alert('Delete failed: ' + error.message);
+                return;
+            }
             loadLeads();
-            updateNotificationCount();
         }
 
         // 4. GALLERY MANAGER (Device Gallery Upload, No Title)
@@ -911,85 +987,109 @@
             try {
                 const compressedImage = await resizeImageFile(fileInput.files[0], 1280, 0.75);
 
-                let gallery = JSON.parse(localStorage.getItem('local_gallery') || '[]');
-                gallery.push(compressedImage);
-                localStorage.setItem('local_gallery', JSON.stringify(gallery));
+                statusEl.innerText = 'Uploading to Supabase…';
+                const { error } = await supabaseClient.from('gallery').insert({ image_data: compressedImage });
+                if (error) throw error;
 
                 document.getElementById('galleryForm').reset();
                 loadGallery();
                 statusEl.style.color = 'var(--gold)';
-                statusEl.innerText = 'Image uploaded successfully from device!';
+                statusEl.innerText = 'Image uploaded — now visible on the public gallery and every admin device.';
             } catch (err) {
                 console.error('Gallery upload failed:', err);
                 statusEl.style.color = 'var(--flare)';
-                if (err && err.name === 'QuotaExceededError') {
-                    statusEl.innerText = 'Storage is full. Delete a few existing gallery images and try again.';
-                } else {
-                    statusEl.innerText = 'Upload failed: ' + (err && err.message ? err.message : 'please try a different image.');
-                }
+                statusEl.innerText = 'Upload failed: ' + (err && err.message ? err.message : 'please try a different image.');
             } finally {
                 submitBtn.disabled = false;
             }
         }
 
-        function loadGallery() {
+        async function loadGallery() {
+            const { data, error } = await supabaseClient
+                .from('gallery')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) {
+                console.error('Failed to load gallery:', error);
+                return;
+            }
+            galleryCache = data || [];
+            renderGallery();
+        }
+
+        function renderGallery() {
             const container = document.getElementById('adminGalleryContainer');
-            const gallery = JSON.parse(localStorage.getItem('local_gallery') || '[]');
             container.innerHTML = '';
-            if (gallery.length > 0) {
-                gallery.forEach((imgSrc, index) => {
+            if (galleryCache.length > 0) {
+                galleryCache.forEach(row => {
                     const card = document.createElement('div');
                     card.className = 'gallery-admin-item';
                     card.innerHTML = `
-                        <img src="${imgSrc}" alt="Gallery upload">
+                        <img src="${row.image_data}" alt="Gallery upload">
                         <div class="gallery-admin-actions">
-                            <button class="btn btn-danger" onclick="deleteGalleryImage(${index})">Delete</button>
+                            <button class="btn btn-danger" onclick="deleteGalleryImage(${row.id})">Delete</button>
                         </div>
                     `;
-                    container.prepend(card);
+                    container.appendChild(card);
                 });
             } else {
                 container.innerHTML = `<span style="color: var(--steel);">No gallery images stored.</span>`;
             }
         }
 
-        function deleteGalleryImage(index) {
+        async function deleteGalleryImage(id) {
             if (!confirm('Delete this image from the gallery?')) return;
-            let gallery = JSON.parse(localStorage.getItem('local_gallery') || '[]');
-            gallery.splice(index, 1);
-            localStorage.setItem('local_gallery', JSON.stringify(gallery));
+            const { error } = await supabaseClient.from('gallery').delete().eq('id', id);
+            if (error) {
+                alert('Delete failed: ' + error.message);
+                return;
+            }
             loadGallery();
         }
 
-        // 5. QUIZ SUBMISSIONS
-        function loadQuizSubmissions() {
+        // 5. QUIZ SUBMISSIONS (Supabase "quiz_submissions")
+        async function loadQuizSubmissions() {
+            const { data, error } = await supabaseClient
+                .from('quiz_submissions')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) {
+                console.error('Failed to load quiz submissions:', error);
+                return;
+            }
+            quizCache = data || [];
+            renderQuizTable();
+            updateNotificationCount();
+        }
+
+        function renderQuizTable() {
             const tbody = document.getElementById('quizTableBody');
-            const quizList = JSON.parse(localStorage.getItem('local_quiz') || '[]');
             tbody.innerHTML = '';
-            if (quizList.length > 0) {
-                quizList.forEach((quiz, index) => {
+            if (quizCache.length > 0) {
+                quizCache.forEach(quiz => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td><b>${quiz.name}</b></td>
                         <td>${quiz.email}<br><span style="font-size: 12px; color: var(--steel);">@${quiz.insta || 'N/A'}</span></td>
                         <td><b style="color: var(--gold);">${quiz.recommendation}</b></td>
-                        <td>${quiz.timestamp || 'Recent'}</td>
-                        <td><button class="btn btn-danger" onclick="deleteQuizSubmission(${index})">Delete</button></td>
+                        <td>${formatDate(quiz.created_at)}</td>
+                        <td><button class="btn btn-danger" onclick="deleteQuizSubmission(${quiz.id})">Delete</button></td>
                     `;
-                    tbody.prepend(tr);
+                    tbody.appendChild(tr);
                 });
             } else {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No quiz submissions recorded yet.</td></tr>`;
             }
         }
 
-        function deleteQuizSubmission(index) {
+        async function deleteQuizSubmission(id) {
             if (!confirm('Delete this quiz submission?')) return;
-            let quizList = JSON.parse(localStorage.getItem('local_quiz') || '[]');
-            quizList.splice(index, 1);
-            localStorage.setItem('local_quiz', JSON.stringify(quizList));
+            const { error } = await supabaseClient.from('quiz_submissions').delete().eq('id', id);
+            if (error) {
+                alert('Delete failed: ' + error.message);
+                return;
+            }
             loadQuizSubmissions();
-            updateNotificationCount();
         }
 
         // NOTIFICATIONS (Leads, Quiz Submissions & New Orders)
@@ -1003,25 +1103,22 @@
 
         function renderNotificationDropdown() {
             const list = document.getElementById('notifDropdownList');
-            const leads = JSON.parse(localStorage.getItem('local_contacts') || '[]');
-            const quiz = JSON.parse(localStorage.getItem('local_quiz') || '[]');
-            const checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
 
             const items = [];
-            leads.forEach(l => items.push({
+            leadsCache.forEach(l => items.push({
                 tab: 'leads',
-                title: `${l.firstName || ''} ${l.secondName || ''}`.trim() || 'New Contact Inquiry',
-                sub: `Contact form &bull; ${l.date || 'Recent'}`
+                title: `${l.first_name || ''} ${l.second_name || ''}`.trim() || 'New Contact Inquiry',
+                sub: `Contact form &bull; ${formatDate(l.created_at)}`
             }));
-            quiz.forEach(q => items.push({
+            quizCache.forEach(q => items.push({
                 tab: 'quiz',
                 title: q.name || 'New Quiz Submission',
-                sub: `Quiz result: ${q.recommendation || ''} &bull; ${q.timestamp || 'Recent'}`
+                sub: `Quiz result: ${q.recommendation || ''} &bull; ${formatDate(q.created_at)}`
             }));
-            checkouts.forEach(c => items.push({
+            checkoutsCache.forEach(c => items.push({
                 tab: 'clients',
                 title: c.name || 'New Client Order',
-                sub: `Purchased ${c.program || ''} &bull; ${c.date || 'Recent'}`
+                sub: `Purchased ${c.program || ''} &bull; ${formatDate(c.created_at)}`
             }));
 
             if (items.length === 0) {
@@ -1038,10 +1135,7 @@
         }
 
         function updateNotificationCount() {
-            const leads = JSON.parse(localStorage.getItem('local_contacts') || '[]').length;
-            const quiz = JSON.parse(localStorage.getItem('local_quiz') || '[]').length;
-            const checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]').length;
-            document.getElementById('notifCount').innerText = leads + quiz + checkouts;
+            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + checkoutsCache.length;
         }
     </script>
 </body>

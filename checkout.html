@@ -540,6 +540,7 @@
             padding-top: 18px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="auth.js"></script>
     <script>
         if (typeof PAYMENT_CONFIG !== 'undefined' && PAYMENT_CONFIG.paypalClientId) {
@@ -802,7 +803,7 @@
                         });
                     },
                     onApprove: function (data, actions) {
-                        return actions.order.capture().then(function (details) {
+                        return actions.order.capture().then(async function (details) {
                             const clientName = document.getElementById('buyerName').value.trim();
                             const clientEmail = document.getElementById('buyerEmail').value.trim();
                             const clientPhone = document.getElementById('buyerPhone').value.trim();
@@ -819,13 +820,15 @@
                                 endDate.setDate(today.getDate() + 30);
                             }
 
-                            let checkouts = JSON.parse(localStorage.getItem('local_checkouts') || '[]');
-                            checkouts.push({
+                            const { error: checkoutError } = await supabaseClient.from('checkouts').insert({
                                 name: clientName, email: clientEmail, phone: clientPhone,
-                                program: programName, price: chargeTodayPrice.toFixed(2), date: today.toLocaleDateString(),
-                                expiry: endDate.toLocaleDateString()
+                                program: programName, price: chargeTodayPrice.toFixed(2),
+                                purchase_date: today.toLocaleDateString(),
+                                expiry_date: endDate.toLocaleDateString()
                             });
-                            localStorage.setItem('local_checkouts', JSON.stringify(checkouts));
+                            if (checkoutError) {
+                                console.error('Checkout save failed:', checkoutError);
+                            }
 
                             sendAdminEmailNotification({
                                 form_type: 'New Client Order',

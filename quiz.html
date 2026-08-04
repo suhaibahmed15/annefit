@@ -576,6 +576,11 @@
 
     <!-- EmailJS: sends an email notification whenever this page's form is
          submitted, without needing a backend server. -->
+    <!-- Supabase: shared database so quiz submissions from any device show
+         up in the admin panel on any other device. -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         // ============================================================
@@ -899,16 +904,16 @@
             }
         }
 
-        function saveQuizLead(recommendationText) {
-            let quizLeads = JSON.parse(localStorage.getItem('local_quiz') || '[]');
-            quizLeads.push({
+        async function saveQuizLead(recommendationText) {
+            const { error } = await supabaseClient.from('quiz_submissions').insert({
                 name: quizUserMeta.firstName,
                 email: quizUserMeta.email,
                 insta: quizUserMeta.insta,
-                recommendation: recommendationText,
-                timestamp: new Date().toLocaleString()
+                recommendation: recommendationText
             });
-            localStorage.setItem('local_quiz', JSON.stringify(quizLeads));
+            if (error) {
+                console.error('Quiz submission save failed:', error);
+            }
 
             sendAdminEmailNotification({
                 form_type: 'New Quiz Submission',
