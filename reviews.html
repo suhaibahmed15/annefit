@@ -2,9 +2,98 @@
 <html lang="en">
 
 <head>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Anneloes Fit Coaching Programs",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "500"
+  }
+}
+</script>
+
+
+    <script>
+        // URL se UTM parameters extract karne ka function
+        function captureUTMParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+            let hasUTM = false;
+            let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+            utmKeys.forEach(key => {
+                if (urlParams.has(key)) {
+                    storedUTMs[key] = urlParams.get(key);
+                    hasUTM = true;
+                }
+            });
+
+            if (hasUTM) {
+                sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+            }
+        }
+        captureUTMParams();
+    </script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KVNHG8WR');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
+    <script>
+        function loadMetaPixel() {
+            if (window.fbq) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1435156600129884');
+            fbq('track', 'PageView');
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            loadMetaPixel();
+        }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Reviews & Results | Anneloes Fit Coaching</title>
+
+     <!-- Twitter/X Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
+    <meta name="twitter:description"
+        content="Quit random workouts and unsustainable crash diets. Build lasting strength and elite physical conditioning through calculated methodology.">
+    <meta name="twitter:image" content="https://annefit.vercel.app/assets/Brandlogo/logo.png">
+
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
+    <meta name="msapplication-TileColor" content="#B8860B">
+    <meta name="theme-color" content="#B8860B">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -12,7 +101,6 @@
         rel="stylesheet">
     <style>
         :root {
-            /* Light Decent Fitness Theme Palette */
             --bone: #f7f6f0;
             --chalk: #181816;
             --ink: #181816;
@@ -110,7 +198,6 @@
         }
 
         .eyebrow::before {
-            /* content: ""; */
             width: 22px;
             height: 1px;
             background: var(--gold);
@@ -141,7 +228,6 @@
             background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
         }
 
-        /* Header / Navbar */
         header.site {
             position: sticky;
             top: 0;
@@ -321,7 +407,6 @@
             border-top: 1px solid var(--line);
         }
 
-        /* Hero Minimalist */
         .trans-hero {
             position: relative;
             padding: 150px 0 100px;
@@ -373,7 +458,6 @@
             line-height: 1.6;
         }
 
-        /* Reduced-size Aesthetic Transformation Cards Grid */
         .trans-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -401,7 +485,6 @@
             box-shadow: var(--shadow-lift);
         }
 
-        /* Perfectly Balanced Interactive Before/After Slider */
         .slider-container {
             position: relative;
             width: 100%;
@@ -418,9 +501,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* Image ko crop hone se bachata hai */
             background: #181816;
-            /* Agar image choti ho toh clean background */
         }
 
         .slider-img-before-wrap {
@@ -438,7 +519,6 @@
             inset: 0;
             height: 100%;
             object-fit: contain;
-            /* Full image without cropping */
             background: #181816;
             width: var(--container-width, 100%);
             max-width: none;
@@ -558,7 +638,6 @@
             margin-top: 2px;
         }
 
-        /* Real Text Reviews Grid (Stacked below) */
         .reviews-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -629,7 +708,6 @@
             letter-spacing: .06em;
         }
 
-        /* Reveal Animation Styles */
         .reveal {
             opacity: 0;
             transform: translateY(30px) scale(.98);
@@ -655,7 +733,6 @@
             color: var(--ink);
         }
 
-        /* Premium Footer Styling */
         footer.site-footer {
             background: var(--surface);
             color: var(--ink);
@@ -703,7 +780,6 @@
             color: var(--gold);
         }
 
-        /* Newsletter Input Styles */
         .newsletter-form {
             display: flex;
             flex-direction: column;
@@ -760,6 +836,33 @@
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVNHG8WR" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- GDPR Cookie Consent Banner -->
+    <div id="cookieBanner"
+        style="position:fixed; bottom:0; left:0; width:100%; background:#181816; color:#fff; padding:15px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; border-top:2px solid var(--gold);">
+        <p style="font-size:13px; margin:0;">We use cookies to enhance your experience and analyze traffic. <a
+                href="privacy-policy.html" style="color:#d49e1f; text-decoration:underline;">Privacy Policy</a></p>
+        <button onclick="acceptCookies()"
+            style="background:#d49e1f; border:none; padding:8px 20px; color:#fff; font-weight:700; cursor:pointer; border-radius:50px; font-size:12px; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">Accept
+            Cookies</button>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            localStorage.setItem('cookie_consent', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+            loadMetaPixel();
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    </script>
+
     <div class="grain"></div>
 
     <!-- Header / Navbar -->
@@ -771,14 +874,15 @@
             <nav class="links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Me</a>
-                <a href="programs.html">All Programs</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="programs.html">Shop</a>
                 <a href="reviews.html" style="opacity: 1; color: var(--gold);">Reviews & Results</a>
                 <a href="articles.html">Latest Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
                 <a href="contact.html#rightContactCol" class="btn btn-gold"
-                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                    style="padding:10px 18px; font-size:11px;">Book Now</a>
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -792,12 +896,12 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
         <a href="./about.html" onclick="closeMobile()">About Us</a>
-        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
+        <a href="./programs.html" onclick="closeMobile()">Shops</a>
         <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
         <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
-
     <!-- Hero Minimalist -->
     <section class="trans-hero">
         <div class="wrap">
@@ -1005,7 +1109,8 @@
                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Me</a></li>
-                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="coaching.html">Coaching</a></li>
+                        <li><a href="programs.html">Shop</a></li>
                         <li><a href="reviews.html">Reviews & Results</a></li>
                         <li><a href="articles.html">Blogs</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -1040,8 +1145,12 @@
                     &copy; 2026 Anneloes Fit Coaching. All rights reserved.
                 </div>
                 <div
-                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    Engineered for absolute strength & hybrid dominance 💛
+                    style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy
+                        Policy</a>
+                    <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund
+                        Policy</a>
                 </div>
             </div>
         </div>
@@ -1117,15 +1226,6 @@
         initSlider('slider1', 'beforeWrap1', 'beforeImg1', 'handle1');
         initSlider('slider2', 'beforeWrap2', 'beforeImg2', 'handle2');
 
-        // ============================================================
-        // NEWSLETTER SIGNUP -> GOOGLE SHEET
-        // Fill this in once with your own Google Apps Script Web App URL
-        // (Extensions -> Apps Script in your Google Sheet, paste the
-        // provided doPost() script, Deploy -> New deployment -> Web app,
-        // "Who has access: Anyone", then copy the deployment URL below).
-        // Use the exact same URL in articles.html, checkout.html,
-        // contact.html, gallery.html, and quiz.html.
-        // ============================================================
         const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
 
         function handleNewsletterSubmit(e, sourcePage) {
@@ -1138,9 +1238,6 @@
             if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
                 console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
             } else {
-                // mode: 'no-cors' + text/plain avoids a CORS preflight that
-                // Apps Script web apps don't handle; the request still goes
-                // through, we just can't read the response back.
                 fetch(GOOGLE_SHEET_WEBAPP_URL, {
                     method: 'POST',
                     mode: 'no-cors',

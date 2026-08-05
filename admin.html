@@ -69,7 +69,6 @@
         }
 
         .eyebrow::before {
-            /* content: ""; */
             width: 20px;
             height: 1px;
             background: var(--gold);
@@ -414,7 +413,6 @@
             cursor: pointer;
         }
 
-        /* Responsive Table Wrapper */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -456,12 +454,6 @@
             margin-top: 20px;
         }
 
-        @media (max-width: 480px) {
-            .gallery-manager-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .gallery-admin-item {
             background: var(--surface);
             border: 1px solid var(--line);
@@ -489,28 +481,18 @@
 </head>
 
 <body>
-    <!-- Supabase client library, then our public config (defines supabaseClient) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="auth.js"></script>
     <script>
-        // This redirect is a UX convenience for logged-out visitors, not the
-        // real security boundary. Anything sensitive this page fetches from
-        // Supabase must be locked down separately with Row Level Security
-        // policies tied to auth.uid() on the server side.
         (async function guard() {
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
                 window.location.href = 'login.html';
                 return;
             }
-            // Make sure Realtime uses the logged-in admin's token too, since the
-            // contacts/quiz_submissions/checkouts tables are RLS-locked to
-            // "authenticated" — without this, live updates would silently stop
-            // getting rows once a session is loaded from a previous page.
             supabaseClient.realtime.setAuth(session.access_token);
         })();
 
-        // Keep Realtime's token in sync if the session refreshes in the background.
         supabaseClient.auth.onAuthStateChange((_event, session) => {
             if (session) supabaseClient.realtime.setAuth(session.access_token);
         });
@@ -552,6 +534,7 @@
         <div class="sidebar">
             <div class="eyebrow">Modules</div>
             <button class="tab-btn active" data-tab="clients" onclick="switchTab('clients', event)">Clients</button>
+            <button class="tab-btn" data-tab="coaching" onclick="switchTab('coaching', event)">Coaching Leads</button>
             <button class="tab-btn" data-tab="articles" onclick="switchTab('articles', event)">Articles</button>
             <button class="tab-btn" data-tab="leads" onclick="switchTab('leads', event)">Leads</button>
             <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery', event)">Gallery</button>
@@ -566,7 +549,7 @@
 
                 <div class="admin-card">
                     <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">All verified customer orders
-                        and checkouts from local storage.</p>
+                        and checkouts from Supabase.</p>
                     <div class="form-group" style="max-width: 360px; margin-bottom: 0;">
                         <label for="clientSearchInput">Search Client By Name</label>
                         <input type="text" id="clientSearchInput" placeholder="Type a client name..."
@@ -589,6 +572,38 @@
                                 <tr>
                                     <td colspan="7" style="text-align: center; color: var(--steel);">No client orders
                                         found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 1.5: COACHING APPLICATIONS -->
+            <div class="tab-panel" id="tab-coaching">
+                <div class="eyebrow">1:1 Mentorship Applications</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Coaching Applications</h2>
+
+                <div class="admin-card">
+                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">Submissions from the coaching
+                        page application form.</p>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Applicant Name</th>
+                                    <th>Email</th>
+                                    <th>Main Goal</th>
+                                    <th>Experience</th>
+                                    <th>Budget</th>
+                                    <th>Start Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="coachingTableBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--steel);">No coaching
+                                        applications found.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -683,9 +698,7 @@
 
                 <div class="admin-card">
                     <h3 style="font-size: 24px; margin-bottom: 16px;">Gallery Inventory</h3>
-                    <div class="gallery-manager-grid" id="adminGalleryContainer">
-                        <!-- Rendered via LocalStorage -->
-                    </div>
+                    <div class="gallery-manager-grid" id="adminGalleryContainer"></div>
                 </div>
             </div>
 
@@ -735,6 +748,7 @@
 
         window.addEventListener('load', () => {
             loadClients();
+            loadCoachingApplications();
             loadArticles();
             loadLeads();
             loadGallery();
@@ -742,7 +756,6 @@
             setupRealtime();
         });
 
-        // Close the notification dropdown when clicking outside of it
         document.addEventListener('click', (e) => {
             const wrapper = document.querySelector('.notif-wrapper');
             const dropdown = document.getElementById('notifDropdown');
@@ -751,21 +764,8 @@
             }
         });
 
-        // ------------------------------------------------------------------
-        // LIVE SYNC (Supabase)
-        // Everything below reads from / writes to the shared Supabase tables
-        // instead of this browser's localStorage, so:
-        //   1. Any submission from anywhere in the world (contact.html,
-        //      quiz.html, checkout.html) lands in one shared database, and
-        //   2. Every admin dashboard that's open — phone, laptop, anywhere —
-        //      gets it pushed to it instantly via Supabase Realtime, no
-        //      refresh needed.
-        // Each table keeps a small in-memory cache (leadsCache, quizCache,
-        // checkoutsCache, galleryCache) so the UI (search box, notification
-        // dropdown, counts) can re-render instantly without re-hitting the
-        // network every time.
-        // ------------------------------------------------------------------
         let checkoutsCache = [];
+        let coachingCache = [];
         let leadsCache = [];
         let quizCache = [];
         let galleryCache = [];
@@ -776,12 +776,9 @@
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'contacts' }, () => loadLeads())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_submissions' }, () => loadQuizSubmissions())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'checkouts' }, () => loadClients())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'coaching_applications' }, () => loadCoachingApplications())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadGallery())
-                .subscribe((status) => {
-                    if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-                        console.error('Realtime subscription problem:', status);
-                    }
-                });
+                .subscribe();
         }
 
         function formatDate(iso) {
@@ -790,16 +787,8 @@
             return isNaN(d) ? iso : d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
-        // 1. CLIENTS (Supabase "checkouts")
         async function loadClients() {
-            const { data, error } = await supabaseClient
-                .from('checkouts')
-                .select('*')
-                .order('created_at', { ascending: false });
-            if (error) {
-                console.error('Failed to load checkouts:', error);
-                return;
-            }
+            const { data } = await supabaseClient.from('checkouts').select('*').order('created_at', { ascending: false });
             checkoutsCache = data || [];
             renderClientsTable();
             updateNotificationCount();
@@ -807,10 +796,8 @@
 
         function renderClientsTable() {
             const tbody = document.getElementById('clientTableBody');
-            const searchInput = document.getElementById('clientSearchInput');
-            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            const query = document.getElementById('clientSearchInput')?.value.trim().toLowerCase() || '';
             tbody.innerHTML = '';
-
             const matches = checkoutsCache.filter(item => !query || (item.name || '').toLowerCase().includes(query));
 
             if (matches.length > 0) {
@@ -822,29 +809,124 @@
                         <td>${item.email}<br><span style="font-size: 12px; color: var(--steel);">${item.phone}</span></td>
                         <td>${item.program} (€${item.price})</td>
                         <td>${item.purchase_date || formatDate(item.created_at)}</td>
-                        <td>${item.expiry_date ? item.expiry_date : '<span style="color: var(--steel);">N/A</span>'}</td>
+                        <td>${item.expiry_date || '<span style="color: var(--steel);">N/A</span>'}</td>
                         <td><button class="btn btn-danger" onclick="deleteClient(${item.id})">Delete</button></td>
                     `;
                     tbody.appendChild(tr);
                 });
-            } else if (checkoutsCache.length > 0 && query) {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No clients match "${searchInput.value}".</td></tr>`;
             } else {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No client orders recorded yet.</td></tr>`;
             }
         }
 
         async function deleteClient(id) {
-            if (!confirm('Remove this client order from the database?')) return;
-            const { error } = await supabaseClient.from('checkouts').delete().eq('id', id);
-            if (error) {
-                alert('Delete failed: ' + error.message);
-                return;
-            }
+            if (!confirm('Remove this client order?')) return;
+            await supabaseClient.from('checkouts').delete().eq('id', id);
             loadClients();
         }
 
-        // 2. ARTICLES
+        // Coaching Applications Handler
+        async function loadCoachingApplications() {
+            const { data } = await supabaseClient.from('coaching_applications').select('*').order('created_at', { ascending: false });
+            coachingCache = data || [];
+            renderCoachingTable();
+            updateNotificationCount();
+        }
+
+        function renderCoachingTable() {
+            const tbody = document.getElementById('coachingTableBody');
+            tbody.innerHTML = '';
+            if (coachingCache.length > 0) {
+                coachingCache.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><b>${item.name}</b></td>
+                        <td>${item.email}</td>
+                        <td>${item.main_goal}</td>
+                        <td>${item.training_experience}</td>
+                        <td><b style="color: var(--gold);">${item.budget_range}</b></td>
+                        <td>${item.preferred_start_date}</td>
+                        <td><button class="btn btn-danger" onclick="deleteCoaching(${item.id})">Delete</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No coaching applications found.</td></tr>`;
+            }
+        }
+
+        async function deleteCoaching(id) {
+            if (!confirm('Delete this coaching application?')) return;
+            await supabaseClient.from('coaching_applications').delete().eq('id', id);
+            loadCoachingApplications();
+        }
+
+        async function loadLeads() {
+            const { data } = await supabaseClient.from('contacts').select('*').order('created_at', { ascending: false });
+            leadsCache = data || [];
+            renderLeadsTable();
+            updateNotificationCount();
+        }
+
+        function renderLeadsTable() {
+            const tbody = document.getElementById('leadsTableBody');
+            tbody.innerHTML = '';
+            if (leadsCache.length > 0) {
+                leadsCache.forEach(lead => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><b>${lead.first_name} ${lead.second_name}</b></td>
+                        <td>${lead.email}<br><span style="font-size: 12px; color: var(--steel);">${lead.mobile}</span></td>
+                        <td>"${lead.message}"</td>
+                        <td><span class="mono" style="color: var(--gold);">Contact Form</span></td>
+                        <td><button class="btn btn-danger" onclick="deleteLead(${lead.id})">Delete</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No contact inquiries found.</td></tr>`;
+            }
+        }
+
+        async function deleteLead(id) {
+            if (!confirm('Delete lead?')) return;
+            await supabaseClient.from('contacts').delete().eq('id', id);
+            loadLeads();
+        }
+
+        async function loadQuizSubmissions() {
+            const { data } = await supabaseClient.from('quiz_submissions').select('*').order('created_at', { ascending: false });
+            quizCache = data || [];
+            renderQuizTable();
+            updateNotificationCount();
+        }
+
+        function renderQuizTable() {
+            const tbody = document.getElementById('quizTableBody');
+            tbody.innerHTML = '';
+            if (quizCache.length > 0) {
+                quizCache.forEach(quiz => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><b>${quiz.name}</b></td>
+                        <td>${quiz.email}<br><span style="font-size: 12px; color: var(--steel);">@${quiz.insta || 'N/A'}</span></td>
+                        <td><b style="color: var(--gold);">${quiz.recommendation}</b></td>
+                        <td>${formatDate(quiz.created_at)}</td>
+                        <td><button class="btn btn-danger" onclick="deleteQuiz(${quiz.id})">Delete</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No quiz submissions found.</td></tr>`;
+            }
+        }
+
+        async function deleteQuiz(id) {
+            if (!confirm('Delete quiz entry?')) return;
+            await supabaseClient.from('quiz_submissions').delete().eq('id', id);
+            loadQuizSubmissions();
+        }
+
         function addArticle(e) {
             e.preventDefault();
             const title = document.getElementById('artTitle').value.trim();
@@ -852,14 +934,12 @@
             const category = document.getElementById('artCategory').value.trim();
             const content = document.getElementById('artContent').value.trim();
 
-            if (title && date && content) {
-                let articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
-                articles.push({ title, date, category, content });
-                localStorage.setItem('local_articles', JSON.stringify(articles));
-                document.getElementById('articleForm').reset();
-                loadArticles();
-                alert('Article successfully published locally!');
-            }
+            let articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
+            articles.push({ title, date, category, content });
+            localStorage.setItem('local_articles', JSON.stringify(articles));
+            document.getElementById('articleForm').reset();
+            loadArticles();
+            alert('Article published locally!');
         }
 
         function loadArticles() {
@@ -891,82 +971,24 @@
             loadArticles();
         }
 
-        // 3. LEADS (Supabase "contacts")
-        async function loadLeads() {
-            const { data, error } = await supabaseClient
-                .from('contacts')
-                .select('*')
-                .order('created_at', { ascending: false });
-            if (error) {
-                console.error('Failed to load contacts:', error);
-                return;
-            }
-            leadsCache = data || [];
-            renderLeadsTable();
-            updateNotificationCount();
-        }
-
-        function renderLeadsTable() {
-            const tbody = document.getElementById('leadsTableBody');
-            tbody.innerHTML = '';
-            if (leadsCache.length > 0) {
-                leadsCache.forEach(lead => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><b>${lead.first_name} ${lead.second_name}</b></td>
-                        <td>${lead.email}<br><span style="font-size: 12px; color: var(--steel);">${lead.mobile}</span></td>
-                        <td>"${lead.message}"</td>
-                        <td><span class="mono" style="color: var(--gold);">Contact Form</span></td>
-                        <td><button class="btn btn-danger" onclick="deleteLead(${lead.id})">Delete</button></td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } else {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No contact inquiries found.</td></tr>`;
-            }
-        }
-
-        async function deleteLead(id) {
-            if (!confirm('Delete this lead permanently?')) return;
-            const { error } = await supabaseClient.from('contacts').delete().eq('id', id);
-            if (error) {
-                alert('Delete failed: ' + error.message);
-                return;
-            }
-            loadLeads();
-        }
-
-        // 4. GALLERY MANAGER (Device Gallery Upload, No Title)
-        // Images are downscaled and re-compressed on the canvas before being
-        // stored, since raw phone photos are often several MB each and will
-        // silently blow past the browser's localStorage quota (~5-10MB total),
-        // which is the most common reason an "upload" appears to do nothing.
         function resizeImageFile(file, maxDimension, quality) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onerror = () => reject(new Error('Could not read the selected file.'));
-                reader.onload = (readEvent) => {
+                reader.onerror = () => reject(new Error('Read error'));
+                reader.onload = (e) => {
                     const img = new Image();
-                    img.onerror = () => reject(new Error('Could not decode the selected image.'));
                     img.onload = () => {
                         let { width, height } = img;
                         if (width > maxDimension || height > maxDimension) {
-                            if (width > height) {
-                                height = Math.round(height * (maxDimension / width));
-                                width = maxDimension;
-                            } else {
-                                width = Math.round(width * (maxDimension / height));
-                                height = maxDimension;
-                            }
+                            if (width > height) { height = Math.round(height * (maxDimension / width)); width = maxDimension; }
+                            else { width = Math.round(width * (maxDimension / height)); height = maxDimension; }
                         }
                         const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
+                        canvas.width = width; canvas.height = height;
+                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
                         resolve(canvas.toDataURL('image/jpeg', quality));
                     };
-                    img.src = readEvent.target.result;
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             });
@@ -977,42 +999,27 @@
             const fileInput = document.getElementById('deviceImage');
             const statusEl = document.getElementById('galleryUploadStatus');
             const submitBtn = document.getElementById('galleryUploadBtn');
-
             if (!fileInput.files || !fileInput.files[0]) return;
 
             submitBtn.disabled = true;
-            statusEl.style.color = 'var(--steel)';
-            statusEl.innerText = 'Processing image…';
-
+            statusEl.innerText = 'Compressing & uploading image...';
             try {
-                const compressedImage = await resizeImageFile(fileInput.files[0], 1280, 0.75);
-
-                statusEl.innerText = 'Uploading to Supabase…';
-                const { error } = await supabaseClient.from('gallery').insert({ image_data: compressedImage });
-                if (error) throw error;
-
+                const compressed = await resizeImageFile(fileInput.files[0], 1280, 0.75);
+                await supabaseClient.from('gallery').insert({ image_data: compressed });
                 document.getElementById('galleryForm').reset();
                 loadGallery();
                 statusEl.style.color = 'var(--gold)';
-                statusEl.innerText = 'Image uploaded — now visible on the public gallery and every admin device.';
+                statusEl.innerText = 'Image uploaded successfully!';
             } catch (err) {
-                console.error('Gallery upload failed:', err);
                 statusEl.style.color = 'var(--flare)';
-                statusEl.innerText = 'Upload failed: ' + (err && err.message ? err.message : 'please try a different image.');
+                statusEl.innerText = 'Upload failed.';
             } finally {
                 submitBtn.disabled = false;
             }
         }
 
         async function loadGallery() {
-            const { data, error } = await supabaseClient
-                .from('gallery')
-                .select('*')
-                .order('created_at', { ascending: false });
-            if (error) {
-                console.error('Failed to load gallery:', error);
-                return;
-            }
+            const { data } = await supabaseClient.from('gallery').select('*').order('created_at', { ascending: false });
             galleryCache = data || [];
             renderGallery();
         }
@@ -1038,88 +1045,25 @@
         }
 
         async function deleteGalleryImage(id) {
-            if (!confirm('Delete this image from the gallery?')) return;
-            const { error } = await supabaseClient.from('gallery').delete().eq('id', id);
-            if (error) {
-                alert('Delete failed: ' + error.message);
-                return;
-            }
+            if (!confirm('Delete image?')) return;
+            await supabaseClient.from('gallery').delete().eq('id', id);
             loadGallery();
         }
 
-        // 5. QUIZ SUBMISSIONS (Supabase "quiz_submissions")
-        async function loadQuizSubmissions() {
-            const { data, error } = await supabaseClient
-                .from('quiz_submissions')
-                .select('*')
-                .order('created_at', { ascending: false });
-            if (error) {
-                console.error('Failed to load quiz submissions:', error);
-                return;
-            }
-            quizCache = data || [];
-            renderQuizTable();
-            updateNotificationCount();
-        }
-
-        function renderQuizTable() {
-            const tbody = document.getElementById('quizTableBody');
-            tbody.innerHTML = '';
-            if (quizCache.length > 0) {
-                quizCache.forEach(quiz => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><b>${quiz.name}</b></td>
-                        <td>${quiz.email}<br><span style="font-size: 12px; color: var(--steel);">@${quiz.insta || 'N/A'}</span></td>
-                        <td><b style="color: var(--gold);">${quiz.recommendation}</b></td>
-                        <td>${formatDate(quiz.created_at)}</td>
-                        <td><button class="btn btn-danger" onclick="deleteQuizSubmission(${quiz.id})">Delete</button></td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } else {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--steel);">No quiz submissions recorded yet.</td></tr>`;
-            }
-        }
-
-        async function deleteQuizSubmission(id) {
-            if (!confirm('Delete this quiz submission?')) return;
-            const { error } = await supabaseClient.from('quiz_submissions').delete().eq('id', id);
-            if (error) {
-                alert('Delete failed: ' + error.message);
-                return;
-            }
-            loadQuizSubmissions();
-        }
-
-        // NOTIFICATIONS (Leads, Quiz Submissions & New Orders)
         function toggleNotifications(event) {
             event.stopPropagation();
             const dropdown = document.getElementById('notifDropdown');
-            const wasOpen = dropdown.classList.contains('open');
-            dropdown.classList.toggle('open', !wasOpen);
-            if (!wasOpen) renderNotificationDropdown();
+            dropdown.classList.toggle('open');
+            if (dropdown.classList.contains('open')) renderNotificationDropdown();
         }
 
         function renderNotificationDropdown() {
             const list = document.getElementById('notifDropdownList');
-
             const items = [];
-            leadsCache.forEach(l => items.push({
-                tab: 'leads',
-                title: `${l.first_name || ''} ${l.second_name || ''}`.trim() || 'New Contact Inquiry',
-                sub: `Contact form &bull; ${formatDate(l.created_at)}`
-            }));
-            quizCache.forEach(q => items.push({
-                tab: 'quiz',
-                title: q.name || 'New Quiz Submission',
-                sub: `Quiz result: ${q.recommendation || ''} &bull; ${formatDate(q.created_at)}`
-            }));
-            checkoutsCache.forEach(c => items.push({
-                tab: 'clients',
-                title: c.name || 'New Client Order',
-                sub: `Purchased ${c.program || ''} &bull; ${formatDate(c.created_at)}`
-            }));
+            leadsCache.forEach(l => items.push({ tab: 'leads', title: `${l.first_name || ''} ${l.second_name || ''}`.trim() || 'Contact Inquiry', sub: `Contact &bull; ${formatDate(l.created_at)}` }));
+            quizCache.forEach(q => items.push({ tab: 'quiz', title: q.name || 'Quiz Submission', sub: `Quiz &bull; ${formatDate(q.created_at)}` }));
+            checkoutsCache.forEach(c => items.push({ tab: 'clients', title: c.name || 'New Order', sub: `Order &bull; ${formatDate(c.created_at)}` }));
+            coachingCache.forEach(co => items.push({ tab: 'coaching', title: co.name || 'Coaching Lead', sub: `Coaching App &bull; ${formatDate(co.created_at)}` }));
 
             if (items.length === 0) {
                 list.innerHTML = `<div class="notif-empty">No notifications.</div>`;
@@ -1135,7 +1079,7 @@
         }
 
         function updateNotificationCount() {
-            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + checkoutsCache.length;
+            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + checkoutsCache.length + coachingCache.length;
         }
     </script>
 </body>

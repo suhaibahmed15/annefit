@@ -2,9 +2,78 @@
 <html lang="en">
 
 <head>
+
+    <script>
+    // URL se UTM parameters extract karne ka function
+    function captureUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let hasUTM = false;
+        let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+        utmKeys.forEach(key => {
+            if (urlParams.has(key)) {
+                storedUTMs[key] = urlParams.get(key);
+                hasUTM = true;
+            }
+        });
+
+        if (hasUTM) {
+            sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+        }
+    }
+    captureUTMParams();
+</script>
+
+  <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KVNHG8WR');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
+    <script>
+        function loadMetaPixel() {
+            if (window.fbq) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1435156600129884');
+            fbq('track', 'PageView');
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            loadMetaPixel();
+        }
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete Gallery & Moments | Anneloes Fit Coaching</title>
+    
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
+    <meta name="msapplication-TileColor" content="#B8860B">
+    <meta name="theme-color" content="#B8860B">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -497,14 +566,15 @@
             <nav class="links">
                 <a href="index.html">Home</a>
                 <a href="about.html" style="opacity: 1; color: var(--gold);">About Me</a>
-                <a href="programs.html">All Programs</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="programs.html">Shop</a>
                 <a href="reviews.html">Reviews & Results</a>
                 <a href="articles.html">Latest Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
                 <a href="contact.html#rightContactCol" class="btn btn-gold"
-                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                    style="padding:10px 18px; font-size:11px;">Book Now</a>
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -518,7 +588,8 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
         <a href="./about.html" onclick="closeMobile()">About Us</a>
-        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
+        <a href="./programs.html" onclick="closeMobile()">Shops</a>
         <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
         <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
@@ -622,7 +693,8 @@
                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Me</a></li>
-                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="coaching.html">Coaching</a></li>
+                        <li><a href="programs.html">Shop</a></li>
                         <li><a href="reviews.html">Reviews & Results</a></li>
                         <li><a href="articles.html">Blogs</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -657,9 +729,10 @@
                     style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
                     &copy; 2026 Anneloes Fit Coaching. All rights reserved.
                 </div>
-                <div
-                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    Engineered for absolute strength & hybrid dominance 💛
+                 <div style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy Policy</a>
+                    <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund Policy</a>
                 </div>
             </div>
         </div>

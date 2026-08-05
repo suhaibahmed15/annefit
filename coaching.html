@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "1:1 Online Hyrox & Strength Coaching",
+  "provider": {
+    "@type": "Person",
+    "name": "Anneloes Fit Coaching"
+  },
+  "description": "Customized training architecture and nutritional guidance for women.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "EUR",
+    "price": "149.00"
+  }
+}
+</script>
+
+<script>
+    // URL se UTM parameters extract karne ka function
+    function captureUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let hasUTM = false;
+        let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+        utmKeys.forEach(key => {
+            if (urlParams.has(key)) {
+                storedUTMs[key] = urlParams.get(key);
+                hasUTM = true;
+            }
+        });
+
+        if (hasUTM) {
+            sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+        }
+    }
+    captureUTMParams();
+</script>
+
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KVNHG8WR');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
+    <script>
+        function loadMetaPixel() {
+            if (window.fbq) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1435156600129884');
+            fbq('track', 'PageView');
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            loadMetaPixel();
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1:1 Coaching | Anneloes Fit Coaching</title>
+    <meta name="description" content="TODO(Anneloes): final meta description for the coaching page.">
+     <!-- Twitter/X Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
+    <meta name="twitter:description"
+        content="Quit random workouts and unsustainable crash diets. Build lasting strength and elite physical conditioning through calculated methodology.">
+    <meta name="twitter:image" content="https://annefit.vercel.app/assets/Brandlogo/logo.png">
+
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
+    <meta name="msapplication-TileColor" content="#B8860B">
+    <meta name="theme-color" content="#B8860B">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bone: #f7f6f0;
+            --chalk: #181816;
+            --ink: #181816;
+            --surface: #ffffff;
+            --surface-card: #ffffff;
+            --steel: #6b6a63;
+            --line: #e2dfd5;
+            --flare: #e63712;
+            --flare-dim: rgba(230, 55, 18, .08);
+            --flare-ink: #c22a0b;
+            --gold: #d49e1f;
+            --gold-light: #b07d0f;
+            --gold-dim: rgba(212, 158, 31, 0.1);
+            --max: 900px;
+            --glow-gold: rgba(212, 158, 31, 0.15);
+            --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
+            --shadow-lift: 0 20px 40px -10px rgba(212, 158, 31, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bone);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bone);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold), var(--flare));
+            border-radius: 4px;
+        }
+
+        ::selection {
+            background: var(--flare);
+            color: var(--chalk);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .wrap {
+                padding: 0 32px;
+            }
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .eyebrow::before {
+            width: 18px;
+            height: 1px;
+            background: var(--gold);
+            display: inline-block;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Anton', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+            line-height: .98;
+        }
+
+        header.site {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            background: rgba(247, 246, 240, .9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        header.site::after {
+            content: "";
+            display: block;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--flare), var(--gold));
+            opacity: .8;
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-inner {
+                height: 96px;
+                padding: 0 32px;
+            }
+        }
+
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-mark img {
+            height: 42px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(212, 158, 31, .15));
+            transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 768px) {
+            .logo-mark img {
+                height: 52px;
+            }
+        }
+
+        .logo-mark:hover img {
+            transform: scale(1.03);
+        }
+
+        nav.links {
+            display: flex;
+            gap: 34px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        nav.links a {
+            position: relative;
+            padding: 4px 0;
+            color: var(--ink);
+            opacity: .75;
+            transition: opacity .3s ease;
+        }
+
+        nav.links a:hover {
+            opacity: 1;
+        }
+
+        nav.links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        nav.links a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 12px 22px;
+            border-radius: 50px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1), background .3s ease, color .3s ease, box-shadow .3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .btn {
+                font-size: 11px;
+                padding: 10px 18px;
+            }
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            border-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px var(--glow-gold);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 120;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            margin: 5px 0;
+            transition: transform .25s ease, opacity .25s ease;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 100;
+            background: var(--bone);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 32px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-24px);
+            transition: opacity .4s ease, transform .4s ease, visibility 0s linear .4s;
+        }
+
+        .mobile-menu.open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity .4s ease, transform .4s ease;
+        }
+
+        .mobile-menu a {
+            font-family: 'Anton', sans-serif;
+            font-size: 10vw;
+            color: var(--ink);
+            text-transform: uppercase;
+            line-height: 1.05;
+            display: block;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        @media (max-width: 900px) {
+            nav.links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .coaching-hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .coaching-hero h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            margin-bottom: 16px;
+        }
+
+        .pricing-notice {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold-light);
+            background: var(--gold-dim);
+            border: 1px solid rgba(212, 158, 31, 0.25);
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 30px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tier-card {
+            background: var(--surface-card);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform .3s ease, border-color .3s ease;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+        }
+
+        .tier-card h3 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .tier-target {
+            font-size: 14.5px;
+            color: var(--steel);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .tier-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 20px 0;
+            margin-bottom: 24px;
+        }
+
+        .tier-features li {
+            font-size: 13.5px;
+            color: var(--ink);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .tier-features li::before {
+            content: "✔";
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .tier-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            color: var(--steel);
+            text-transform: uppercase;
+        }
+
+        .tier-meta b {
+            color: var(--ink);
+        }
+
+        .kickstart-block {
+            background: var(--surface-card);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .kickstart-content h3 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .kickstart-content p {
+            color: var(--steel);
+            font-size: 14.5px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .application-box {
+            background: var(--surface-card);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 45px;
+            box-shadow: var(--shadow-soft);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .application-box h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .application-box p.subtitle {
+            text-align: center;
+            color: var(--steel);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+            .form-group.full {
+                grid-column: span 1;
+            }
+        }
+
+        .form-group label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 14.5px;
+            width: 100%;
+            transition: all 0.25s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(212, 158, 31, 0.12);
+            outline: none;
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: 12px 22px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        @media (min-width: 768px) {
+            .submit-btn {
+                font-size: 12.5px;
+                padding: 14px 28px;
+            }
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px var(--glow-gold);
+        }
+
+        .sticky-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(24, 24, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            z-index: 100;
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-cta {
+                display: block;
+            }
+        }
+
+        footer.site-footer {
+            background: var(--surface);
+            color: var(--ink);
+            border-top: 1px solid var(--line);
+            padding: 60px 0 30px;
+        }
+
+        @media (min-width: 768px) {
+            footer.site-footer {
+                padding: 80px 0 50px;
+            }
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+        }
+
+        .footer-col h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 16px;
+            color: var(--ink);
+        }
+
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links-list a {
+            font-size: 14px;
+            color: var(--steel);
+            transition: color .2s ease;
+        }
+
+        .footer-links-list a:hover {
+            color: var(--gold);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .newsletter-input {
+            background: var(--bone);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            width: 100%;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-top: 1px solid var(--line);
+            padding-top: 24px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                padding-top: 30px;
+                text-align: left;
+            }
+        }
+    </style>
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="auth.js"></script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVNHG8WR" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- GDPR Cookie Consent Banner -->
+    <div id="cookieBanner"
+        style="position:fixed; bottom:0; left:0; width:100%; background:#181816; color:#fff; padding:15px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; border-top:2px solid var(--gold);">
+        <p style="font-size:13px; margin:0;">We use cookies to enhance your experience and analyze traffic. <a
+                href="privacy-policy.html" style="color:#d49e1f; text-decoration:underline;">Privacy Policy</a></p>
+        <button onclick="acceptCookies()"
+            style="background:#d49e1f; border:none; padding:8px 20px; color:#fff; font-weight:700; cursor:pointer; border-radius:50px; font-size:12px; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">Accept
+            Cookies</button>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            localStorage.setItem('cookie_consent', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+            loadMetaPixel();
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    </script>
+
+    <header class="site">
+        <div class="wrap nav-inner" style="max-width: 1180px; margin: 0 auto;">
+            <a href="index.html" class="logo-mark">
+                <img src="assets/Brandlogo/logo.png" alt="Anneloes Fit Coaching Logo">
+            </a>
+            <nav class="links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="coaching.html" style="opacity: 1; color: var(--gold);">Coaching</a>
+                <a href="programs.html">Shop</a>
+                <a href="reviews.html">Reviews & Results</a>
+                <a href="articles.html">Latest Articles</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div style="display:flex; align-items:center; gap:16px;">
+                <a href="#applicationSection" class="btn btn-gold">Book Now</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="./index.html" onclick="closeMobile()">Home</a>
+        <a href="./about.html" onclick="closeMobile()">About Us</a>
+        <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
+        <a href="./programs.html" onclick="closeMobile()">Shop</a>
+        <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
+        <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
+        <a href="./contact.html" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <section>
+        <div class="wrap" style="max-width: 1180px;">
+
+            <div class="coaching-hero">
+                <div class="eyebrow" style="justify-content:center;">Elite Mentorship &bull; High-Performance Coaching
+                </div>
+                <h1>Transform Your Body <br>With Personal Guidance</h1>
+                <div class="pricing-notice">
+                    Coaching starts from €199 per month, with a six-month minimum.
+                </div>
+            </div>
+
+            <div class="tiers-grid">
+                <div class="tier-card">
+                    <div>
+                        <div class="eyebrow">Core Tier</div>
+                        <h3>Strong Foundation</h3>
+                        <p class="tier-target">Designed for dedicated women ready to build absolute physical strength,
+                            correct structural imbalances, and establish bulletproof training discipline.</p>
+
+                        <ul class="tier-features">
+                            <li>Fully customized progressive resistance training program</li>
+                            <li>Detailed video form analysis and technique correction</li>
+                            <li>Structured nutritional framework tailored to your lifestyle</li>
+                            <li>In-app progress tracking and milestone check-ins</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-meta">
+                        <div>Contact Frequency: <b>Weekly check-ins</b></div>
+                        <div>Response Time: <b>Within 24 hours</b></div>
+                        <div>Plan Adjustment: <b>Updated monthly</b></div>
+                    </div>
+                </div>
+
+                <div class="tier-card" style="border-color: var(--gold);">
+                    <div>
+                        <div class="eyebrow" style="color: var(--flare);">Advanced Tier</div>
+                        <h3 style="color: var(--ink);">Full Strength</h3>
+                        <p class="tier-target">Built for advanced trainees, hybrid athletes, and competitors wanting
+                            elite conditioning, peak performance metrics, and direct continuous access.</p>
+
+                        <ul class="tier-features">
+                            <li>Advanced periodized programming for strength & hybrid conditioning</li>
+                            <li>Priority video technique breakdowns and rapid response queues</li>
+                            <li>Advanced biofeedback monitoring (sleep, stress, cycle optimization)</li>
+                            <li>Custom race/event peaking strategy (Hyrox & powerlifting focus)</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-meta">
+                        <div>Contact Frequency: <b>Bi-weekly strategy calls & direct messaging</b></div>
+                        <div>Response Time: <b>Within 12 hours (Priority)</b></div>
+                        <div>Plan Adjustment: <b>Continuous rolling adjustments</b></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kickstart-block">
+                <div class="kickstart-content">
+                    <div class="eyebrow">Entry Option</div>
+                    <h3>6-Week Kickstart Coaching</h3>
+                    <p>Not ready for a full commitment yet? Test the methodology, break initial plateaus, and kickstart
+                        your fitness journey with our high-impact 6-week intensive introduction.</p>
+                </div>
+                <div class="kickstart-price">
+                    <a href="#applicationSection" class="mono"
+                        style="font-size: 13px; font-weight: 700; color: var(--gold-light); text-transform: uppercase; letter-spacing: .06em;">Ask
+                        about pricing →</a>
+                </div>
+            </div>
+
+            <div class="application-box" id="applicationSection">
+                <div class="eyebrow" style="justify-content:center;">Application &bull; Secure Your Spot</div>
+                <h2>Apply For 1:1 Coaching</h2>
+                <p class="subtitle">Fill out the application below. Upon submission, you will be redirected instantly to
+                    book your free discovery call.</p>
+
+                <form id="coachingApplicationForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label for="name">Full Name*</label>
+                            <input type="text" id="name" placeholder="e.g. Emma Miller" required>
+                        </div>
+                        <div class="form-group full">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" placeholder="e.g. emma@example.com" required>
+                        </div>
+                        <div class="form-group full">
+                            <label for="mainGoal">Main Goal*</label>
+                            <input type="text" id="mainGoal" placeholder="e.g. Build strength & lose 10kg fat" required>
+                        </div>
+                        <div class="form-group full">
+                            <label for="trainingExperience">Training Experience*</label>
+                            <input type="text" id="trainingExperience" placeholder="e.g. 2 years regular weightlifting"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="budgetRange">Budget Range*</label>
+                            <select id="budgetRange" required>
+                                <option value="" disabled selected>Select monthly range</option>
+                                <option value="€199 - €250">€199 - €250 / month</option>
+                                <option value="€250 - €350">€250 - €350 / month</option>
+                                <option value="€350+">€350+ / month (Full Strength)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferredStartDate">Preferred Start Date*</label>
+                            <input type="date" id="preferredStartDate" required>
+                        </div>
+                    </div>
+
+                    <div class="submit-container" style="margin-top: 24px;">
+                        <button type="submit" class="btn btn-gold submit-btn" id="submitAppBtn">Submit Application &
+                            Book Discovery Call →</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="sticky-cta">
+        <a href="#applicationSection" class="btn btn-gold" style="width: 100%; justify-content: center;">Book a free
+            intro call</a>
+    </div>
+
+    <footer class="site-footer">
+        <div class="wrap" style="max-width: 1180px;">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div
+                        style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">
+                        ANNELOES FIT COACHING</div>
+                    <div
+                        style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
+                        Online Hyrox & Strength Coach for Women</div>
+                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random
+                        workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite
+                        physical conditioning through calculated methodology.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                     <ul class="footer-links-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="coaching.html">Coaching</a></li>
+                        <li><a href="programs.html">Shop</a></li>
+                        <li><a href="reviews.html">Reviews & Results</a></li>
+                        <li><a href="articles.html">Blogs</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
+                                (@anneloes.fitcoaching)</a></li>
+                        <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
+                        <!-- <li><a href="login.html">Admin Portal</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Stay Ahead</h4>
+                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive
+                        exclusive training tips, programming breakdowns, and early intake updates.</p>
+                    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Coaching Page')">
+                        <div style="position: relative;">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required
+                                style="padding-right: 40px;">
+                            <span
+                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
+                        </div>
+                        <button type="submit" class="newsletter-btn">Join Newsletter →</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div
+                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    &copy; 2026 Anneloes Fit Coaching. All rights reserved.
+                </div>
+                <div
+                    style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy
+                        Policy</a>
+                    <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund
+                        Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+        function closeMobile() {
+            menuToggle.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                main_goal: document.getElementById('mainGoal').value.trim(),
+                training_experience: document.getElementById('trainingExperience').value.trim(),
+                budget_range: document.getElementById('budgetRange').value,
+                preferred_start_date: document.getElementById('preferredStartDate').value
+            };
+
+            try {
+                const { error } = await supabaseClient.from('coaching_applications').insert([formData]);
+                if (error) {
+                    console.error('Supabase insert error:', error);
+                }
+            } catch (err) {
+                console.error('Database connection error:', err);
+            }
+
+            alert('Application submitted successfully! Redirecting you to book your discovery call...');
+            window.location.href = "https://calendly.com/dekoksports/30min";
+        }
+        const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
+
+        function handleNewsletterSubmit(e, sourcePage) {
+            e.preventDefault();
+            const form = e.target;
+            const emailInput = form.querySelector('.newsletter-input');
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            if (GOOGLE_SHEET_WEBAPP_URL !== 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
+                fetch(GOOGLE_SHEET_WEBAPP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        email: email,
+                        source: sourcePage,
+                        timestamp: new Date().toISOString()
+                    })
+                }).catch(err => console.error('Newsletter signup failed to save:', err));
+            }
+
+            alert('Welcome to the elite newsletter! 💛');
+            form.reset();
+        }
+    </script>
+</body>
+
+</html>

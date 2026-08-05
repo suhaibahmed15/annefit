@@ -2,9 +2,86 @@
 <html lang="en">
 
 <head>
+
+<script>
+    // URL se UTM parameters extract karne ka function
+    function captureUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let hasUTM = false;
+        let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+        utmKeys.forEach(key => {
+            if (urlParams.has(key)) {
+                storedUTMs[key] = urlParams.get(key);
+                hasUTM = true;
+            }
+        });
+
+        if (hasUTM) {
+            sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+        }
+    }
+    captureUTMParams();
+</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KVNHG8WR');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
+    <script>
+        function loadMetaPixel() {
+            if (window.fbq) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1435156600129884');
+            fbq('track', 'PageView');
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            loadMetaPixel();
+        }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Articles | Anneloes Fit Coaching</title>
+    <meta name="description" content="TODO(Anneloes): final meta description for the articles/blog index.">
+     <!-- Twitter/X Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
+    <meta name="twitter:description"
+        content="Quit random workouts and unsustainable crash diets. Build lasting strength and elite physical conditioning through calculated methodology.">
+    <meta name="twitter:image" content="https://annefit.vercel.app/assets/Brandlogo/logo.png">
+    
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
+    <meta name="msapplication-TileColor" content="#B8860B">
+    <meta name="theme-color" content="#B8860B">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -98,7 +175,6 @@
         }
 
         .eyebrow::before {
-            /* content: ""; */
             width: 22px;
             height: 1px;
             background: var(--gold);
@@ -129,7 +205,6 @@
             background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
         }
 
-        /* Header / Navbar */
         header.site {
             position: sticky;
             top: 0;
@@ -303,7 +378,6 @@
             border-top: 1px solid var(--line);
         }
 
-        /* View Switching System */
         .view-panel {
             display: none;
         }
@@ -312,7 +386,6 @@
             display: block;
         }
 
-        /* Blog Section Design Style */
         .blog-hero {
             padding: 140px 0 80px;
             text-align: center;
@@ -426,7 +499,6 @@
             height: 14px;
         }
 
-        /* Reader View Styling */
         .reader-container {
             max-width: 800px;
             margin: 0 auto;
@@ -489,7 +561,6 @@
             object-fit: cover;
         }
 
-        /* Comment Section Styles */
         .comments-section {
             margin-top: 80px;
             border-top: 1px solid var(--line);
@@ -597,7 +668,6 @@
             line-height: 1.6;
         }
 
-        /* Premium Footer Styling */
         footer.site-footer {
             background: var(--surface);
             color: var(--ink);
@@ -645,7 +715,6 @@
             color: var(--gold);
         }
 
-        /* Newsletter Input Styles */
         .newsletter-form {
             display: flex;
             flex-direction: column;
@@ -702,9 +771,31 @@
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVNHG8WR"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- GDPR Cookie Consent Banner -->
+    <div id="cookieBanner" style="position:fixed; bottom:0; left:0; width:100%; background:#181816; color:#fff; padding:15px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; border-top:2px solid var(--gold);">
+        <p style="font-size:13px; margin:0;">We use cookies to enhance your experience and analyze traffic. <a href="privacy-policy.html" style="color:#d49e1f; text-decoration:underline;">Privacy Policy</a></p>
+        <button onclick="acceptCookies()" style="background:#d49e1f; border:none; padding:8px 20px; color:#fff; font-weight:700; cursor:pointer; border-radius:50px; font-size:12px; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">Accept Cookies</button>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            localStorage.setItem('cookie_consent', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+            loadMetaPixel();
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    </script>
+
     <div class="grain"></div>
 
-    <!-- Header / Navbar -->
     <header class="site">
         <div class="wrap nav-inner">
             <a href="index.html" class="logo-mark">
@@ -713,14 +804,15 @@
             <nav class="links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Me</a>
-                <a href="programs.html">All Programs</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="programs.html">Shop</a>
                 <a href="reviews.html">Reviews & Results</a>
                 <a href="articles.html" style="opacity: 1; color: var(--gold);">Latest Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
                 <a href="contact.html#rightContactCol" class="btn btn-gold"
-                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                    style="padding:10px 18px; font-size: 11px;">Book Now</a>
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -730,17 +822,16 @@
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
         <a href="./about.html" onclick="closeMobile()">About Us</a>
-        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
+        <a href="./programs.html" onclick="closeMobile()">Shops</a>
         <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
         <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
 
-    <!-- VIEW 1: BLOG CATALOG -->
     <div id="catalogView" class="view-panel active">
         <section class="blog-hero">
             <div class="wrap">
@@ -752,7 +843,6 @@
         <section style="background: var(--bone);">
             <div class="wrap">
                 <div class="blog-grid" id="blogGrid">
-                    <!-- Blog Card 1 -->
                     <div class="blog-card" onclick="openBlog('gym-coaching-tips')">
                         <div>
                             <div class="blog-date-badge">
@@ -765,9 +855,9 @@
                                 </svg>
                                 July 1, 2025
                             </div>
-                            <h3>Gym Coaching Tips To Your Workout</h3>
-                            <p>Vitae pellentesque sem placerat in id cursus mi. Velit aliquam imperdiet mollis nullam
-                                volutpat porttitor ullamcorper.</p>
+                            <h3>Gym Coaching Tips For Your Workout</h3>
+                            <p>Proper guidance and consistent structure turn vague fitness goals into reliable progress.
+                                Learn how purposeful adjustments safeguard your joints and elevate performance.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -777,7 +867,6 @@
                         </button>
                     </div>
 
-                    <!-- Blog Card 2 -->
                     <div class="blog-card" onclick="openBlog('best-gym-routines')">
                         <div>
                             <div class="blog-date-badge">
@@ -791,8 +880,8 @@
                                 July 1, 2025
                             </div>
                             <h3>Best Gym Routines For Total Body Fitness</h3>
-                            <p>Consequat magna ante condimentum neque at luctus nibh. Ut hendrerit semper vel class
-                                aptent taciti sociosqu auctor.</p>
+                            <p>Discover how balanced training architectures combine compound multi-joint movements and
+                                active recovery to build absolute systemic strength.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -802,7 +891,6 @@
                         </button>
                     </div>
 
-                    <!-- Blog Card 3 -->
                     <div class="blog-card" onclick="openBlog('gym-fitness-plans')">
                         <div>
                             <div class="blog-date-badge">
@@ -816,8 +904,8 @@
                                 July 1, 2025
                             </div>
                             <h3>Gym Fitness Plans That Show Results</h3>
-                            <p>Dolor sit amet consectetur adipiscing elit quisque faucibus. Aenim euismod quam justo
-                                rhoncus eros lectus commodo augue.</p>
+                            <p>Cut through the noise of random workouts with calculated progressive loading phases
+                                engineered for verifiable body composition changes.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -827,7 +915,6 @@
                         </button>
                     </div>
 
-                    <!-- Blog Card 4 -->
                     <div class="blog-card" onclick="openBlog('simple-gym-exercises')">
                         <div>
                             <div class="blog-date-badge">
@@ -841,8 +928,8 @@
                                 July 1, 2025
                             </div>
                             <h3>Simple Gym Exercises That Burn Fat Fast</h3>
-                            <p>Vestibulum fusce dictum risus blandit quis suspendisse aliquet. Bibendum egestas iaculis
-                                massa nisl malesuada lacinia integer.</p>
+                            <p>Master foundational movement patterns that maximize metabolic output, elevate
+                                post-exercise calorie burn, and accelerate lean tissue retention.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -856,7 +943,6 @@
         </section>
     </div>
 
-    <!-- VIEW 2: DEDICATED SEPARATE ARTICLE READER PAGE WITH COMPULSORY NAME, EMAIL & COMMENT -->
     <div id="readerView" class="view-panel">
         <section style="padding-top: 100px; background: var(--surface);">
             <div class="reader-container" style="padding-top: 0; padding-bottom: 0;">
@@ -871,21 +957,17 @@
                     </svg>
                     July 1, 2025
                 </div>
-                <h1 class="reader-title" id="readerTitle"></h1>
+                <h2 class="reader-title" id="readerTitle"></h2>
             </div>
         </section>
 
         <section style="background: var(--bone);">
             <div class="reader-container">
-                <div class="reader-content" id="readerBody">
-                    <!-- Dynamic blog text loaded here -->
-                </div>
+                <div class="reader-content" id="readerBody"></div>
 
-                <!-- User Comments Section (Name, Email, and Comment are Compulsory) -->
                 <div class="comments-section">
                     <h3 id="commentCountHeader">Discussion & Comments (0)</h3>
 
-                    <!-- Comment Submission Form with compulsory fields -->
                     <form class="comment-form" id="commentForm" onsubmit="handleCommentSubmit(event)">
                         <div class="eyebrow">Leave Your Comment</div>
                         <div class="form-grid-2">
@@ -898,36 +980,27 @@
                             Comment</button>
                     </form>
 
-                    <!-- Rendered Comments List -->
-                    <div class="comment-list" id="commentListContainer">
-                        <!-- Populated dynamically per article -->
-                    </div>
+                    <div class="comment-list" id="commentListContainer"></div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Premium Footer -->
     <footer class="site-footer">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <div
-                        style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">
-                        ANNELOES FIT COACHING</div>
-                    <div
-                        style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
-                        Online Hyrox & Strength Coach for Women</div>
-                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random
-                        workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite
-                        physical conditioning through calculated methodology.</p>
+                    <div style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">ANNELOES FIT COACHING</div>
+                    <div style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">Online Hyrox & Strength Coach for Women</div>
+                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite physical conditioning through calculated methodology.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navigation</h4>
                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Me</a></li>
-                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="coaching.html">Coaching</a></li>
+                        <li><a href="programs.html">Shop</a></li>
                         <li><a href="reviews.html">Reviews & Results</a></li>
                         <li><a href="articles.html">Blogs</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -936,42 +1009,37 @@
                 <div class="footer-col">
                     <h4>Connect</h4>
                     <ul class="footer-links-list">
-                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
-                                (@anneloes.fitcoaching)</a></li>
+                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram (@anneloes.fitcoaching)</a></li>
                         <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
-                        <!-- <li><a href="admin.html">Admin Portal</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Stay Ahead</h4>
-                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive
-                        exclusive training tips, programming breakdowns, and early intake updates.</p>
+                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive exclusive training tips, programming breakdowns, and early intake updates.</p>
                     <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Articles Page')">
                         <div style="position: relative;">
-                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required
-                                style="padding-right: 40px;">
-                            <span
-                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
+                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required style="padding-right: 40px;">
+                            <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
                         </div>
                         <button type="submit" class="newsletter-btn">Join Newsletter →</button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div
-                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                <div style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
                     &copy; 2026 Anneloes Fit Coaching. All rights reserved.
                 </div>
-                <div
-                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    Engineered for absolute strength & hybrid dominance 💛
+                 <div style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy Policy</a>
+                    <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund Policy</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        const menuToggle = document.getElementById('menuToggle');
+       const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('open');
@@ -984,87 +1052,70 @@
 
         const blogDatabase = {
             "gym-coaching-tips": {
-                title: "Gym Coaching Tips To Your Workout",
-                date: `
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    July 1, 2025
-                `,
+                title: "Gym Coaching Tips For Your Workout",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
                 body: `
-                    <p>Aenim euismod quam justo lectus commodo augue. Montes nascetur ridiculus mus donec rhoncus eros cursus lobortis</p>
-                    <p>Eu aenean sed diam urna tempor pulvinar vivamus. Primis vulputate ornare sagittis vehicula praesent dui felis. Vestibulum fusce dictum risus blandit quis suspendisse aliquet. Bibendum egestas iaculis massa nisl malesuada lacinia integer. Feugiat tristique accumsan maecenas potenti ultricies habitant morbi.</p>
-                    <p>Ligula congue sollicitudin erat viverra ac tincidunt nam. Inceptos himenaeos orci varius natoque penatibus et magnis. Amet consectetur adipiscing elit quisque faucibus ex sapien.Euismod quam justo lectus commodo augue arcu dignissim.In id cursus mi pretium tellus duis convallis. Nullam volutpat porttitor ullamcorper rutrum gravida cras eleifend.Fermentum odio phasellus non purus est nunc efficitur laoreet.Dictum risus blandit quis suspendisse aliquet nisi sodales.</p>
-                    <img src="assets/OwnerPic/owner.jpg" alt="Gym Coaching Session" class="article-inline-img">
-                    <p>Cubilia curae hac habitasse platea dictumst lorem ipsum. Sollicitudin erat viverra ac tincidunt nam porta elementum. Orci varius natoque penatibus et magnis dis parturient. Adipiscing elit quisque faucibus ex sapien vitae pellentesque. Justo lectus commodo augue arcu dignissim velit aliquam. Donec rhoncus eros lobortis nulla molestie mattis scelerisque. Cursus mi pretium tellus duis convallis tempus leo. Porttitor ullamcorper rutrum gravida cras eleifend turpis fames. Phasellus non purus est efficitur laoreet mauris pulvinar vivamus fringilla pharetra.</p>
-                    <p>Nisl malesuada lacinia integer nunc posuere ut hendrerit. Potenti ultricies habitant morbi senectus netus suscipit auctor. Luctus nibh finibus facilisis sociosqu ad litora torquent per conubia dapibus etiam interdum tortor.</p>
-                    <h4 style="margin-top: 20px;">Jessika Sofia</h4>
-                    <p style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold);">Personal Trainer</p>
+                    <p>Proper guidance and consistent structure turn vague fitness goals into reliable progress. Learn how purposeful adjustments safeguard your joints and elevate performance.</p>
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80" alt="Gym Coaching Tips" class="article-inline-img">
+                    <h4>1. Prioritize Form Over Ego Weight</h4>
+                    <p>Lifting heavier with compromised form defeats the purpose of structural adaptation. Focus on executing every single rep with a controlled eccentric phase and full range of motion.</p>
+                    <h4>2. Track Your Metrics Religiously</h4>
+                    <p>What gets measured gets managed. Keep a detailed log of your weights, sets, and perceived exertion levels so you always know how to apply progressive overload safely.</p>
+                    <h4>3. Optimize Rest Periods</h4>
+                    <p>Resting too little compromises your strength output for subsequent sets. Give your central nervous system adequate recovery time between heavy compound working sets.</p>
                 `,
-                comments: [
-                    { author: "Sarah Jenkins", email: "sarah@example.com", date: "August 2, 2026", text: "These coaching tips completely changed how I approach my workouts. Thank you for sharing!" }
-                ]
+                comments: []
             },
             "best-gym-routines": {
                 title: "Best Gym Routines For Total Body Fitness",
-                date: `
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    July 1, 2025
-                `,
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
                 body: `
-                    <p>Consequat magna ante condimentum neque at luctus nibh. Ut hendrerit semper vel class aptent taciti sociosqu auctor.</p>
-                    <img src="assets/OwnerPic/IMG_9568.JPG" alt="Total Body Fitness" class="article-inline-img">
-                    <p>Primis vulputate ornare sagittis vehicula praesent dui felis. Vestibulum fusce dictum risus blandit quis suspendisse aliquet.</p>
-                    <p>Nec metus bibendum egestas iaculis massa nisl malesuada. Proin libero feugiat tristique accumsan maecenas potenti ultricies. Consequat magna ante condimentum neque at luctus nibh.Suscipit auctor curabitur facilisi cubilia curae hac habitasse.</p>
-                    <p>Senectus netus suscipit auctor curabitur facilisi cubilia curae. Dapibus etiam interdum tortor ligula congue sollicitudin erat. Torquent per conubia nostra inceptos himenaeos orci varius. Lorem ipsum dolor sit amet consectetur adipiscing elit. Porta elementum a enim euismod quam justo lectus. Dis parturient montes nascetur ridiculus mus donec rhoncus.Vitae pellentesque sem placerat in id cursus mi. Velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper. Mattis scelerisque maximus eget fermentum odio phasellus non.</p>
+                    <p>Discover how balanced training architectures combine compound multi-joint movements and active recovery to build absolute systemic strength.</p>
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80" alt="Total Body Fitness" class="article-inline-img">
+                    <h4>The Foundation of Balanced Splits</h4>
+                    <p>A well-structured routine prevents muscular imbalances and burnout. Alternating between upper and lower body mechanics or utilizing a push-pull-legs framework ensures optimal recovery windows.</p>
+                    <h4>Compound Movements First</h4>
+                    <p>Always anchor your routines around high-yield compound exercises like squats, deadlifts, overhead presses, and rows before moving on to targeted isolation work.</p>
                 `,
-                comments: [
-                    { author: "Chloe Hansen", email: "chloe@example.com", date: "August 3, 2026", text: "Total body fitness is so key. Great breakdown of routines!" }
-                ]
+                comments: []
             },
             "gym-fitness-plans": {
                 title: "Gym Fitness Plans That Show Results",
-                date: `
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    July 1, 2025
-                `,
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
                 body: `
-                    <p>Dolor sit amet consectetur adipiscing elit quisque faucibus. Aenim euismod quam justo rhoncus eros lectus commodo augue.</p>
-                    <img src="assets/OwnerPic/post 9.png" style="width: auto; height: auto;" alt="Fitness Plans" class="article-inline-img">
-                    <p>Habitant morbi senectus netus suscipit auctor curabitur facilisi. Finibus facilisis dapibus etiam interdum tortor ligula congue. Ad litora torquent per conubia nostra inceptos himenaeos. Platea dictumst lorem ipsum dolor sit amet consectetur. Tincidunt nam porta elementum a enim euismod quam.Et magnis dis parturient montes nascetur ridiculus mus. Ex sapien vitae pellentesque sem placerat in id. Arcu dignissim velit aliquam imperdiet mollis nullam volutpat. Nulla molestie mattis scelerisque maximus eget fermentum odio.Duis convallis tempus leo eu aenean sed diam.</p>
+                    <p>Cut through the noise of random workouts with calculated progressive loading phases engineered for verifiable body composition changes.</p>
+                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=1200&q=80" alt="Gym Fitness Plans" class="article-inline-img">
+                    <h4>Why Random Workouts Fail</h4>
+                    <p>If you change your routine every single session, your body never adapts or masters the movement pattern. True progress requires structured mesocycles lasting 4 to 8 weeks.</p>
+                    <h4>Aligning Nutrition with Training Blocks</h4>
+                    <p>A great fitness plan collapses without proper fuel. Tailor your caloric intake and macronutrient splits to match your current training phase—whether it's hypertrophy or metabolic conditioning.</p>
                 `,
                 comments: []
             },
             "simple-gym-exercises": {
                 title: "Simple Gym Exercises That Burn Fat Fast",
-                date: `
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    July 1, 2025
-                `,
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
                 body: `
-                    <p>Vestibulum fusce dictum risus blandit quis suspendisse aliquet. Bibendum egestas iaculis massa nisl malesuada lacinia integer.</p>
-                    <img src="assets/OwnerPic/IMG_2321.PNG " alt="Fat Burn Exercises" class="article-inline-img">
-                    <p>Eros lobortis nulla molestie mattis scelerisque maximus eget. Pretium tellus duis convallis tempus leo eu nec metus bibendum aenean. Rutrum gravida cras eleifend turpis fames.Purus est efficitur laoreet mauris.</p>
-                    <h4 style="margin-top: 20px;">Beata Gerda</h4>
-                    <p style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold);">Strength Training</p>
+                    <p>Master foundational movement patterns that maximize metabolic output, elevate post-exercise calorie burn, and accelerate lean tissue retention.</p>
+                    <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1200&q=80" alt="Simple Gym Exercises" class="article-inline-img">
+                    <h4>The Power of Functional Movements</h4>
+                    <p>Complex isolation machines burn fewer calories than multi-joint foundational movements. Incorporating exercises like kettlebell swings, sled pushes, and lunges triggers a massive metabolic response.</p>
+                    <h4>Consistency Trumps Intensity Peaks</h4>
+                    <p>You don't need to destroy yourself in every workout; you need sustainable energy expenditure sustained over consistent weeks and months.</p>
                 `,
-                comments: [
-                    { author: "Melissa Thorne", email: "melissa@example.com", date: "August 1, 2026", text: "Simple exercises are always the most effective. Loved this piece!" }
-                ]
+                comments: []
             }
         };
 
         let currentActiveKey = "";
-
         function openBlog(key) {
             currentActiveKey = key;
             const blog = blogDatabase[key];
             if (!blog) return;
-
             document.getElementById('readerDate').innerHTML = blog.date;
             document.getElementById('readerTitle').innerText = blog.title;
             document.getElementById('readerBody').innerHTML = blog.body;
-
             renderComments();
-
             document.getElementById('catalogView').classList.remove('active');
             document.getElementById('readerView').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1076,133 +1127,60 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function renderComments() {
-            const article = blogDatabase[currentActiveKey];
-            const container = document.getElementById('commentListContainer');
-            document.getElementById('commentCountHeader').innerText = `Discussion & Comments (${article.comments.length})`;
-
-            if (article.comments.length === 0) {
-                container.innerHTML = '<p style="color: var(--steel); font-style: italic; font-size: 14.5px;">No comments yet. Be the first to share your thoughts!</p>';
-                return;
-            }
-
-            container.innerHTML = article.comments.map(c => `
-                <div class="comment-item">
-                    <div class="comment-header">
-                        <span class="comment-author">${c.author}</span>
-                        <span class="comment-date">${c.date}</span>
-                    </div>
-                    <div class="comment-text">${c.text}</div>
-                </div>
-            `).join('');
-        }
-
         function handleCommentSubmit(e) {
             e.preventDefault();
             const author = document.getElementById('commentAuthorInput').value.trim();
             const email = document.getElementById('commentEmailInput').value.trim();
             const text = document.getElementById('commentTextInput').value.trim();
+            if (!author || !text) return;
 
-            if (author && email && text && currentActiveKey) {
-                const newComment = {
-                    author: author,
-                    email: email,
-                    date: "Just now",
-                    text: text
-                };
-                blogDatabase[currentActiveKey].comments.unshift(newComment);
-                renderComments();
-                document.getElementById('commentForm').reset();
+            if (!blogDatabase[currentActiveKey].comments) {
+                blogDatabase[currentActiveKey].comments = [];
             }
-        }
 
-        const calendarSvg = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
-
-        // Load articles published by admin from the dashboard and inject them
-        // as real, clickable blog cards at the top of the catalog.
-        function loadAdminArticles() {
-            const grid = document.getElementById('blogGrid');
-            if (!grid) return;
-            const articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
-            if (articles.length === 0) return;
-
-            articles.forEach((art, index) => {
-                const key = 'admin-' + index;
-                const bodyHtml = art.content
-                    .split(/\n+/)
-                    .filter(p => p.trim().length > 0)
-                    .map(p => `<p>${p}</p>`)
-                    .join('');
-
-                blogDatabase[key] = {
-                    title: art.title,
-                    date: `${calendarSvg}${art.date}`,
-                    body: bodyHtml || `<p>${art.content}</p>`,
-                    comments: []
-                };
-
-                const preview = art.content.length > 140 ? art.content.slice(0, 140) + '…' : art.content;
-                const card = document.createElement('div');
-                card.className = 'blog-card';
-                card.onclick = () => openBlog(key);
-                card.innerHTML = `
-                    <div>
-                        <div class="blog-date-badge">${calendarSvg}${art.date}</div>
-                        <h3>${art.title}</h3>
-                        <p>${preview}</p>
-                    </div>
-                    <button class="read-more-btn">
-                        Keep Reading
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                    </button>
-                `;
-                grid.prepend(card);
+            blogDatabase[currentActiveKey].comments.unshift({
+                author,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                text
             });
+
+            document.getElementById('commentForm').reset();
+            renderComments();
         }
 
-        loadAdminArticles();
+        function renderComments() {
+            const comments = blogDatabase[currentActiveKey].comments || [];
+            document.getElementById('commentCountHeader').innerText = `Discussion & Comments (${comments.length})`;
+            const container = document.getElementById('commentListContainer');
+            container.innerHTML = comments.map(c => `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">${c.author}</span>
+                        <span class="comment-date">${c.date}</span>
+                    </div>
+                    <p class="comment-text">${c.text}</p>
+                </div>
+            `).join('');
+        }
 
-        // ============================================================
-        // NEWSLETTER SIGNUP -> GOOGLE SHEET
-        // Fill this in once with your own Google Apps Script Web App URL
-        // (Extensions -> Apps Script in your Google Sheet, paste the
-        // provided doPost() script, Deploy -> New deployment -> Web app,
-        // "Who has access: Anyone", then copy the deployment URL below).
-        // Use the exact same URL in articles.html, checkout.html,
-        // contact.html, gallery.html, and quiz.html.
-        // ============================================================
         const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
-
         function handleNewsletterSubmit(e, sourcePage) {
             e.preventDefault();
             const form = e.target;
             const emailInput = form.querySelector('.newsletter-input');
             const email = emailInput.value.trim();
             if (!email) return;
-
-            if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
-                console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
-            } else {
-                // mode: 'no-cors' + text/plain avoids a CORS preflight that
-                // Apps Script web apps don't handle; the request still goes
-                // through, we just can't read the response back.
+            if (GOOGLE_SHEET_WEBAPP_URL !== 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
                 fetch(GOOGLE_SHEET_WEBAPP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        email: email,
-                        source: sourcePage,
-                        timestamp: new Date().toISOString()
-                    })
-                }).catch(err => console.error('Newsletter signup failed to save:', err));
+                    body: JSON.stringify({ email, source: sourcePage, timestamp: new Date().toISOString() })
+                }).catch(err => console.error(err));
             }
-
             alert('Welcome to the elite newsletter! 💛');
             form.reset();
         }
-
     </script>
 </body>
-
 </html>

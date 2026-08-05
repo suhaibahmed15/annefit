@@ -2,9 +2,102 @@
 <html lang="en">
 
 <head>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Peach Plan Starter",
+  "description": "Digital training guide and macro plan.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "EUR",
+    "price": "49.00",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+<script>
+    
+    // URL se UTM parameters extract karne ka function
+    function captureUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let hasUTM = false;
+        let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+        utmKeys.forEach(key => {
+            if (urlParams.has(key)) {
+                storedUTMs[key] = urlParams.get(key);
+                hasUTM = true;
+            }
+        });
+
+        if (hasUTM) {
+            sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+        }
+    }
+    captureUTMParams();
+</script>
+
+
+<script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KVNHG8WR');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
+    <script>
+        function loadMetaPixel() {
+            if (window.fbq) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1435156600129884');
+            fbq('track', 'PageView');
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            loadMetaPixel();
+        }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Coaching Programs & Guides | Anneloes Fit Coaching</title>
+    <title>Shop & Guides Catalogue | Anneloes Fit Coaching</title>
+    <meta name="description" content="TODO(Anneloes): final meta description for the shop page.">
+     <!-- Twitter/X Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
+    <meta name="twitter:description"
+        content="Quit random workouts and unsustainable crash diets. Build lasting strength and elite physical conditioning through calculated methodology.">
+    <meta name="twitter:image" content="https://annefit.vercel.app/assets/Brandlogo/logo.png">
+
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
+    <meta name="msapplication-TileColor" content="#B8860B">
+    <meta name="theme-color" content="#B8860B">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -98,7 +191,6 @@
             height: 1px;
             background: var(--gold);
             display: inline-block;
-            /* content: ""; */
         }
 
         h1,
@@ -299,18 +391,18 @@
         }
 
         /* Hero */
-        .programs-hero {
+        .shop-hero {
             padding: 160px 0 80px;
             text-align: center;
         }
 
-        .programs-hero h1 {
+        .shop-hero h1 {
             font-size: clamp(48px, 7vw, 84px);
             margin-top: 16px;
             color: var(--ink);
         }
 
-        .programs-hero h1 .accent {
+        .shop-hero h1 .accent {
             background: linear-gradient(100deg, var(--gold) 20%, var(--flare) 60%, var(--gold) 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -324,8 +416,8 @@
             border-top: 1px solid var(--line);
         }
 
-        /* Programs Grid */
-        .programs-grid {
+        /* Shop Grid */
+        .shop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 35px;
@@ -333,8 +425,7 @@
             z-index: 1;
         }
 
-        /* Light Color Gradient Themes for Program Cards */
-        .program-card {
+        .shop-card {
             background: linear-gradient(135deg, #ffffff 0%, #f4f2ea 100%);
             color: var(--ink);
             border: 1px solid var(--line);
@@ -349,14 +440,13 @@
             overflow: hidden;
         }
 
-        .program-card:hover {
+        .shop-card:hover {
             transform: translateY(-8px);
             border-color: var(--gold);
             box-shadow: 0 20px 40px -10px rgba(212, 158, 31, .2);
         }
 
-        /* Mid Box (Most Popular - €219) Distinct Color Theme */
-        .program-card.featured {
+        .shop-card.featured {
             background: linear-gradient(135deg, #fffbf0 0%, #fdf5e2 100%);
             border: 2px solid var(--gold);
             box-shadow: 0 15px 35px rgba(212, 158, 31, 0.15);
@@ -393,13 +483,13 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .program-card h3 {
+        .shop-card h3 {
             font-size: 28px;
             margin-bottom: 10px;
             color: var(--ink);
         }
 
-        .program-subtitle {
+        .shop-subtitle {
             font-family: 'JetBrains Mono', monospace;
             font-size: 11.5px;
             color: var(--steel);
@@ -408,7 +498,7 @@
             margin-bottom: 14px;
         }
 
-        .program-price {
+        .shop-price {
             font-family: 'Anton', sans-serif;
             font-size: 40px;
             color: var(--ink);
@@ -416,7 +506,7 @@
             line-height: 1;
         }
 
-        .program-price span {
+        .shop-price span {
             font-family: 'Inter', sans-serif;
             font-size: 13px;
             font-weight: 600;
@@ -424,38 +514,11 @@
             text-transform: uppercase;
         }
 
-        .program-card p {
+        .shop-card p {
             color: var(--steel);
             font-size: 14px;
             line-height: 1.6;
             margin-bottom: 22px;
-        }
-
-        .program-features {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 28px;
-            font-size: 13.5px;
-            color: var(--ink);
-            border-top: 1px solid var(--line);
-            padding-top: 18px;
-        }
-
-        .program-features li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            line-height: 1.4;
-        }
-
-        .program-features li svg {
-            width: 15px;
-            height: 15px;
-            stroke: var(--gold);
-            flex-shrink: 0;
-            margin-top: 2px;
         }
 
         .buy-btn {
@@ -483,17 +546,10 @@
             box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
         }
 
-        .buy-btn svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        /* Pop-in Scroll Animation Styles */
         .pop-reveal {
             opacity: 0;
             transform: scale(0.9) translateY(40px);
             transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
         }
 
         .pop-reveal.in {
@@ -501,7 +557,7 @@
             transform: scale(1) translateY(0);
         }
 
-        /* Premium Footer Styling */
+        /* Footer */
         footer.site-footer {
             background: var(--surface);
             color: var(--ink);
@@ -549,7 +605,6 @@
             color: var(--gold);
         }
 
-        /* Newsletter Input Styles */
         .newsletter-form {
             display: flex;
             flex-direction: column;
@@ -563,7 +618,6 @@
             border-radius: 8px;
             padding: 10px 14px;
             color: var(--ink);
-            font-family: 'Inter', sans-serif;
             font-size: 13.5px;
             width: 100%;
         }
@@ -583,14 +637,7 @@
             font-size: 11.5px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .08em;
             cursor: pointer;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-
-        .newsletter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
         }
 
         .footer-bottom {
@@ -602,10 +649,53 @@
             border-top: 1px solid var(--line);
             padding-top: 30px;
         }
+
+        .sticky-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(24, 24, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            z-index: 100;
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-cta {
+                display: block;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVNHG8WR"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- GDPR Cookie Consent Banner -->
+    <div id="cookieBanner" style="position:fixed; bottom:0; left:0; width:100%; background:#181816; color:#fff; padding:15px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; border-top:2px solid var(--gold);">
+        <p style="font-size:13px; margin:0;">We use cookies to enhance your experience and analyze traffic. <a href="privacy-policy.html" style="color:#d49e1f; text-decoration:underline;">Privacy Policy</a></p>
+        <button onclick="acceptCookies()" style="background:#d49e1f; border:none; padding:8px 20px; color:#fff; font-weight:700; cursor:pointer; border-radius:50px; font-size:12px; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">Accept Cookies</button>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            localStorage.setItem('cookie_consent', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+            loadMetaPixel();
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    </script>
+
     <div class="grain"></div>
 
     <!-- Header / Navbar -->
@@ -616,15 +706,16 @@
             </a>
             <nav class="links">
                 <a href="index.html">Home</a>
-                <a href="about.html">About Me</a>
-                <a href="programs.html" style="opacity: 1; color: var(--gold);">All Programs</a>
+                <a href="about.html" >About Me</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="programs.html" style="opacity: 1; color: var(--gold);">Shop</a>
                 <a href="reviews.html">Reviews & Results</a>
                 <a href="articles.html">Latest Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
                 <a href="contact.html#rightContactCol" class="btn btn-gold"
-                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                    style="padding:10px 18px; font-size:11px;">Book Now</a>
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -638,106 +729,188 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
         <a href="./about.html" onclick="closeMobile()">About Us</a>
-        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
+        <a href="./programs.html" onclick="closeMobile()">Shops</a>
         <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
         <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
-
     <!-- Hero -->
-    <section class="programs-hero">
+    <section class="shop-hero">
         <div class="wrap">
-            <div class="eyebrow" style="justify-content:center;">Complete Program & Guide Matrix</div>
-            <h1>All Coaching & <br><span class="accent">Guides Catalog.</span></h1>
-            <p style="font-size: 19px; color: var(--steel); max-width: 650px; margin: 0 auto; line-height: 1.6;">Every
-                package includes personalized training, nutrition guidance and direct access to me. Choose your path or
-                explore self-paced guides below.</p>
+            <div class="eyebrow" style="justify-content:center;">Digital Catalogue &bull; Self-Paced Guides</div>
+            <h1>Official <br><span class="accent">Shop & Guides.</span></h1>
+            <p style="font-size: 19px; color: var(--steel); max-width: 650px; margin: 0 auto; line-height: 1.6;">
+                Explore individual guides and value bundles below, complete with secure checkout routing.</p>
         </div>
     </section>
 
-    <!-- SECTION 1: SELF-PACED GUIDES (Placed First) -->
+    <!-- SECTION 0: "Not sure where to start?" — 3 problem-labelled routes -->
+    <section style="background: var(--bone);">
+        <div class="wrap">
+            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
+                <div class="eyebrow" style="justify-content: center;">Not Sure Where To Start?</div>
+                <h2>Three Ways In.</h2>
+            </div>
+
+            <div class="shop-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <a href="checkout.html?program=Peach%20Plan%20Starter&price=49&duration=One-Time"
+                    class="shop-card pop-reveal" style="text-decoration:none; padding: 32px 28px;">
+                    <div>
+                        <p style="font-style: italic; color: var(--steel); font-size: 13px; margin-bottom: 6px;">Looking
+                            for a solid 4-week glute & strength starter block?</p>
+                        <h3 style="font-size: 22px;">Peach Plan Starter</h3>
+                    </div>
+                </a>
+                <a href="checkout.html?program=Cycle-Smart%20Bundle&price=89&duration=One-Time"
+                    class="shop-card pop-reveal"
+                    style="text-decoration:none; padding: 32px 28px; transition-delay: 0.15s;">
+                    <div>
+                        <p style="font-style: italic; color: var(--steel); font-size: 13px; margin-bottom: 6px;">Want to
+                            sync your training and nutrition with your cycle phases?</p>
+                        <h3 style="font-size: 22px;">Cycle-Smart Bundle</h3>
+                    </div>
+                </a>
+                <a href="checkout.html?program=Complete%20Method%20Bundle&price=149&duration=One-Time"
+                    class="shop-card pop-reveal"
+                    style="text-decoration:none; padding: 32px 28px; transition-delay: 0.3s;">
+                    <div>
+                        <p style="font-style: italic; color: var(--steel); font-size: 13px; margin-bottom: 6px;">Ready
+                            for the ultimate complete transformation blueprint?</p>
+                        <h3 style="font-size: 22px;">Complete Method Bundle</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: VALUE BUNDLES & TOP SHOP ITEMS (Complete Method first, then Cycle-Smart, then Peach Plan Starter) -->
     <section style="background: var(--surface);">
         <div class="wrap">
             <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
-                <div class="eyebrow" style="justify-content: center;">Self-Paced Programs</div>
-                <h2>Not Ready For Full Coaching? Start With A Guide</h2>
-                <p style="color: var(--steel); margin-top: 10px;">Self-paced programs you can start today, no
-                    commitment, no intake call needed.</p>
+                <div class="eyebrow" style="justify-content: center;">Value Bundles & Starters</div>
+                <h2>Top Recommended Packs</h2>
             </div>
 
-            <div class="programs-grid">
-                <!-- Guide 1 -->
-                <div class="program-card pop-reveal">
+            <div class="shop-grid">
+                <!-- 1. Complete Method Bundle (Most Popular, listed first) -->
+                <div class="shop-card featured pop-reveal">
+                    <div class="featured-tag">Most Popular</div>
                     <div>
-                        <div class="program-price">€24 <span>/ One-Time</span></div>
-                        <div class="program-subtitle">Cycle & Training Guide</div>
+                        <div class="shop-price">€149 <span
+                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€201</span>
+                        </div>
+                        <div class="shop-subtitle">Save €52 (26%)</div>
+                        <h3>Complete Method Bundle</h3>
+                        <p>Contains all four guides (Peach Plan + Cycle & Training + Nutrition Kickstart + 6-Week
+                            Training & Macro Plan). Separately €201, now €149.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Complete%20Method%20Bundle&price=149&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now (€149) →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2. Cycle-Smart Bundle -->
+                <div class="shop-card pop-reveal" style="transition-delay: 0.15s;">
+                    <div class="ribbon-badge">Save 21%</div>
+                    <div>
+                        <div class="shop-price">€89 <span
+                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€112</span>
+                        </div>
+                        <div class="shop-subtitle">Save €23 (21%)</div>
+                        <h3>Cycle-Smart Bundle</h3>
+                        <p>Contains Peach Plan Starter + Cycle & Training Guide + Nutrition Kickstart Guide. Separately
+                            €112, now €89.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Cycle-Smart%20Bundle&price=89&duration=One-Time" class="buy-btn">
+                            Buy Now (€89) →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. Peach Plan Starter (Marked "Start here") -->
+                <div class="shop-card pop-reveal" style="transition-delay: 0.3s;">
+                    <div class="featured-tag" style="background: var(--flare);">Start Here</div>
+                    <div>
+                        <div class="shop-price">€49 <span>/ One-Time</span></div>
+                        <div class="shop-subtitle">Peach Plan Starter</div>
+                        <h3>4-Week Glute & Core Foundation</h3>
+                        <p>Build essential strength and lower body form with targeted progressive routines.</p>
+                    </div>
+                    <div>
+                        <a href="checkout.html?program=Peach%20Plan%20Starter&price=49&duration=One-Time"
+                            class="buy-btn">
+                            Buy Now (€49) →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: INDIVIDUAL GUIDES (Below the fold) -->
+    <section style="background: var(--bone);">
+        <div class="wrap">
+            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
+                <div class="eyebrow" style="justify-content: center;">Self-Paced Guides</div>
+                <h2>Individual Training & Nutrition Guides</h2>
+            </div>
+
+            <div class="shop-grid">
+                <!-- Cycle & Training Guide (€29) -->
+                <div class="shop-card pop-reveal">
+                    <div>
+                        <div class="shop-price">€29 <span>/ One-Time</span></div>
+                        <div class="shop-subtitle">Cycle & Training Guide</div>
                         <h3>Train and Eat With Your Hormones</h3>
                         <p>Understand your 4 cycle phases, and what to train and eat in each one.</p>
+                        <p style="font-size: 11.5px; font-style: italic; color: var(--steel); margin-top: 10px;">This is
+                            general fitness information, not medical advice. Consult your doctor for diagnosis or
+                            treatment of hormonal symptoms.</p>
                     </div>
                     <div>
-                        <a href="checkout.html?program=Train%20and%20Eat%20With%20Your%20Hormones&price=24&duration=One-Time"
+                        <a href="checkout.html?program=Cycle%20%26%20Training%20Guide&price=29&duration=One-Time"
                             class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
+                            Buy Now (€29) →
                         </a>
                     </div>
                 </div>
 
-                <!-- Guide 2 -->
-                <div class="program-card pop-reveal" style="transition-delay: 0.15s;">
+                <!-- Nutrition Kickstart Guide (€34) -->
+                <div class="shop-card pop-reveal" style="transition-delay: 0.15s;">
                     <div>
-                        <div class="program-price">€29 <span>/ One-Time</span></div>
-                        <div class="program-subtitle">Nutrition Kickstart Guide</div>
+                        <div class="shop-price">€34 <span>/ One-Time</span></div>
+                        <div class="shop-subtitle">Nutrition Kickstart Guide</div>
                         <h3>Eat for Your Hormones</h3>
                         <p>Key hormones explained simply, a 5-day menu, and supplement guidance.</p>
+                        <p style="font-size: 11.5px; font-style: italic; color: var(--steel); margin-top: 10px;">This is
+                            general fitness information, not medical advice. Consult your doctor for diagnosis or
+                            treatment of hormonal symptoms.</p>
                     </div>
                     <div>
-                        <a href="checkout.html?program=Eat%20for%20Your%20Hormones&price=29&duration=One-Time"
+                        <a href="checkout.html?program=Nutrition%20Kickstart%20Guide&price=34&duration=One-Time"
                             class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
+                            Buy Now (€34) →
                         </a>
                     </div>
                 </div>
 
-                <!-- Guide 3 -->
-                <div class="program-card pop-reveal" style="transition-delay: 0.3s;">
+                <!-- 6-Week Training & Macro Plan (€89) -->
+                <div class="shop-card pop-reveal" style="transition-delay: 0.3s;">
                     <div>
-                        <div class="program-price">€57 <span>/ One-Time</span></div>
-                        <div class="program-subtitle">Peach Plan Starter (4 weeks)</div>
-                        <h3>Sterk is geen leeftijd.</h3>
-                        <p>4-week glute, core and functional strength starter block with full exercise cues.</p>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Sterk%20is%20geen%20leeftijd&price=57&duration=One-Time"
-                            class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Guide 4 -->
-                <div class="program-card pop-reveal" style="transition-delay: 0.45s;">
-                    <div>
-                        <div class="program-price">€67 <span>/ One-Time</span></div>
-                        <div class="program-subtitle">6-Week Training & Macro Plan</div>
+                        <div class="shop-price">€89 <span>/ One-Time</span></div>
+                        <div class="shop-subtitle">6-Week Training & Macro Plan</div>
                         <h3>Strength Training + Nutrition Guide</h3>
                         <p>Complete 6-week training structure with daily macro targets and routines.</p>
                     </div>
                     <div>
-                        <a href="checkout.html?program=Strength%20Training%20%2b%20Nutrition%20Guide&price=67&duration=One-Time"
+                        <a href="checkout.html?program=6-Week%20Training%20%26%20Macro%20Plan&price=89&duration=One-Time"
                             class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
+                            Buy Now (€89) →
                         </a>
                     </div>
                 </div>
@@ -745,216 +918,50 @@
         </div>
     </section>
 
-    <!-- SECTION 2: VALUE BUNDLES (Placed Second) -->
-    <section style="background: var(--bone);">
+    <!-- SECTION 3: FREE GUIDE (Email opt-in only, fourth route, never in product grid) -->
+    <section id="freeGuide" style="background: var(--surface);">
         <div class="wrap">
-            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
-                <div class="eyebrow" style="justify-content: center;">Value Bundles</div>
-                <h2>Save Big With Combined Packs</h2>
+            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 40px;">
+                <div class="eyebrow" style="justify-content: center;">Free Guide</div>
+                <h2>The Strength Week (Free Guide)</h2>
+                <p style="color: var(--steel); margin-top: 10px;">Email opt-in only. Never in the product grid.</p>
             </div>
-
-            <div class="programs-grid">
-                <!-- Bundle 1 -->
-                <div class="program-card pop-reveal">
-                    <div class="ribbon-badge">Save 24%</div>
-                    <div>
-                        <div class="program-price">€99 <span
-                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€131</span>
-                        </div>
-                        <div class="program-subtitle">Complete Starter Pack</div>
-                        <h3>Everything for month one without the monthly fee.</h3>
-                        <p>Three foundational guides combined for strength training and macro tracking.</p>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Complete%20Starter%20Pack&price=99&duration=One-Time"
-                            class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Bundle 2 -->
-                <div class="program-card pop-reveal" style="transition-delay: 0.15s;">
-                    <div class="ribbon-badge">Save 20%</div>
-                    <div>
-                        <div class="program-price">€99 <span
-                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€124</span>
-                        </div>
-                        <div class="program-subtitle">Strength & Shape</div>
-                        <h3>Two plans. One stronger, shaped you.</h3>
-                        <p>6-week strength foundation paired with a dedicated lower-body shaping block.</p>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Strength%20%26%20Shape&price=99&duration=One-Time"
-                            class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Bundle 3 -->
-                <div class="program-card pop-reveal" style="transition-delay: 0.3s;">
-                    <div class="ribbon-badge">Save 23%</div>
-                    <div>
-                        <div class="program-price">€65 <span
-                                style="text-decoration: line-through; color: var(--steel); font-size: 18px; margin-left: 6px;">€84</span>
-                        </div>
-                        <div class="program-subtitle">Cycle-Smart Peach</div>
-                        <h3>Train with your hormones. Shape at your pace.</h3>
-                        <p>Hormone-aware cycle education combined with a focused 4-week glute and strength program.</p>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Cycle-Smart%20Peach&price=65&duration=One-Time" class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+            <div class="wrap" style="max-width: 480px;">
+                <form class="newsletter-form"
+                    onsubmit="event.preventDefault(); alert('Success! The Strength Week guide has been sent to your email.');">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-btn">Get Free Guide (Free)</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: PERSONAL MENTORSHIP / 1:1 COACHING PACKAGES (Placed Last, Aligned €169, €219, €299) -->
-    <section style="background: var(--surface);">
-        <div class="wrap">
-            <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
-                <div class="eyebrow" style="justify-content: center;">Personal Mentorship</div>
-                <h2>1-on-1 Coaching Packages</h2>
-            </div>
+    <!-- Sticky Mobile Call-To-Action Bar -->
+    <div class="sticky-cta">
+        <a href="#freeGuide" class="btn btn-gold" style="width: 100%; justify-content: center;">Get the free guide</a>
+    </div>
 
-            <div class="programs-grid">
-                <!-- Box 1: €169 Strong Foundation -->
-                <div class="program-card pop-reveal">
-                    <div>
-                        <div class="program-price">€169 <span>/ Month</span></div>
-                        <div class="program-subtitle">Minimum 6 months</div>
-                        <h3>Strong Foundation</h3>
-                        <p>Solid coaching, built for consistent progress and steady support.</p>
-                        <ul class="program-features">
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Personalized training program</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Weekly check-ins & macro targets</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Direct chat access</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Strong%20Foundation&price=169&duration=Minimum%206%20months"
-                            class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Box 2: €219 Full Strength (Featured / Most Popular with Distinct Gradient Theme & Pop Stagger) -->
-                <div class="program-card featured pop-reveal" style="transition-delay: 0.15s;">
-                    <div class="featured-tag">Most Popular</div>
-                    <div>
-                        <div class="program-price">€219 <span>/ Month</span></div>
-                        <div class="program-subtitle">Minimum 6 months</div>
-                        <h3>Full Strength</h3>
-                        <p>Highest level of accountability, priority response, and direct access.</p>
-                        <ul class="program-features">
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Everything in Strong Foundation</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Weekly meal plan & monthly video call</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Priority response times & mindset support</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Full%20Strength&price=219&duration=Minimum%206%20months"
-                            class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Box 3: €299 Kickstart Coaching -->
-                <div class="program-card pop-reveal" style="transition-delay: 0.3s;">
-                    <div>
-                        <div class="program-price">€299 <span>/ One-Time</span></div>
-                        <div class="program-subtitle">4-Week Program</div>
-                        <h3>Kickstart Coaching</h3>
-                        <p>Test out coaching with a focused 4-week intensive intake and plan.</p>
-                        <ul class="program-features">
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> 4-week personalized plan</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Goal-setting session & weekly check-ins</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg> Clear roadmap for next steps</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <a href="checkout.html?program=Kickstart%20Coaching&price=299&duration=4-Week%20Program"
-                            class="buy-btn">
-                            Buy Now
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Premium Footer matching Quiz/Home style -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <div
-                        style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">
+                    <div style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; color: var(--ink);">
                         ANNELOES FIT COACHING</div>
                     <div
                         style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
                         Online Hyrox & Strength Coach for Women</div>
                     <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random
-                        workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite
-                        physical conditioning through calculated methodology.</p>
+                        workouts and unsustainable crash diets. Build lasting strength and conditioning through
+                        calculated methodology.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navigation</h4>
-                    <ul class="footer-links-list">
+                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Me</a></li>
-                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="coaching.html">Coaching</a></li>
+                        <li><a href="programs.html">Shop</a></li>
                         <li><a href="reviews.html">Reviews & Results</a></li>
                         <li><a href="articles.html">Blogs</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -963,35 +970,26 @@
                 <div class="footer-col">
                     <h4>Connect</h4>
                     <ul class="footer-links-list">
-                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
-                                (@anneloes.fitcoaching)</a></li>
-                        <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
-
+                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram</a></li>
+                        <li><a href="quiz.html">Starting Point Quiz</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Stay Ahead</h4>
-                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive
-                        exclusive training tips, programming breakdowns, and early intake updates.</p>
-                    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Programs Page')">
-                        <div style="position: relative;">
-                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required
-                                style="padding-right: 40px;">
-                            <span
-                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
-                        </div>
+                    <form class="newsletter-form"
+                        onsubmit="event.preventDefault(); alert('Welcome to the elite newsletter! 💛');">
+                        <input type="email" class="newsletter-input" placeholder="Your email address" required>
                         <button type="submit" class="newsletter-btn">Join Newsletter →</button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div
-                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    &copy; 2026 Anneloes Fit Coaching. All rights reserved.
-                </div>
-                <div
-                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    Engineered for absolute strength & hybrid dominance 💛
+                <div style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace;">&copy; 2026
+                    Anneloes Fit Coaching. All rights reserved.</div>
+                 <div style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy Policy</a>
+                    <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund Policy</a>
                 </div>
             </div>
         </div>
@@ -1004,12 +1002,7 @@
             menuToggle.classList.toggle('open');
             mobileMenu.classList.toggle('open');
         });
-        function closeMobile() {
-            menuToggle.classList.remove('open');
-            mobileMenu.classList.remove('open');
-        }
 
-        /* Scroll Pop-In Observer for Smooth Pop Animations */
         const observerOptions = { threshold: 0.12 };
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
@@ -1021,47 +1014,6 @@
         }, observerOptions);
 
         document.querySelectorAll('.pop-reveal').forEach(el => observer.observe(el));
-
-        // ============================================================
-        // NEWSLETTER SIGNUP -> GOOGLE SHEET
-        // Fill this in once with your own Google Apps Script Web App URL
-        // (Extensions -> Apps Script in your Google Sheet, paste the
-        // provided doPost() script, Deploy -> New deployment -> Web app,
-        // "Who has access: Anyone", then copy the deployment URL below).
-        // Use the exact same URL in articles.html, checkout.html,
-        // contact.html, gallery.html, and quiz.html.
-        // ============================================================
-        const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
-
-        function handleNewsletterSubmit(e, sourcePage) {
-            e.preventDefault();
-            const form = e.target;
-            const emailInput = form.querySelector('.newsletter-input');
-            const email = emailInput.value.trim();
-            if (!email) return;
-
-            if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
-                console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
-            } else {
-                // mode: 'no-cors' + text/plain avoids a CORS preflight that
-                // Apps Script web apps don't handle; the request still goes
-                // through, we just can't read the response back.
-                fetch(GOOGLE_SHEET_WEBAPP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        email: email,
-                        source: sourcePage,
-                        timestamp: new Date().toISOString()
-                    })
-                }).catch(err => console.error('Newsletter signup failed to save:', err));
-            }
-
-            alert('Welcome to the elite newsletter! 💛');
-            form.reset();
-        }
-
     </script>
 </body>
 

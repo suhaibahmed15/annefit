@@ -2,9 +2,78 @@
 <html lang="en">
 
 <head>
+    <script>
+        // URL se UTM parameters extract karne ka function
+        function captureUTMParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+            let hasUTM = false;
+            let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+            utmKeys.forEach(key => {
+                if (urlParams.has(key)) {
+                    storedUTMs[key] = urlParams.get(key);
+                    hasUTM = true;
+                }
+            });
+
+            if (hasUTM) {
+                sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+            }
+        }
+        captureUTMParams();
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KVNHG8WR');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
+    <script>
+        function loadMetaPixel() {
+            if (window.fbq) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1435156600129884');
+            fbq('track', 'PageView');
+        }
+
+        if (localStorage.getItem('cookie_consent') === 'true') {
+            loadMetaPixel();
+        }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find My Starting Point | Quiz | Anneloes Fit Coaching</title>
+
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
+    <meta name="msapplication-TileColor" content="#B8860B">
+    <meta name="theme-color" content="#B8860B">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -27,7 +96,7 @@
             --gold-dim: rgba(212, 158, 31, .1);
             --sage: #9fb68b;
             --sage-dark: #889e74;
-            --max: 800px;
+            --max: 680px;
             --glow-flare: rgba(230, 55, 18, .15);
             --glow-gold: rgba(212, 158, 31, .15);
             --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
@@ -91,7 +160,7 @@
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 24px;
             position: relative;
         }
 
@@ -122,7 +191,7 @@
             background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
         }
 
-        /* Header / Navbar Matching Index */
+        /* Header / Navbar (Index Exact Style) */
         header.site {
             position: sticky;
             top: 0;
@@ -144,11 +213,17 @@
         .nav-inner {
             max-width: 1180px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 96px;
+            height: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-inner {
+                height: 96px;
+            }
         }
 
         .logo-mark {
@@ -158,11 +233,17 @@
         }
 
         .logo-mark img {
-            height: 52px;
+            height: 42px;
             width: auto;
             display: block;
             filter: drop-shadow(0 0 10px rgba(212, 158, 31, .15));
             transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 768px) {
+            .logo-mark img {
+                height: 52px;
+            }
         }
 
         .logo-mark:hover img {
@@ -210,11 +291,11 @@
             align-items: center;
             gap: 10px;
             font-family: 'Poppins', sans-serif;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .05em;
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 50px;
             border: 1px solid var(--line);
             cursor: pointer;
@@ -287,7 +368,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 40px;
+            padding: 0 32px;
             visibility: hidden;
             opacity: 0;
             transform: translateY(-24px);
@@ -303,7 +384,7 @@
 
         .mobile-menu a {
             font-family: 'Anton', sans-serif;
-            font-size: 12vw;
+            font-size: 10vw;
             color: var(--ink);
             text-transform: uppercase;
             line-height: 1.05;
@@ -324,32 +405,41 @@
 
         /* Quiz Section */
         section {
-            padding: 100px 0;
+            padding: 60px 0;
         }
 
         .quiz-hero-text {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
 
         .quiz-hero-text h1 {
-            font-size: clamp(38px, 6vw, 56px);
-            margin-bottom: 14px;
+            font-size: clamp(32px, 5vw, 44px);
+            margin-bottom: 10px;
         }
 
         .quiz-hero-text p {
-            font-size: 18px;
+            font-size: 15px;
             color: var(--steel);
         }
 
+        /* Compact & fully responsive quiz box */
         .quiz-box {
             background: var(--surface);
             border: 1px solid var(--line);
-            border-radius: 24px;
-            padding: 50px;
+            border-radius: 20px;
+            padding: 32px 28px;
             box-shadow: var(--shadow-soft);
             position: relative;
             z-index: 1;
+            width: 100%;
+        }
+
+        @media (max-width: 480px) {
+            .quiz-box {
+                padding: 24px 18px;
+                border-radius: 16px;
+            }
         }
 
         /* States */
@@ -379,33 +469,33 @@
         }
 
         .quiz-progress {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--steel);
             text-transform: uppercase;
             letter-spacing: .1em;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-weight: 600;
         }
 
         .quiz-question-title {
-            font-size: clamp(24px, 3.5vw, 32px);
-            margin-bottom: 30px;
+            font-size: clamp(20px, 3vw, 26px);
+            margin-bottom: 22px;
         }
 
         .options-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .option-btn {
             background: var(--bone);
             border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 18px 24px;
+            border-radius: 12px;
+            padding: 14px 18px;
             font-family: 'Poppins', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 400;
             color: var(--ink);
             text-align: left;
@@ -429,13 +519,13 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 6px;
+            margin-bottom: 16px;
             text-align: left;
         }
 
         .form-group label {
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: .06em;
             color: var(--ink);
@@ -445,11 +535,11 @@
         .form-group input {
             background: var(--bone);
             border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 14px 18px;
+            border-radius: 10px;
+            padding: 12px 16px;
             color: var(--ink);
             font-family: 'Poppins', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             width: 100%;
         }
 
@@ -460,15 +550,15 @@
 
         /* Results Display */
         .result-screen h2 {
-            font-size: clamp(32px, 5vw, 42px);
-            margin-bottom: 20px;
+            font-size: clamp(26px, 4vw, 36px);
+            margin-bottom: 16px;
         }
 
         .result-screen p {
             color: var(--steel);
-            font-size: 17px;
-            line-height: 1.7;
-            margin-bottom: 35px;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 28px;
         }
 
         /* Premium Footer Styling */
@@ -476,20 +566,21 @@
             background: var(--surface);
             color: var(--ink);
             border-top: 1px solid var(--line);
-            padding: 80px 0 50px;
+            padding: 60px 0 30px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 30px;
+                margin-bottom: 50px;
             }
         }
 
@@ -519,7 +610,6 @@
             color: var(--gold);
         }
 
-        /* Newsletter Input Styles */
         .newsletter-form {
             display: flex;
             flex-direction: column;
@@ -556,6 +646,7 @@
             letter-spacing: .08em;
             cursor: pointer;
             transition: transform .2s ease, box-shadow .2s ease;
+            width: 100%;
         }
 
         .newsletter-btn:hover {
@@ -570,33 +661,15 @@
             flex-wrap: wrap;
             gap: 20px;
             border-top: 1px solid var(--line);
-            padding-top: 30px;
+            padding-top: 24px;
         }
     </style>
 
-    <!-- EmailJS: sends an email notification whenever this page's form is
-         submitted, without needing a backend server. -->
-    <!-- Supabase: shared database so quiz submissions from any device show
-         up in the admin panel on any other device. -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="supabase-config.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        // ============================================================
-        // EMAIL NOTIFICATION SETUP — fill these in once with your own
-        // free EmailJS account (emailjs.com):
-        //   1. Sign up, then "Email Services" -> connect Gmail/Outlook/etc
-        //      -> copy the Service ID.
-        //   2. "Email Templates" -> create a template (the "To Email"
-        //      field in the template should be YOUR inbox, e.g.
-        //      anneloes@yourdomain.com) -> copy the Template ID.
-        //      Use variables like {{form_type}}, {{name}}, {{email}},
-        //      {{phone}}, {{message}}, {{extra}} in the template body.
-        //   3. "Account" -> "General" -> copy the Public Key.
-        // Paste the three values below. Use the exact same three values
-        // in contact.html, quiz.html, and checkout.html.
-        // ============================================================
         const EMAILJS_PUBLIC_KEY = 'G2ow6aT057vwlnp0M';
         const EMAILJS_SERVICE_ID = 'service_a5e9tmx';
         const EMAILJS_TEMPLATE_ID = 'template_847lr9o';
@@ -605,8 +678,6 @@
             emailjs.init(EMAILJS_PUBLIC_KEY);
         }
 
-        // Sends the notification email; fails silently (logged to console
-        // only) so a missing/invalid EmailJS setup never blocks the form.
         function sendAdminEmailNotification(params) {
             if (!window.emailjs || EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
                 console.warn('EmailJS is not configured yet — skipping email notification.', params);
@@ -623,21 +694,22 @@
 
     <!-- Header / Navbar matching index.html style -->
     <header class="site">
-        <div class="wrap nav-inner" style="max-width: 1180px; margin: 0 auto;">
+        <div class="wrap nav-inner">
             <a href="index.html" class="logo-mark">
                 <img src="assets/Brandlogo/logo.png" alt="Anneloes Fit Coaching Logo">
             </a>
             <nav class="links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Me</a>
-                <a href="programs.html">All Programs</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="programs.html">Shop</a>
                 <a href="reviews.html">Reviews & Results</a>
                 <a href="articles.html">Latest Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
                 <a href="contact.html#rightContactCol" class="btn btn-gold"
-                    style="padding:10px 20px; font-size:11.5px;">Book Now</a>
+                    style="padding:09px 16px; font-size:11px;">Book Now</a>
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -651,14 +723,15 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
         <a href="./about.html" onclick="closeMobile()">About Us</a>
-        <a href="./programs.html" onclick="closeMobile()">Programs</a>
+        <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
+        <a href="./programs.html" onclick="closeMobile()">Shop</a>
         <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
         <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
 
     <!-- Quiz Hero Text -->
-    <div class="wrap" style="padding-top: 60px;">
+    <div class="wrap" style="padding-top: 40px;">
         <div class="quiz-hero-text">
             <h1>Find your starting point</h1>
             <p>5 questions. Honest answers. I'll tell you exactly where to begin. 💛</p>
@@ -682,8 +755,8 @@
                 <!-- STEP 2: Contact Details Collection -->
                 <div class="info-form-screen" id="infoFormScreen">
                     <div class="quiz-progress">Almost There</div>
-                    <h2 style="font-size: 32px; margin-bottom: 12px;">Where should I send your results?</h2>
-                    <p style="color: var(--steel); margin-bottom: 30px; font-size: 16px;">Enter your details below to
+                    <h2 style="font-size: 26px; margin-bottom: 10px;">Where should I send your results?</h2>
+                    <p style="color: var(--steel); margin-bottom: 24px; font-size: 14.5px;">Enter your details below to
                         unlock your custom coaching recommendation.</p>
 
                     <form id="userMetaForm" onsubmit="handleMetaSubmit(event)">
@@ -699,7 +772,7 @@
                             <label for="instaHandle">Instagram handle</label>
                             <input type="text" id="instaHandle" placeholder="So I can personally follow up 💛">
                         </div>
-                        <div style="margin-top: 30px;">
+                        <div style="margin-top: 24px;">
                             <button type="submit" class="btn btn-sage" style="width: 100%; justify-content: center;">See
                                 My Results →</button>
                         </div>
@@ -709,7 +782,7 @@
                 <!-- STEP 3: Results Display -->
                 <div class="result-screen" id="resultScreen">
                     <div
-                        style="font-size: 13px; color: var(--sage-dark); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px;">
+                        style="font-size: 12px; color: var(--sage-dark); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px;">
                         Your Personalized Match</div>
                     <h2 id="resultHeading">Results Heading</h2>
                     <p id="resultText">Results explanation text goes here...</p>
@@ -740,7 +813,8 @@
                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Me</a></li>
-                        <li><a href="programs.html">All Programs</a></li>
+                        <li><a href="coaching.html">Coaching</a></li>
+                        <li><a href="programs.html">Shop</a></li>
                         <li><a href="reviews.html">Reviews & Results</a></li>
                         <li><a href="articles.html">Blogs</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -752,7 +826,6 @@
                         <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
                                 (@anneloes.fitcoaching)</a></li>
                         <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
-                        <!-- <li><a href="admin.html">Admin Portal</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -776,8 +849,12 @@
                     &copy; 2026 Anneloes Fit Coaching. All rights reserved.
                 </div>
                 <div
-                    style="font-size:12px; color:var(--gold); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    Engineered for absolute strength & hybrid dominance 💛
+                    style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy
+                        Policy</a>
+                    <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund
+                        Policy</a>
                 </div>
             </div>
         </div>
@@ -966,18 +1043,8 @@
             saveQuizLead(headingEl.innerText);
         }
 
-        // Initialize quiz
         loadQuestion();
 
-        // ============================================================
-        // NEWSLETTER SIGNUP -> GOOGLE SHEET
-        // Fill this in once with your own Google Apps Script Web App URL
-        // (Extensions -> Apps Script in your Google Sheet, paste the
-        // provided doPost() script, Deploy -> New deployment -> Web app,
-        // "Who has access: Anyone", then copy the deployment URL below).
-        // Use the exact same URL in articles.html, checkout.html,
-        // contact.html, gallery.html, and quiz.html.
-        // ============================================================
         const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
 
         function handleNewsletterSubmit(e, sourcePage) {
@@ -990,9 +1057,6 @@
             if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
                 console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
             } else {
-                // mode: 'no-cors' + text/plain avoids a CORS preflight that
-                // Apps Script web apps don't handle; the request still goes
-                // through, we just can't read the response back.
                 fetch(GOOGLE_SHEET_WEBAPP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -1008,7 +1072,6 @@
             alert('Welcome to the elite newsletter! 💛');
             form.reset();
         }
-
     </script>
 </body>
 
