@@ -2,28 +2,51 @@
 <html lang="en">
 
 <head>
-
-<script>
-    // URL se UTM parameters extract karne ka function
-    function captureUTMParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-        let hasUTM = false;
-        let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
-
-        utmKeys.forEach(key => {
-            if (urlParams.has(key)) {
-                storedUTMs[key] = urlParams.get(key);
-                hasUTM = true;
-            }
-        });
-
-        if (hasUTM) {
-            sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
-        }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Sync Your Strength Training with Your Menstrual Cycle",
+  "description": "Discover how adapting your workouts to your cycle phases can boost your energy, strength gains, and recovery.",
+  "image": "https://yourwebsite.com/images/article-banner.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Coach Anne",
+    "url": "https://yourwebsite.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Anneloes Fit Coaching",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yourwebsite.com/images/logo.png"
     }
-    captureUTMParams();
+  },
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-06"
+}
 </script>
+    <script>
+        // URL se UTM parameters extract karne ka function
+        function captureUTMParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+            let hasUTM = false;
+            let storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+            utmKeys.forEach(key => {
+                if (urlParams.has(key)) {
+                    storedUTMs[key] = urlParams.get(key);
+                    hasUTM = true;
+                }
+            });
+
+            if (hasUTM) {
+                sessionStorage.setItem('initial_utm_params', JSON.stringify(storedUTMs));
+            }
+        }
+        captureUTMParams();
+    </script>
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -43,7 +66,7 @@
             !function (f, b, e, v, n, t, s) {
                 if (f.fbq) return; n = f.fbq = function () {
                     n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
                 };
                 if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
                 n.queue = []; t = b.createElement(e); t.async = !0;
@@ -63,14 +86,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Articles | Anneloes Fit Coaching</title>
-    <meta name="description" content="TODO(Anneloes): final meta description for the articles/blog index.">
-     <!-- Twitter/X Card Tags -->
+    <meta name="description" content="Explore expert tips on women's strength training, Hyrox race strategies, cycle syncing, and nourishing real food recipes to support your fitness journey.">
+    <!-- Twitter/X Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
     <meta name="twitter:description"
         content="Quit random workouts and unsustainable crash diets. Build lasting strength and elite physical conditioning through calculated methodology.">
     <meta name="twitter:image" content="https://annefit.vercel.app/assets/Brandlogo/logo.png">
-    
+
     <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
@@ -79,8 +102,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="assets/favicon/site.webmanifest">
     <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
-    <meta name="msapplication-TileColor" content="#B8860B">
-    <meta name="theme-color" content="#B8860B">
+    <meta name="msapplication-TileColor" content="#E06D53">
+    <meta name="theme-color" content="#E06D53">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -89,6 +112,7 @@
         rel="stylesheet">
     <style>
         :root {
+            /* Brand Book Alignment: Terracotta and Peach on Off-White */
             --bone: #f7f6f0;
             --chalk: #181816;
             --ink: #181816;
@@ -99,12 +123,12 @@
             --flare: #e63712;
             --flare-dim: rgba(230, 55, 18, .08);
             --flare-ink: #c22a0b;
-            --gold: #d49e1f;
-            --gold-light: #b07d0f;
-            --gold-dim: rgba(212, 158, 31, .1);
+            --gold: #E06D53;
+            --gold-light: #C85A41;
+            --gold-dim: rgba(224, 109, 83, .1);
             --max: 1180px;
             --glow-flare: rgba(230, 55, 18, .15);
-            --glow-gold: rgba(212, 158, 31, .15);
+            --glow-gold: rgba(224, 109, 83, .15);
             --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
             --shadow-lift: 0 20px 40px -10px rgba(230, 55, 18, .15);
         }
@@ -234,7 +258,7 @@
             height: 52px;
             width: auto;
             display: block;
-            filter: drop-shadow(0 0 10px rgba(212, 158, 31, .15));
+            filter: drop-shadow(0 0 10px rgba(224, 109, 83, .15));
             transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -297,7 +321,7 @@
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            background: linear-gradient(135deg, var(--gold), #C85A41);
             color: #ffffff;
             border-color: var(--gold);
         }
@@ -352,13 +376,19 @@
 
         .mobile-menu a {
             font-family: 'Anton', sans-serif;
-            font-size: 12vw;
+            font-size: 10vw;
             color: var(--ink);
             text-transform: uppercase;
             line-height: 1.05;
             display: block;
             padding: 6px 0;
             border-bottom: 1px solid var(--line);
+            transition: color .3s ease, padding-left .3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--flare);
+            padding-left: 15px;
         }
 
         @media (max-width: 900px) {
@@ -475,7 +505,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            background: linear-gradient(135deg, var(--gold), #C85A41);
             color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
@@ -561,110 +591,15 @@
             object-fit: cover;
         }
 
-        .comments-section {
-            margin-top: 80px;
-            border-top: 1px solid var(--line);
-            padding-top: 60px;
-        }
-
-        .comments-section h3 {
-            font-size: 28px;
-            color: var(--ink);
-            margin-bottom: 30px;
-        }
-
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 40px;
-            background: var(--surface-card);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .form-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .comment-form input,
-        .comment-form textarea {
+        .medical-disclaimer {
             background: var(--bone);
             border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 14px 18px;
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            transition: border-color .2s ease;
-            width: 100%;
-        }
-
-        .comment-form input:focus,
-        .comment-form textarea:focus {
-            border-color: var(--gold);
-            outline: none;
-        }
-
-        .comment-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .comment-item {
-            background: var(--surface-card);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-soft);
-            animation: fadeIn .4s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .comment-author {
-            font-weight: 700;
-            color: var(--ink);
-            font-size: 15px;
-        }
-
-        .comment-date {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
+            border-left: 3px solid var(--gold);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            font-size: 13.5px;
             color: var(--steel);
-        }
-
-        .comment-text {
-            color: var(--steel);
-            font-size: 14.5px;
+            margin-top: 40px;
             line-height: 1.6;
         }
 
@@ -677,8 +612,8 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
             margin-bottom: 50px;
         }
 
@@ -739,23 +674,21 @@
         }
 
         .newsletter-btn {
-            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            background: var(--gold);
             color: #ffffff;
             border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
+            border-radius: 8px;
+            padding: 10px 16px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 11.5px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .08em;
             cursor: pointer;
-            transition: transform .2s ease, box-shadow .2s ease;
+            transition: background 0.2s ease;
         }
 
         .newsletter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+            background: var(--gold-light);
         }
 
         .footer-bottom {
@@ -772,14 +705,18 @@
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVNHG8WR"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVNHG8WR" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- GDPR Cookie Consent Banner -->
-    <div id="cookieBanner" style="position:fixed; bottom:0; left:0; width:100%; background:#181816; color:#fff; padding:15px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; border-top:2px solid var(--gold);">
-        <p style="font-size:13px; margin:0;">We use cookies to enhance your experience and analyze traffic. <a href="privacy-policy.html" style="color:#d49e1f; text-decoration:underline;">Privacy Policy</a></p>
-        <button onclick="acceptCookies()" style="background:#d49e1f; border:none; padding:8px 20px; color:#fff; font-weight:700; cursor:pointer; border-radius:50px; font-size:12px; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">Accept Cookies</button>
+    <div id="cookieBanner"
+        style="position:fixed; bottom:0; left:0; width:100%; background:#181816; color:#fff; padding:15px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; border-top:2px solid var(--gold);">
+        <p style="font-size:13px; margin:0;">We use cookies to enhance your experience and analyze traffic. <a
+                href="privacy-policy.html" style="color:var(--gold); text-decoration:underline;">Privacy Policy</a></p>
+        <button onclick="acceptCookies()"
+            style="background:var(--gold); border:none; padding:8px 20px; color:#fff; font-weight:700; cursor:pointer; border-radius:50px; font-size:12px; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">Accept
+            Cookies</button>
     </div>
 
     <script>
@@ -803,11 +740,11 @@
             </a>
             <nav class="links">
                 <a href="index.html">Home</a>
-                <a href="about.html">About Me</a>
+                <a href="about.html">About</a>
                 <a href="coaching.html">Coaching</a>
                 <a href="programs.html">Shop</a>
-                <a href="reviews.html">Reviews & Results</a>
-                <a href="articles.html" style="opacity: 1; color: var(--gold);">Latest Articles</a>
+                <a href="reviews.html">Reviews</a>
+                <a href="articles.html" style="opacity: 1; color: var(--gold);">Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
@@ -824,11 +761,11 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
-        <a href="./about.html" onclick="closeMobile()">About Us</a>
+        <a href="./about.html" onclick="closeMobile()">About</a>
         <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
-        <a href="./programs.html" onclick="closeMobile()">Shops</a>
-        <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
-        <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
+        <a href="./programs.html" onclick="closeMobile()">Shop</a>
+        <a href="./reviews.html" onclick="closeMobile()">Reviews</a>
+        <a href="./articles.html" onclick="closeMobile()">Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
 
@@ -843,7 +780,7 @@
         <section style="background: var(--bone);">
             <div class="wrap">
                 <div class="blog-grid" id="blogGrid">
-                    <div class="blog-card" onclick="openBlog('gym-coaching-tips')">
+                    <div class="blog-card" onclick="openBlog('program-change')">
                         <div>
                             <div class="blog-date-badge">
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
@@ -853,11 +790,11 @@
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
                                     <line x1="3" y1="10" x2="21" y2="10"></line>
                                 </svg>
-                                July 1, 2025
+                                February 12, 2026
                             </div>
-                            <h3>Gym Coaching Tips For Your Workout</h3>
-                            <p>Proper guidance and consistent structure turn vague fitness goals into reliable progress.
-                                Learn how purposeful adjustments safeguard your joints and elevate performance.</p>
+                            <h3>Why your training program should not change every week</h3>
+                            <p>If you change your routine every session, your body never adapts or masters movement
+                                patterns. Learn why consistent progressive overload is the real key to progress.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -867,7 +804,7 @@
                         </button>
                     </div>
 
-                    <div class="blog-card" onclick="openBlog('best-gym-routines')">
+                    <div class="blog-card" onclick="openBlog('training-with-cycle')">
                         <div>
                             <div class="blog-date-badge">
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
@@ -877,11 +814,11 @@
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
                                     <line x1="3" y1="10" x2="21" y2="10"></line>
                                 </svg>
-                                July 1, 2025
+                                February 28, 2026
                             </div>
-                            <h3>Best Gym Routines For Total Body Fitness</h3>
-                            <p>Discover how balanced training architectures combine compound multi-joint movements and
-                                active recovery to build absolute systemic strength.</p>
+                            <h3>Training with your cycle: what to do in each of the four phases</h3>
+                            <p>Your energy fluctuates across your cycle, and your training should adapt accordingly.
+                                Discover how to optimize performance across all four phases.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -891,7 +828,7 @@
                         </button>
                     </div>
 
-                    <div class="blog-card" onclick="openBlog('gym-fitness-plans')">
+                    <div class="blog-card" onclick="openBlog('protein-intake')">
                         <div>
                             <div class="blog-date-badge">
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
@@ -901,11 +838,11 @@
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
                                     <line x1="3" y1="10" x2="21" y2="10"></line>
                                 </svg>
-                                July 1, 2025
+                                April 14, 2026
                             </div>
-                            <h3>Gym Fitness Plans That Show Results</h3>
-                            <p>Cut through the noise of random workouts with calculated progressive loading phases
-                                engineered for verifiable body composition changes.</p>
+                            <h3>How much protein you actually need if you lift and work full-time</h3>
+                            <p>Balancing a demanding career with strength training requires realistic nutrition
+                                strategies. Here is how to hit your targets without living in the kitchen.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -915,7 +852,7 @@
                         </button>
                     </div>
 
-                    <div class="blog-card" onclick="openBlog('simple-gym-exercises')">
+                    <div class="blog-card" onclick="openBlog('first-hyrox')">
                         <div>
                             <div class="blog-date-badge">
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
@@ -925,11 +862,59 @@
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
                                     <line x1="3" y1="10" x2="21" y2="10"></line>
                                 </svg>
-                                July 1, 2025
+                                April 26, 2026
                             </div>
-                            <h3>Simple Gym Exercises That Burn Fat Fast</h3>
-                            <p>Master foundational movement patterns that maximize metabolic output, elevate
-                                post-exercise calorie burn, and accelerate lean tissue retention.</p>
+                            <h3>Your first Hyrox: what to train, and in what order</h3>
+                            <p>Preparing for your first hybrid fitness race can feel overwhelming. Break down the
+                                running intervals, functional stations, and pacing strategy for success.</p>
+                        </div>
+                        <button class="read-more-btn">
+                            Keep Reading
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="blog-card" onclick="openBlog('strength-after-35')">
+                        <div>
+                            <div class="blog-date-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                June 10, 2026
+                            </div>
+                            <h3>Strength training after 35: what changes and what does not</h3>
+                            <p>Navigating perimenopause and training shifts doesn't mean abandoning your strength goals.
+                                Learn what physiological changes actually matter and how to adjust.</p>
+                        </div>
+                        <button class="read-more-btn">
+                            Keep Reading
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="blog-card" onclick="openBlog('scale-stopped')">
+                        <div>
+                            <div class="blog-date-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                July 15, 2026
+                            </div>
+                            <h3>Why the scale stopped moving while you got stronger</h3>
+                            <p>Body recomposition is real, but the bathroom scale often tells a confusing story. Here is
+                                why getting stronger changes your physique long before the weight drops.</p>
                         </div>
                         <button class="read-more-btn">
                             Keep Reading
@@ -955,7 +940,7 @@
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
-                    July 1, 2025
+                    February 12, 2026
                 </div>
                 <h2 class="reader-title" id="readerTitle"></h2>
             </div>
@@ -964,82 +949,129 @@
         <section style="background: var(--bone);">
             <div class="reader-container">
                 <div class="reader-content" id="readerBody"></div>
-
-                <div class="comments-section">
-                    <h3 id="commentCountHeader">Discussion & Comments (0)</h3>
-
-                    <form class="comment-form" id="commentForm" onsubmit="handleCommentSubmit(event)">
-                        <div class="eyebrow">Leave Your Comment</div>
-                        <div class="form-grid-2">
-                            <input type="text" id="commentAuthorInput" placeholder="Your Name*" required>
-                            <input type="email" id="commentEmailInput" placeholder="Your Email*" required>
-                        </div>
-                        <textarea id="commentTextInput" rows="4" placeholder="Write your comment here...*"
-                            required></textarea>
-                        <button type="submit" class="read-more-btn" style="align-self: flex-start;">Post
-                            Comment</button>
-                    </form>
-
-                    <div class="comment-list" id="commentListContainer"></div>
-                </div>
             </div>
         </section>
     </div>
 
+    <!-- Dedicated Newsletter Section (Smaller & Clean) -->
+    <section class="newsletter-section"
+        style="background: var(--surface); padding: 70px 0; border-top: 1px solid var(--line);">
+        <div class="wrap">
+            <div style="max-width: 520px; margin: 0 auto; text-align: center;" class="reveal in">
+                <div class="eyebrow" style="justify-content: center;">Stay Ahead</div>
+                <h2 style="font-size: clamp(28px, 3.5vw, 40px); margin-bottom: 12px; color: var(--ink);">Join The
+                    Newsletter</h2>
+                <p style="color: var(--steel); font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+                    One email most weeks: what I am programming, what is working, and when spots open up.
+                </p>
+
+                <!-- Newsletter Form Connected to Google Sheets Web App Endpoint -->
+                <form id="newsletterForm"
+                    style="background: var(--bone); border: 1px solid var(--line); border-radius: 16px; padding: 30px 24px; box-shadow: var(--shadow-soft); text-align: left;">
+
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+                        <!-- First Name Field -->
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <label for="newsletterFirstName"
+                                style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">First
+                                Name</label>
+                            <input type="text" name="firstName" id="newsletterFirstName" placeholder="e.g. Emma"
+                                style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; width: 100%;">
+                        </div>
+
+                        <!-- Email Address Field -->
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <label for="newsletterEmail"
+                                style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">Email
+                                Address*</label>
+                            <input type="email" name="email" id="newsletterEmail" placeholder="e.g. emma@example.com" required
+                                style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; width: 100%;">
+                        </div>
+
+                        <!-- GDPR / Consent Checkbox -->
+                        <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 2px;">
+                            <input type="checkbox" id="newsletterConsentCheck" required
+                                style="margin-top: 3px; accent-color: var(--gold); width: 16px; height: 16px; cursor: pointer;">
+                            <label for="newsletterConsentCheck"
+                                style="font-size: 12px; color: var(--steel); line-height: 1.4; text-transform: none; font-weight: 400; cursor: pointer;">
+                                I agree to receive updates and occasional marketing emails. I can unsubscribe at any
+                                time.
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div style="text-align: center; margin-top: 6px;">
+                            <button type="submit" id="newsletterSubmitBtn" class="btn btn-gold"
+                                style="width: 100%; justify-content: center; padding: 14px 24px; font-size: 12px;">
+                                Join Newsletter →
+                            </button>
+                        </div>
+                        
+                        <!-- Success Feedback Message Container -->
+                        <div id="newsletterMessage" style="display: none; text-align: center; font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 4px;"></div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Newsletter column removed & formatted properly into 3 columns) -->
     <footer class="site-footer">
         <div class="wrap">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <div style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">ANNELOES FIT COACHING</div>
-                    <div style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">Online Hyrox & Strength Coach for Women</div>
-                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite physical conditioning through calculated methodology.</p>
+                    <div
+                        style="font-family:'Fraunces', serif; font-size:24px; margin-bottom:12px; letter-spacing:.04em; color: var(--ink);">
+                        ANNELOES FIT COACHING</div>
+                    <div
+                        style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
+                        Online Hyrox & Strength Coach for Women</div>
+                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">I coach mostly women, but also men, who train hard and want it to finally show. Structured strength, real food, and programming that works with your cycle..</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navigation</h4>
                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="coaching.html">Coaching</a></li>
                         <li><a href="programs.html">Shop</a></li>
-                        <li><a href="reviews.html">Reviews & Results</a></li>
-                        <li><a href="articles.html">Blogs</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                        <li><a href="articles.html">Articles</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Connect</h4>
                     <ul class="footer-links-list">
-                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram (@anneloes.fitcoaching)</a></li>
+                        <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
+                                (@anneloes.fitcoaching)</a></li>
+                        <li><a href="https://tiktok.com/@anneloes.fitcoaching" target="_blank">TikTok
+                                (@anneloes.fitcoaching)</a></li>
                         <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4>Stay Ahead</h4>
-                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive exclusive training tips, programming breakdowns, and early intake updates.</p>
-                    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Articles Page')">
-                        <div style="position: relative;">
-                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required style="padding-right: 40px;">
-                            <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
-                        </div>
-                        <button type="submit" class="newsletter-btn">Join Newsletter →</button>
-                    </form>
-                </div>
             </div>
             <div class="footer-bottom">
-                <div style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                <div
+                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
                     &copy; 2026 Anneloes Fit Coaching. All rights reserved.
                 </div>
-                 <div style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
-                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy Policy</a>
+                <div
+                    style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy
+                        Policy</a>
                     <a href="terms.html" style="color:var(--steel); text-decoration:underline;">Terms</a>
-                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund Policy</a>
+                    <a href="refund-policy.html" style="color:var(--steel); text-decoration:underline;">Refund
+                        Policy</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-       const menuToggle = document.getElementById('menuToggle');
+        const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('open');
@@ -1050,72 +1082,95 @@
             mobileMenu.classList.remove('open');
         }
 
+        const medicalDisclaimerHTML = `
+            <div class="medical-disclaimer">
+                <strong>Medical Disclaimer:</strong> This is general fitness information, not medical advice. Consult your doctor for diagnosis or treatment of hormonal symptoms.
+            </div>
+        `;
+
         const blogDatabase = {
-            "gym-coaching-tips": {
-                title: "Gym Coaching Tips For Your Workout",
-                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
+            "program-change": {
+                title: "Why your training program should not change every week",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> February 12, 2026`,
                 body: `
-                    <p>Proper guidance and consistent structure turn vague fitness goals into reliable progress. Learn how purposeful adjustments safeguard your joints and elevate performance.</p>
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80" alt="Gym Coaching Tips" class="article-inline-img">
-                    <h4>1. Prioritize Form Over Ego Weight</h4>
-                    <p>Lifting heavier with compromised form defeats the purpose of structural adaptation. Focus on executing every single rep with a controlled eccentric phase and full range of motion.</p>
-                    <h4>2. Track Your Metrics Religiously</h4>
-                    <p>What gets measured gets managed. Keep a detailed log of your weights, sets, and perceived exertion levels so you always know how to apply progressive overload safely.</p>
-                    <h4>3. Optimize Rest Periods</h4>
-                    <p>Resting too little compromises your strength output for subsequent sets. Give your central nervous system adequate recovery time between heavy compound working sets.</p>
-                `,
-                comments: []
+                    <p>If you change your routine every session, your body never adapts or masters movement patterns. True progress requires structured mesocycles and consistent progressive overload.</p>
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80" alt="Training Program Consistency" class="article-inline-img">
+                    <h4>The Illusion of Muscle Confusion</h4>
+                    <p>Many commercial fitness plans push the idea of constantly confusing your muscles with brand new exercises. In reality, your nervous system thrives on familiarity. To get stronger, you need to repeat movement patterns so your body can recruit muscle fibers efficiently.</p>
+                    <h4>The Power of Progressive Overload</h4>
+                    <p>When you stick with a movement block for 4 to 8 weeks, you can accurately track your weights, reps, and technical execution. That is how you guarantee progress rather than just sweating.</p>
+                `
             },
-            "best-gym-routines": {
-                title: "Best Gym Routines For Total Body Fitness",
-                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
+            "training-with-cycle": {
+                title: "Training with your cycle: what to do in each of the four phases",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> February 28, 2026`,
                 body: `
-                    <p>Discover how balanced training architectures combine compound multi-joint movements and active recovery to build absolute systemic strength.</p>
-                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80" alt="Total Body Fitness" class="article-inline-img">
-                    <h4>The Foundation of Balanced Splits</h4>
-                    <p>A well-structured routine prevents muscular imbalances and burnout. Alternating between upper and lower body mechanics or utilizing a push-pull-legs framework ensures optimal recovery windows.</p>
-                    <h4>Compound Movements First</h4>
-                    <p>Always anchor your routines around high-yield compound exercises like squats, deadlifts, overhead presses, and rows before moving on to targeted isolation work.</p>
-                `,
-                comments: []
+                    <p>Your energy fluctuates across your cycle, and your training should not pretend otherwise. Working with your hormonal shifts rather than fighting them leads to sustainable strength gains.</p>
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80" alt="Cycle Syncing Workouts" class="article-inline-img">
+                    <h4>The Follicular and Ovulatory Phases</h4>
+                    <p>During the first half of your cycle, estrogen rises, boosting energy, pain tolerance, and muscle-building capacity. This is your prime window for heavy compound lifts and personal bests.</p>
+                    <h4>The Luteal and Menstrual Phases</h4>
+                    <p>As progesterone rises and falls, recovery times can stretch and core body temperature increases. Shift toward moderate loads, technique refinement, and listening closely to your body's recovery needs.</p>
+                    ${medicalDisclaimerHTML}
+                `
             },
-            "gym-fitness-plans": {
-                title: "Gym Fitness Plans That Show Results",
-                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
+            "protein-intake": {
+                title: "How much protein you actually need if you lift and work full-time",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> April 14, 2026`,
                 body: `
-                    <p>Cut through the noise of random workouts with calculated progressive loading phases engineered for verifiable body composition changes.</p>
-                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=1200&q=80" alt="Gym Fitness Plans" class="article-inline-img">
-                    <h4>Why Random Workouts Fail</h4>
-                    <p>If you change your routine every single session, your body never adapts or masters the movement pattern. True progress requires structured mesocycles lasting 4 to 8 weeks.</p>
-                    <h4>Aligning Nutrition with Training Blocks</h4>
-                    <p>A great fitness plan collapses without proper fuel. Tailor your caloric intake and macronutrient splits to match your current training phase—whether it's hypertrophy or metabolic conditioning.</p>
-                `,
-                comments: []
+                    <p>Balancing a demanding career with strength training requires realistic nutrition strategies. Hitting your protein targets doesn't require living in the kitchen.</p>
+                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=1200&q=80" alt="Protein Intake for Women" class="article-inline-img">
+                    <h4>Why Protein Matters for Strength</h4>
+                    <p>When you lift weights, you create micro-tears in your muscle fibers. Adequate protein intake supplies the essential amino acids required to repair, rebuild, and strengthen those tissues.</p>
+                    <h4>Practical Targets for Busy Schedules</h4>
+                    <p>Aim for a consistent daily baseline structured around lean protein sources, easy meal prep staples, and sensible supplementation when your work schedule gets hectic.</p>
+                `
             },
-            "simple-gym-exercises": {
-                title: "Simple Gym Exercises That Burn Fat Fast",
-                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 1, 2025`,
+            "first-hyrox": {
+                title: "Your first Hyrox: what to train, and in what order",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> April 26, 2026`,
                 body: `
-                    <p>Master foundational movement patterns that maximize metabolic output, elevate post-exercise calorie burn, and accelerate lean tissue retention.</p>
-                    <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1200&q=80" alt="Simple Gym Exercises" class="article-inline-img">
-                    <h4>The Power of Functional Movements</h4>
-                    <p>Complex isolation machines burn fewer calories than multi-joint foundational movements. Incorporating exercises like kettlebell swings, sled pushes, and lunges triggers a massive metabolic response.</p>
-                    <h4>Consistency Trumps Intensity Peaks</h4>
-                    <p>You don't need to destroy yourself in every workout; you need sustainable energy expenditure sustained over consistent weeks and months.</p>
-                `,
-                comments: []
+                    <p>Preparing for your first hybrid fitness race requires balancing running endurance with high-output functional strength stations under fatigue.</p>
+                    <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1200&q=80" alt="Hyrox Training Plan Beginner" class="article-inline-img">
+                    <h4>Mastering Running Under Fatigue</h4>
+                    <p>The unique challenge of Hyrox is running 1 kilometer between each of the 8 functional workout stations. Training your legs to run efficiently while your heart rate is elevated is key.</p>
+                    <h4>Station Efficiency and Pacing</h4>
+                    <p>Don't burn all your energy on the first sled push or wall ball set. Building a calculated pacing strategy protects your stamina and ensures a strong finish line sprint.</p>
+                `
+            },
+            "strength-after-35": {
+                title: "Strength training after 35: what changes and what does not",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> June 10, 2026`,
+                body: `
+                    <p>Navigating perimenopause and training shifts doesn't mean abandoning your strength goals. Learn what physiological changes actually matter and how to adjust your routine.</p>
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80" alt="Strength Training Over 35" class="article-inline-img">
+                    <h4>The Role of Heavy Resistance</h4>
+                    <p>As we age, preserving bone mineral density and lean muscle mass becomes paramount. Heavy resistance training is the single best tool to protect your joints and metabolism.</p>
+                    <h4>Recovery and Stress Management</h4>
+                    <p>While your ability to get strong remains entirely intact, your nervous system may require more deliberate recovery between intense sessions. Sleep, nutrition, and stress management take center stage.</p>
+                    ${medicalDisclaimerHTML}
+                `
+            },
+            "scale-stopped": {
+                title: "Why the scale stopped moving while you got stronger",
+                date: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> July 15, 2026`,
+                body: `
+                    <p>Body recomposition is real, but the bathroom scale often tells a confusing story. Here is why getting stronger changes your physique long before the weight drops.</p>
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80" alt="Scale Not Moving But Getting Stronger" class="article-inline-img">
+                    <h4>The Physics of Body Recomposition</h4>
+                    <p>When you embark on a structured strength program while eating to support recovery, you can simultaneously build lean muscle tissue and lose body fat. Because muscle is denser than fat, your clothes will fit differently even if the scale stays identical.</p>
+                    <h4>Measuring True Progress</h4>
+                    <p>Stop relying solely on body weight numbers. Track your clothing fit, lifting performance in the app, progress photos, and energy levels to get an accurate picture of your transformation.</p>
+                `
             }
         };
 
-        let currentActiveKey = "";
         function openBlog(key) {
-            currentActiveKey = key;
             const blog = blogDatabase[key];
             if (!blog) return;
             document.getElementById('readerDate').innerHTML = blog.date;
             document.getElementById('readerTitle').innerText = blog.title;
             document.getElementById('readerBody').innerHTML = blog.body;
-            renderComments();
             document.getElementById('catalogView').classList.remove('active');
             document.getElementById('readerView').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1127,60 +1182,70 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function handleCommentSubmit(e) {
+       // --- Google Sheets Form Handler Integration ---
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterSubmitBtn = document.getElementById('newsletterSubmitBtn');
+        const newsletterMessage = document.getElementById('newsletterMessage');
+
+        // REPLACE THIS URL with your deployed Google Apps Script Web App URL
+        const SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzFWnmTMlUwUNGVDezT-LUWU-Ariip1Bzq0-SIfOtdS8d5z2oUN_jNUgCeqT-vsS-Vs5A/exec';
+
+        newsletterForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const author = document.getElementById('commentAuthorInput').value.trim();
-            const email = document.getElementById('commentEmailInput').value.trim();
-            const text = document.getElementById('commentTextInput').value.trim();
-            if (!author || !text) return;
 
-            if (!blogDatabase[currentActiveKey].comments) {
-                blogDatabase[currentActiveKey].comments = [];
-            }
+            // Disable button to prevent double-submissions and show processing state
+            newsletterSubmitBtn.disabled = true;
+            newsletterSubmitBtn.textContent = 'Submitting...';
+            newsletterMessage.style.display = 'none';
 
-            blogDatabase[currentActiveKey].comments.unshift({
-                author,
-                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                text
+            // Gather form field values & session UTM parameters
+            const firstName = document.getElementById('newsletterFirstName').value;
+            const email = document.getElementById('newsletterEmail').value;
+            const storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+            const payload = {
+                firstName: firstName,
+                email: email,
+                timestamp: new Date().toISOString(),
+                utm_source: storedUTMs.utm_source || '',
+                utm_medium: storedUTMs.utm_medium || '',
+                utm_campaign: storedUTMs.utm_campaign || '',
+                utm_term: storedUTMs.utm_term || '',
+                utm_content: storedUTMs.utm_content || ''
+            };
+
+            // Send data to Google Sheets via Fetch API
+            fetch(SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Essential for Google Apps Script endpoints to bypass browser CORS blocks
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                // Success feedback
+                newsletterMessage.style.display = 'block';
+                newsletterMessage.style.color = 'var(--gold)';
+                newsletterMessage.textContent = 'Thank you! You have successfully joined the newsletter.';
+                newsletterForm.reset();
+                newsletterSubmitBtn.textContent = 'Joined Successfully ✓';
+                
+                setTimeout(() => {
+                    newsletterSubmitBtn.disabled = false;
+                    newsletterSubmitBtn.textContent = 'Join Newsletter →';
+                }, 4000);
+            })
+            .catch(error => {
+                console.error('Error saving to Google Sheets:', error);
+                newsletterMessage.style.display = 'block';
+                newsletterMessage.style.color = 'var(--flare)';
+                newsletterMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                newsletterSubmitBtn.disabled = false;
+                newsletterSubmitBtn.textContent = 'Join Newsletter →';
             });
-
-            document.getElementById('commentForm').reset();
-            renderComments();
-        }
-
-        function renderComments() {
-            const comments = blogDatabase[currentActiveKey].comments || [];
-            document.getElementById('commentCountHeader').innerText = `Discussion & Comments (${comments.length})`;
-            const container = document.getElementById('commentListContainer');
-            container.innerHTML = comments.map(c => `
-                <div class="comment-item">
-                    <div class="comment-header">
-                        <span class="comment-author">${c.author}</span>
-                        <span class="comment-date">${c.date}</span>
-                    </div>
-                    <p class="comment-text">${c.text}</p>
-                </div>
-            `).join('');
-        }
-
-        const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
-        function handleNewsletterSubmit(e, sourcePage) {
-            e.preventDefault();
-            const form = e.target;
-            const emailInput = form.querySelector('.newsletter-input');
-            const email = emailInput.value.trim();
-            if (!email) return;
-            if (GOOGLE_SHEET_WEBAPP_URL !== 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
-                fetch(GOOGLE_SHEET_WEBAPP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ email, source: sourcePage, timestamp: new Date().toISOString() })
-                }).catch(err => console.error(err));
-            }
-            alert('Welcome to the elite newsletter! 💛');
-            form.reset();
-        }
+        });
     </script>
 </body>
+
 </html>

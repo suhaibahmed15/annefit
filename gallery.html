@@ -36,28 +36,6 @@
     <!-- End Google Tag Manager -->
 
     <!-- Meta Pixel Base Code (Gated until GDPR Cookie Consent) -->
-    <script>
-        function loadMetaPixel() {
-            if (window.fbq) return;
-            !function (f, b, e, v, n, t, s) {
-                if (f.fbq) return; n = f.fbq = function () {
-                    n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-                };
-                if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
-                n.queue = []; t = b.createElement(e); t.async = !0;
-                t.src = v; s = b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t, s)
-            }(window, document, 'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1435156600129884');
-            fbq('track', 'PageView');
-        }
-
-        if (localStorage.getItem('cookie_consent') === 'true') {
-            loadMetaPixel();
-        }
-    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,8 +49,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="assets/favicon/site.webmanifest">
     <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
-    <meta name="msapplication-TileColor" content="#B8860B">
-    <meta name="theme-color" content="#B8860B">
+    <meta name="msapplication-TileColor" content="#E06D53">
+    <meta name="theme-color" content="#E06D53">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,6 +59,7 @@
         rel="stylesheet">
     <style>
         :root {
+            /* Brand Book Alignment: Terracotta and Peach on Off-White */
             --bone: #f7f6f0;
             --chalk: #181816;
             --ink: #181816;
@@ -90,9 +69,12 @@
             --line: #e2dfd5;
             --flare: #e63712;
             --flare-dim: rgba(230, 55, 18, .08);
-            --gold: #d49e1f;
-            --gold-light: #b07d0f;
+            --gold: #E06D53;
+            --gold-light: #C85A41;
+            --gold-dim: rgba(224, 109, 83, .1);
             --max: 1180px;
+            --glow-flare: rgba(230, 55, 18, .15);
+            --glow-gold: rgba(224, 109, 83, .15);
             --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
             --shadow-lift: 0 20px 40px -10px rgba(230, 55, 18, .15);
         }
@@ -230,7 +212,7 @@
             height: 52px;
             width: auto;
             display: block;
-            filter: drop-shadow(0 0 10px rgba(212, 158, 31, .15));
+            filter: drop-shadow(0 0 10px rgba(224, 109, 83, .15));
             transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -293,14 +275,14 @@
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            background: linear-gradient(135deg, var(--gold), #C85A41);
             color: #ffffff;
             border-color: var(--gold);
         }
 
         .btn-gold:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(212, 158, 31, .25);
+            box-shadow: 0 15px 35px var(--glow-gold);
         }
 
         .menu-toggle {
@@ -348,13 +330,19 @@
 
         .mobile-menu a {
             font-family: 'Anton', sans-serif;
-            font-size: 12vw;
+            font-size: 10vw;
             color: var(--ink);
             text-transform: uppercase;
             line-height: 1.05;
             display: block;
             padding: 6px 0;
             border-bottom: 1px solid var(--line);
+            transition: color .3s ease, padding-left .3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--flare);
+            padding-left: 15px;
         }
 
         @media (max-width: 900px) {
@@ -460,8 +448,8 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
             margin-bottom: 50px;
         }
 
@@ -523,23 +511,21 @@
         }
 
         .newsletter-btn {
-            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            background: var(--gold);
             color: #ffffff;
             border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
+            border-radius: 8px;
+            padding: 10px 16px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 11.5px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .08em;
             cursor: pointer;
-            transition: transform .2s ease, box-shadow .2s ease;
+            transition: background 0.2s ease;
         }
 
         .newsletter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+            background: var(--gold-light);
         }
 
         .footer-bottom {
@@ -565,11 +551,11 @@
             </a>
             <nav class="links">
                 <a href="index.html">Home</a>
-                <a href="about.html" style="opacity: 1; color: var(--gold);">About Me</a>
+                <a href="about.html">About</a>
                 <a href="coaching.html">Coaching</a>
                 <a href="programs.html">Shop</a>
-                <a href="reviews.html">Reviews & Results</a>
-                <a href="articles.html">Latest Articles</a>
+                <a href="reviews.html">Reviews</a>
+                <a href="articles.html">Articles</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div style="display:flex; align-items:center; gap:16px;">
@@ -587,11 +573,11 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
-        <a href="./about.html" onclick="closeMobile()">About Us</a>
+        <a href="./about.html" onclick="closeMobile()">About</a>
         <a href="./coaching.html" onclick="closeMobile()">Coaching</a>
-        <a href="./programs.html" onclick="closeMobile()">Shops</a>
-        <a href="./reviews.html" onclick="closeMobile()">Reviews & Results</a>
-        <a href="./articles.html" onclick="closeMobile()">Latest Articles</a>
+        <a href="./programs.html" onclick="closeMobile()">Shop</a>
+        <a href="./reviews.html" onclick="closeMobile()">Reviews</a>
+        <a href="./articles.html" onclick="closeMobile()">Articles</a>
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
 
@@ -673,6 +659,69 @@
         </div>
     </section>
 
+    <!-- Dedicated Newsletter Section (Smaller & Clean) -->
+     <section class="newsletter-section"
+        style="background: var(--surface); padding: 70px 0; border-top: 1px solid var(--line);">
+        <div class="wrap">
+            <div style="max-width: 520px; margin: 0 auto; text-align: center;" class="reveal in">
+                <div class="eyebrow" style="justify-content: center;">Stay Ahead</div>
+                <h2 style="font-size: clamp(28px, 3.5vw, 40px); margin-bottom: 12px; color: var(--ink);">Join The
+                    Newsletter</h2>
+                <p style="color: var(--steel); font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+                    One email most weeks: what I am programming, what is working, and when spots open up.
+                </p>
+
+                <!-- Newsletter Form Connected to Google Sheets Web App Endpoint -->
+                <form id="newsletterForm"
+                    style="background: var(--bone); border: 1px solid var(--line); border-radius: 16px; padding: 30px 24px; box-shadow: var(--shadow-soft); text-align: left;">
+
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+                        <!-- First Name Field -->
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <label for="newsletterFirstName"
+                                style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">First
+                                Name</label>
+                            <input type="text" name="firstName" id="newsletterFirstName" placeholder="e.g. Emma"
+                                style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; width: 100%;">
+                        </div>
+
+                        <!-- Email Address Field -->
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <label for="newsletterEmail"
+                                style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">Email
+                                Address*</label>
+                            <input type="email" name="email" id="newsletterEmail" placeholder="e.g. emma@example.com" required
+                                style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; width: 100%;">
+                        </div>
+
+                        <!-- GDPR / Consent Checkbox -->
+                        <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 2px;">
+                            <input type="checkbox" id="newsletterConsentCheck" required
+                                style="margin-top: 3px; accent-color: var(--gold); width: 16px; height: 16px; cursor: pointer;">
+                            <label for="newsletterConsentCheck"
+                                style="font-size: 12px; color: var(--steel); line-height: 1.4; text-transform: none; font-weight: 400; cursor: pointer;">
+                                I agree to receive updates and occasional marketing emails. I can unsubscribe at any
+                                time.
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div style="text-align: center; margin-top: 6px;">
+                            <button type="submit" id="newsletterSubmitBtn" class="btn btn-gold"
+                                style="width: 100%; justify-content: center; padding: 14px 24px; font-size: 12px;">
+                                Join Newsletter →
+                            </button>
+                        </div>
+                        
+                        <!-- Success Feedback Message Container -->
+                        <div id="newsletterMessage" style="display: none; text-align: center; font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 4px;"></div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
     <!-- Premium Footer matching index.html style -->
     <footer class="site-footer">
         <div class="wrap">
@@ -684,19 +733,17 @@
                     <div
                         style="font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; margin-bottom: 18px; font-family:'JetBrains Mono', monospace;">
                         Online Hyrox & Strength Coach for Women</div>
-                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">Quit random
-                        workouts and unsustainable crash diets. Build lasting strength, structural integrity, and elite
-                        physical conditioning through calculated methodology.</p>
+                    <p style="color: var(--steel); font-size: 14px; max-width: 360px; line-height: 1.7;">I coach mostly women, but also men, who train hard and want it to finally show. Structured strength, real food, and programming that works with your cycle.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navigation</h4>
                     <ul class="footer-links-list">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="coaching.html">Coaching</a></li>
                         <li><a href="programs.html">Shop</a></li>
-                        <li><a href="reviews.html">Reviews & Results</a></li>
-                        <li><a href="articles.html">Blogs</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                        <li><a href="articles.html">Articles</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -705,23 +752,10 @@
                     <ul class="footer-links-list">
                         <li><a href="https://instagram.com/anneloes.fitcoaching" target="_blank">Instagram
                                 (@anneloes.fitcoaching)</a></li>
+                        <li><a href="https://tiktok.com/@anneloes.fitcoaching" target="_blank">TikTok
+                                (@anneloes.fitcoaching)</a></li>
                         <li><a href="quiz.html">Find Your Starting Point Quiz</a></li>
-                        <!-- <li><a href="admin.html">Admin Portal</a></li> -->
                     </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Stay Ahead</h4>
-                    <p style="color: var(--steel); font-size: 13.5px; margin-bottom: 14px; line-height: 1.6;">Receive
-                        exclusive training tips, programming breakdowns, and early intake updates.</p>
-                    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event, 'Gallery Page')">
-                        <div style="position: relative;">
-                            <input type="email" class="newsletter-input" placeholder="Enter your email address" required
-                                style="padding-right: 40px;">
-                            <span
-                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 12px;">✉</span>
-                        </div>
-                        <button type="submit" class="newsletter-btn">Join Newsletter →</button>
-                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -791,46 +825,69 @@
 
         loadAdminGalleryImages();
 
-        // ============================================================
-        // NEWSLETTER SIGNUP -> GOOGLE SHEET
-        // Fill this in once with your own Google Apps Script Web App URL
-        // (Extensions -> Apps Script in your Google Sheet, paste the
-        // provided doPost() script, Deploy -> New deployment -> Web app,
-        // "Who has access: Anyone", then copy the deployment URL below).
-        // Use the exact same URL in articles.html, checkout.html,
-        // contact.html, gallery.html, and quiz.html.
-        // ============================================================
-        const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxXW7egqRhX-tqibB32B2kc7DErpa67oCXXkXXxl9eBXuJ625BNmSbgxAPXlUwt8DF6WA/exec';
+   // --- Google Sheets Form Handler Integration ---
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterSubmitBtn = document.getElementById('newsletterSubmitBtn');
+        const newsletterMessage = document.getElementById('newsletterMessage');
 
-        function handleNewsletterSubmit(e, sourcePage) {
+        // REPLACE THIS URL with your deployed Google Apps Script Web App URL
+        const SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzFWnmTMlUwUNGVDezT-LUWU-Ariip1Bzq0-SIfOtdS8d5z2oUN_jNUgCeqT-vsS-Vs5A/exec';
+
+        newsletterForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const form = e.target;
-            const emailInput = form.querySelector('.newsletter-input');
-            const email = emailInput.value.trim();
-            if (!email) return;
 
-            if (GOOGLE_SHEET_WEBAPP_URL === 'YOUR_GOOGLE_SHEET_WEBAPP_URL') {
-                console.warn('Google Sheet Web App URL not configured yet — newsletter signup was not saved.');
-            } else {
-                // mode: 'no-cors' + text/plain avoids a CORS preflight that
-                // Apps Script web apps don't handle; the request still goes
-                // through, we just can't read the response back.
-                fetch(GOOGLE_SHEET_WEBAPP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        email: email,
-                        source: sourcePage,
-                        timestamp: new Date().toISOString()
-                    })
-                }).catch(err => console.error('Newsletter signup failed to save:', err));
-            }
+            // Disable button to prevent double-submissions and show processing state
+            newsletterSubmitBtn.disabled = true;
+            newsletterSubmitBtn.textContent = 'Submitting...';
+            newsletterMessage.style.display = 'none';
 
-            alert('Welcome to the elite newsletter! 💛');
-            form.reset();
-        }
+            // Gather form field values & session UTM parameters
+            const firstName = document.getElementById('newsletterFirstName').value;
+            const email = document.getElementById('newsletterEmail').value;
+            const storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
 
+            const payload = {
+                firstName: firstName,
+                email: email,
+                timestamp: new Date().toISOString(),
+                utm_source: storedUTMs.utm_source || '',
+                utm_medium: storedUTMs.utm_medium || '',
+                utm_campaign: storedUTMs.utm_campaign || '',
+                utm_term: storedUTMs.utm_term || '',
+                utm_content: storedUTMs.utm_content || ''
+            };
+
+            // Send data to Google Sheets via Fetch API
+            fetch(SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Essential for Google Apps Script endpoints to bypass browser CORS blocks
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                // Success feedback
+                newsletterMessage.style.display = 'block';
+                newsletterMessage.style.color = 'var(--gold)';
+                newsletterMessage.textContent = 'Thank you! You have successfully joined the newsletter.';
+                newsletterForm.reset();
+                newsletterSubmitBtn.textContent = 'Joined Successfully ✓';
+                
+                setTimeout(() => {
+                    newsletterSubmitBtn.disabled = false;
+                    newsletterSubmitBtn.textContent = 'Join Newsletter →';
+                }, 4000);
+            })
+            .catch(error => {
+                console.error('Error saving to Google Sheets:', error);
+                newsletterMessage.style.display = 'block';
+                newsletterMessage.style.color = 'var(--flare)';
+                newsletterMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                newsletterSubmitBtn.disabled = false;
+                newsletterSubmitBtn.textContent = 'Join Newsletter →';
+            });
+        });
     </script>
 </body>
 

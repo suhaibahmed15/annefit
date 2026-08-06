@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anneloes Fit Coaching | Start Here</title>
 
-     <!-- Twitter/X Card Tags -->
+    <!-- Twitter/X Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
     <meta name="twitter:description"
         content="Quit random workouts and unsustainable crash diets. Build lasting strength and elite physical conditioning through calculated methodology.">
-    <meta name="twitter:image" content="https://annefit.vercel.app/assets/Brandlogo/logo.png">
+    <meta name="twitter:image" content="https://anneloesfitcoaching.com/assets/Brandlogo/logo.png">
 
     <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -21,8 +21,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="assets/favicon/site.webmanifest">
     <meta name="msapplication-TileImage" content="assets/favicon/favicon-270x270.png">
-    <meta name="msapplication-TileColor" content="#B8860B">
-    <meta name="theme-color" content="#B8860B">
+    <meta name="msapplication-TileColor" content="#D96B43">
+    <meta name="theme-color" content="#D96B43">
 
     <!-- Google Fonts: Plus Jakarta Sans for clean, premium typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,23 @@
     <!-- Three.js for 3D Background Canvas Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Google Analytics / GA4 Base Container Setup -->
+    <!-- Meta Pixel Code (Active on /start per instructions) -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!n._s)n._s=!0;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1435156600129884');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1435156600129884&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Google Tag Manager / Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XZHHXVEE2F"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -49,14 +65,14 @@
 
     <style>
         :root {
-            --bg-color: #f7f6f0;
+            --bg-color: #fcfbf9;
             --card-bg: rgba(255, 255, 255, 0.85);
             --card-hover-bg: rgba(255, 255, 255, 0.95);
             --text-primary: #181816;
             --text-secondary: #6b6a63;
-            --accent-glow: rgba(212, 158, 31, 0.15);
-            --border-color: rgba(226, 223, 213, 0.8);
-            --border-hover: #d49e1f;
+            --accent-glow: rgba(217, 107, 67, 0.15);
+            --border-color: rgba(235, 228, 220, 0.8);
+            --border-hover: #D96B43;
             --radius-main: 16px;
         }
 
@@ -125,8 +141,8 @@
             border-radius: 50%;
             overflow: hidden;
             margin: 0 auto 12px auto;
-            border: 2px solid rgba(212, 158, 31, 0.4);
-            box-shadow: 0 0 30px rgba(212, 158, 31, 0.15);
+            border: 2px solid rgba(217, 107, 67, 0.4);
+            box-shadow: 0 0 30px rgba(217, 107, 67, 0.15);
             background: rgba(255, 255, 255, 0.05);
         }
 
@@ -181,7 +197,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(212, 158, 31, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+            background: linear-gradient(135deg, rgba(217, 107, 67, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
             opacity: 0;
             transition: opacity 0.25s ease;
         }
@@ -190,7 +206,7 @@
             transform: translateY(-2px);
             background: var(--card-hover-bg);
             border-color: var(--border-hover);
-            box-shadow: 0 20px 40px -10px rgba(230, 55, 18, .12);
+            box-shadow: 0 20px 40px -10px rgba(217, 107, 67, .12);
         }
 
         .hub-button:hover::before {
@@ -198,7 +214,7 @@
         }
 
         .hub-button.primary-accent {
-            border-left: 3px solid #d49e1f;
+            border-left: 3px solid #D96B43;
         }
 
         .cta-icon {
@@ -209,7 +225,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d49e1f;
+            color: #D96B43;
         }
 
         .cta-icon svg {
@@ -280,6 +296,200 @@
                 margin-top: 14px;
             }
         }
+
+        /* Lead Capture Modal */
+        .lead-modal-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(24, 24, 22, 0.55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 16px;
+        }
+
+        .lead-modal-overlay.open {
+            display: flex;
+        }
+
+        .lead-modal {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-main);
+            padding: 28px 26px 24px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(24, 24, 22, .25);
+            animation: leadModalIn .25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes leadModalIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .lead-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--text-primary);
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lead-modal-close:hover {
+            background: #fff;
+            border-color: var(--border-hover);
+        }
+
+        .lead-modal h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            padding-right: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .lead-modal p.lead-modal-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .lead-modal ul.guide-bullet-list {
+            margin: 0 0 18px 18px;
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .lead-form-group {
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .lead-form-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .lead-form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.7);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        .lead-form-group input:focus {
+            outline: none;
+            border-color: var(--border-hover);
+            background: #fff;
+        }
+
+        .lead-checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 14px 0 16px;
+        }
+
+        .lead-checkbox-group input {
+            margin-top: 3px;
+            accent-color: #D96B43;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .lead-checkbox-group label {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .lead-submit-btn {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 13px 16px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #D96B43, #c05834);
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+            margin-top: 4px;
+        }
+
+        .lead-submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(217, 107, 67, 0.25);
+        }
+
+        .lead-submit-btn:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .lead-form-status {
+            font-size: 0.78rem;
+            margin-top: 10px;
+            text-align: center;
+            min-height: 16px;
+        }
+
+        .lead-form-status.error {
+            color: #c0392b;
+        }
+
+        .lead-form-status.success {
+            color: var(--border-hover);
+        }
+
+        .guide-small-print {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 14px;
+            line-height: 1.4;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -300,25 +510,10 @@
 
         <!-- Main CTA Destinations with Professional SVG Icons -->
         <div class="hub-cta-stack">
-
-            <!-- 1. Quiz Funnel -->
-            <a href="https://annefit.vercel.app/quiz?utm_source=instagram&utm_medium=bio&utm_campaign=online_coaching&utm_content=quiz"
-                class="hub-button primary-accent" data-event="quiz_click">
-                <span class="cta-icon">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                    </svg>
-                </span>
-                <span class="cta-text">
-                    <strong>Find Your Program</strong>
-                    <small>Not sure where to start? Take the quiz</small>
-                </span>
-            </a>
-
-            <!-- 2. Free Guide / Lead Magnet Funnel -->
-            <a href="https://annefit.vercel.app/coaching?utm_source=instagram&utm_medium=bio&utm_campaign=lead_generation&utm_content=free_resource"
-                class="hub-button" data-event="free_resource_click">
+            <!-- 1. Free Training Week / Lead Magnet Funnel -->
+            <a href="coaching.html" class="hub-button primary-accent lead-capture" data-event="free_resource_click"
+                data-lead-type="free_guide" data-modal-title="The Strength Week"
+                data-modal-subtitle="One complete training week. Three sessions of 45 minutes, built for a woman with a full-time job who has been training for years and still cannot see it.">
                 <span class="cta-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -327,28 +522,26 @@
                     </svg>
                 </span>
                 <span class="cta-text">
-                    <strong>Get My Free Guide</strong>
-                    <small>Start for free with expert resources</small>
+                    <strong>Get the free training week</strong>
+                    <small>One complete training week, nothing held back</small>
                 </span>
             </a>
 
-            <!-- 3. Training Programs / Webshop Funnel -->
-            <a href="https://annefit.vercel.app/programs?utm_source=instagram&utm_medium=bio&utm_campaign=webshop&utm_content=training_products"
-                class="hub-button" data-event="webshop_click">
+            <!-- 2. Training Programs / Webshop Funnel -->
+            <a href="programs.html" class="hub-button" data-event="webshop_click">
                 <span class="cta-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                     </svg>
                 </span>
                 <span class="cta-text">
-                    <strong>View Training Programs</strong>
-                    <small>Explore bundles & specialized guides</small>
+                    <strong>View training programs</strong>
+                    <small>Explore self-paced guides and programs</small>
                 </span>
             </a>
 
-            <!-- 4. Personal Coaching / Discovery Call Funnel -->
-            <a href="https://calendly.com/dekoksports/30min?utm_source=instagram&utm_medium=bio&utm_campaign=online_coaching&utm_content=discovery_call"
-                class="hub-button" data-event="discovery_call_click">
+            <!-- 3. Personal Coaching / Discovery Call Funnel -->
+            <a href="coaching.html" class="hub-button" data-event="discovery_call_click">
                 <span class="cta-icon">
                     <svg viewBox="0 0 24 24">
                         <path
@@ -357,11 +550,63 @@
                     </svg>
                 </span>
                 <span class="cta-text">
-                    <strong>Book a Free Discovery Call</strong>
-                    <small>Get 1:1 personal coaching & accountability</small>
+                    <strong>Book a free intro call</strong>
+                    <small>Application form first, then Calendly booking</small>
                 </span>
             </a>
 
+            <!-- 4. Quiz Funnel -->
+            <a href="quiz.html" class="hub-button" data-event="quiz_click">
+                <span class="cta-icon">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                    </svg>
+                </span>
+                <span class="cta-text">
+                    <strong>Find my starting point</strong>
+                    <small>5 questions, email capture, recommended route</small>
+                </span>
+            </a>
+
+        </div>
+
+        <!-- Lead Capture Modal (Free Guide with Exact Copy & Consent Checkbox) -->
+        <div class="lead-modal-overlay" id="leadModalOverlay">
+            <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+                <button type="button" class="lead-modal-close" id="leadModalClose" aria-label="Close">&times;</button>
+                <h3 id="leadModalTitle">The Strength Week</h3>
+                <p class="lead-modal-subtitle" id="leadModalSubtitle">One complete training week. Three sessions of 45 minutes, built for a woman with a full-time job who has been training for years and still cannot see it.</p>
+                
+                <ul class="guide-bullet-list">
+                    <li>The three mistakes that keep strong women stuck</li>
+                    <li>Three full gym sessions, exercise by exercise</li>
+                    <li>How to turn one week into eight</li>
+                    <li>A one-page training log</li>
+                </ul>
+                <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">Start it on Monday. By Sunday you will know the difference.</p>
+
+                <form id="leadCaptureForm">
+                    <div class="lead-form-group">
+                        <label for="leadName">First Name</label>
+                        <input type="text" id="leadName" name="leadName" placeholder="Your first name" required>
+                    </div>
+                    <div class="lead-form-group">
+                        <label for="leadEmail">Email Address</label>
+                        <input type="email" id="leadEmail" name="leadEmail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="lead-checkbox-group">
+                        <input type="checkbox" id="leadConsent" required>
+                        <label for="leadConsent">Yes, send me the result and occasional training emails. I can unsubscribe any time.</label>
+                    </div>
+                    <button type="submit" class="lead-submit-btn" id="leadSubmitBtn">Send me the guide</button>
+                    <div class="lead-form-status" id="leadFormStatus"></div>
+                </form>
+
+                <div class="guide-small-print">
+                    This guide is general fitness information, not medical advice. If you have a medical condition, are recovering from injury, or are unsure whether this is right for you, speak to your doctor first.
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -382,9 +627,9 @@
         const dumbbellGroup = new THREE.Group();
 
         const mat = new THREE.MeshStandardMaterial({
-            color: 0xd49e1f,
+            color: 0xD96B43,
             roughness: 0.2,
-            metalness: 0.9,
+            metalNess: 0.9,
             wireframe: false
         });
 
@@ -420,11 +665,11 @@
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambientLight);
 
-        const pointLight = new THREE.PointLight(0xd49e1f, 3);
+        const pointLight = new THREE.PointLight(0xD96B43, 3);
         pointLight.position.set(5, 5, 5);
         scene.add(pointLight);
 
-        const pointLight2 = new THREE.PointLight(0xb07d0f, 2);
+        const pointLight2 = new THREE.PointLight(0xc05834, 2);
         pointLight2.position.set(-5, -5, 2);
         scene.add(pointLight2);
 
@@ -520,6 +765,127 @@
                         });
                     }
                 });
+            });
+        });
+    </script>
+
+    <!-- Supabase Client (used to save Free Guide / Discovery Call leads) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://hqgxxaflmduofhcmanio.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZ3h4YWZsbWR1b2ZoY21hbmlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4NDc0NjcsImV4cCI6MjEwMTQyMzQ2N30.Dryx8ucZK6Ww1GF5tOa0NXhQVa7O1rO6iy-p-PawvUE';
+
+        const leadSupabase = (SUPABASE_ANON_KEY && SUPABASE_ANON_KEY.indexOf('YOUR_SUPABASE') === -1)
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+            : null;
+    </script>
+
+    <!-- Lead Capture Modal Logic (Free Guide) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.getElementById('leadModalOverlay');
+            const modalTitle = document.getElementById('leadModalTitle');
+            const modalSubtitle = document.getElementById('leadModalSubtitle');
+            const closeBtn = document.getElementById('leadModalClose');
+            const form = document.getElementById('leadCaptureForm');
+            const nameInput = document.getElementById('leadName');
+            const emailInput = document.getElementById('leadEmail');
+            const consentCheck = document.getElementById('leadConsent');
+            const submitBtn = document.getElementById('leadSubmitBtn');
+            const statusEl = document.getElementById('leadFormStatus');
+
+            let pendingRedirectUrl = null;
+            let pendingLeadType = null;
+
+            function getStoredUtms() {
+                try {
+                    const saved = sessionStorage.getItem('initial_utm_params');
+                    return saved ? JSON.parse(saved) : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function openModal(trigger) {
+                pendingRedirectUrl = trigger.href;
+                pendingLeadType = trigger.getAttribute('data-lead-type') || 'general';
+
+                form.reset();
+                statusEl.innerText = '';
+                statusEl.className = 'lead-form-status';
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Send me the guide';
+
+                overlay.classList.add('open');
+                setTimeout(() => nameInput.focus(), 50);
+            }
+
+            function closeModal() {
+                overlay.classList.remove('open');
+            }
+
+            document.querySelectorAll('.lead-capture').forEach(function (trigger) {
+                trigger.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openModal(trigger);
+                });
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closeModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+            });
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                if (!pendingRedirectUrl) return;
+
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                if (!name || !email || !consentCheck.checked) return;
+
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Submitting...';
+                statusEl.className = 'lead-form-status';
+                statusEl.innerText = '';
+
+                const utms = getStoredUtms();
+                const payload = {
+                    name: name,
+                    email: email,
+                    type: pendingLeadType,
+                    utm_source: utms.utm_source || null,
+                    utm_medium: utms.utm_medium || null,
+                    utm_campaign: utms.utm_campaign || null,
+                    utm_content: utms.utm_content || null
+                };
+
+                if (typeof gtag === 'function') {
+                    gtag('event', 'lead_capture_submit', {
+                        'event_category': 'Lead Capture Modal',
+                        'event_label': pendingLeadType
+                    });
+                }
+
+                try {
+                    if (leadSupabase) {
+                        const { error } = await leadSupabase.from('quick_leads').insert(payload);
+                        if (error) throw error;
+                    }
+                    statusEl.classList.add('success');
+                    statusEl.innerText = "Thanks! Redirecting you now...";
+                } catch (err) {
+                    console.error('Lead capture save failed:', err);
+                    statusEl.classList.add('error');
+                    statusEl.innerText = "Couldn't save your details, but continuing...";
+                } finally {
+                    setTimeout(() => {
+                        window.location.href = pendingRedirectUrl;
+                    }, 500);
+                }
             });
         });
     </script>

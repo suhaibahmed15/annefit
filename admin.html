@@ -206,6 +206,75 @@
             font-size: 13px;
         }
 
+        .notif-bell-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            display: none;
+        }
+
+        .notif-bell-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .notif-label-text {
+            display: inline;
+        }
+
+        @media (max-width: 640px) {
+
+            .nav-inner {
+                justify-content: space-between;
+            }
+
+            .logo-mark img {
+                height: 36px;
+            }
+
+            .notification-badge-wrapper {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+
+            .notif-bell-icon {
+                display: flex;
+            }
+
+            .notif-label-text {
+                display: none;
+            }
+
+            .notif-wrapper {
+                position: static;
+            }
+
+            .notif-dropdown {
+                position: fixed;
+                top: 84px;
+                left: 12px;
+                right: 12px;
+                width: auto;
+                max-height: calc(100vh - 110px);
+            }
+
+            .admin-panel-label {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logout-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+        }
+
         .dashboard-layout {
             display: grid;
             grid-template-columns: 260px 1fr;
@@ -511,7 +580,13 @@
             <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
                 <div class="notif-wrapper" style="position: relative;">
                     <div class="notification-badge-wrapper" onclick="toggleNotifications(event)">
-                        <span class="mono"
+                        <span class="notif-bell-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </span>
+                        <span class="mono notif-label-text"
                             style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Notifications</span>
                         <span class="notification-count" id="notifCount">0</span>
                     </div>
@@ -522,7 +597,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mono"
+                <div class="mono admin-panel-label"
                     style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--gold);">Admin
                     Panel</div>
                 <button class="logout-btn" onclick="handleLogout()">Log Out</button>
@@ -533,54 +608,19 @@
     <div class="dashboard-layout">
         <div class="sidebar">
             <div class="eyebrow">Modules</div>
-            <button class="tab-btn active" data-tab="clients" onclick="switchTab('clients', event)">Clients</button>
-            <button class="tab-btn" data-tab="coaching" onclick="switchTab('coaching', event)">Coaching Leads</button>
+            <button class="tab-btn active" data-tab="coaching" onclick="switchTab('coaching', event)">Coaching
+                Leads</button>
             <button class="tab-btn" data-tab="articles" onclick="switchTab('articles', event)">Articles</button>
             <button class="tab-btn" data-tab="leads" onclick="switchTab('leads', event)">Leads</button>
+            <button class="tab-btn" data-tab="quickleads" onclick="switchTab('quickleads', event)">Quick
+                Leads</button>
             <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery', event)">Gallery</button>
             <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz', event)">Quiz</button>
         </div>
 
         <div class="content-area">
-            <!-- MODULE 1: CLIENT DATABASE -->
-            <div class="tab-panel active" id="tab-clients">
-                <div class="eyebrow">Purchased Programs & Memberships</div>
-                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Client Database & Unique IDs</h2>
-
-                <div class="admin-card">
-                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">All verified customer orders
-                        and checkouts from Supabase.</p>
-                    <div class="form-group" style="max-width: 360px; margin-bottom: 0;">
-                        <label for="clientSearchInput">Search Client By Name</label>
-                        <input type="text" id="clientSearchInput" placeholder="Type a client name..."
-                            oninput="renderClientsTable()">
-                    </div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Unique ID</th>
-                                    <th>Client Name</th>
-                                    <th>Email & Phone</th>
-                                    <th>Purchased Program</th>
-                                    <th>Purchase Date</th>
-                                    <th>Subscription Expiry</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="clientTableBody">
-                                <tr>
-                                    <td colspan="7" style="text-align: center; color: var(--steel);">No client orders
-                                        found.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
             <!-- MODULE 1.5: COACHING APPLICATIONS -->
-            <div class="tab-panel" id="tab-coaching">
+            <div class="tab-panel active" id="tab-coaching">
                 <div class="eyebrow">1:1 Mentorship Applications</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Coaching Applications</h2>
 
@@ -678,6 +718,38 @@
                 </div>
             </div>
 
+            <!-- MODULE 3.5: QUICK LEADS (Free Guide / Discovery Call popup) -->
+            <div class="tab-panel" id="tab-quickleads">
+                <div class="eyebrow">Link Hub Popup Captures</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Free Guide & Discovery Call Leads
+                </h2>
+
+                <div class="admin-card">
+                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">Name & email captured from
+                        the "Get My Free Guide" and "Book a Free Discovery Call" popups on the start page.</p>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th>Source (UTM)</th>
+                                    <th>Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="quickLeadsTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: var(--steel);">No quick leads
+                                        found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <!-- MODULE 4: GALLERY MANAGER -->
             <div class="tab-panel" id="tab-gallery">
                 <div class="eyebrow">Visual Asset Management</div>
@@ -747,10 +819,10 @@
         }
 
         window.addEventListener('load', () => {
-            loadClients();
             loadCoachingApplications();
             loadArticles();
             loadLeads();
+            loadQuickLeads();
             loadGallery();
             loadQuizSubmissions();
             setupRealtime();
@@ -764,9 +836,9 @@
             }
         });
 
-        let checkoutsCache = [];
         let coachingCache = [];
         let leadsCache = [];
+        let quickLeadsCache = [];
         let quizCache = [];
         let galleryCache = [];
 
@@ -774,8 +846,8 @@
             supabaseClient
                 .channel('admin-dashboard-live')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'contacts' }, () => loadLeads())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'quick_leads' }, () => loadQuickLeads())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_submissions' }, () => loadQuizSubmissions())
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'checkouts' }, () => loadClients())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'coaching_applications' }, () => loadCoachingApplications())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadGallery())
                 .subscribe();
@@ -785,44 +857,6 @@
             if (!iso) return 'Recent';
             const d = new Date(iso);
             return isNaN(d) ? iso : d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-
-        async function loadClients() {
-            const { data } = await supabaseClient.from('checkouts').select('*').order('created_at', { ascending: false });
-            checkoutsCache = data || [];
-            renderClientsTable();
-            updateNotificationCount();
-        }
-
-        function renderClientsTable() {
-            const tbody = document.getElementById('clientTableBody');
-            const query = document.getElementById('clientSearchInput')?.value.trim().toLowerCase() || '';
-            tbody.innerHTML = '';
-            const matches = checkoutsCache.filter(item => !query || (item.name || '').toLowerCase().includes(query));
-
-            if (matches.length > 0) {
-                matches.forEach(item => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td class="mono" style="color: var(--gold); font-weight: 700;">AFC-${849200 + item.id}</td>
-                        <td><b>${item.name}</b></td>
-                        <td>${item.email}<br><span style="font-size: 12px; color: var(--steel);">${item.phone}</span></td>
-                        <td>${item.program} (€${item.price})</td>
-                        <td>${item.purchase_date || formatDate(item.created_at)}</td>
-                        <td>${item.expiry_date || '<span style="color: var(--steel);">N/A</span>'}</td>
-                        <td><button class="btn btn-danger" onclick="deleteClient(${item.id})">Delete</button></td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } else {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--steel);">No client orders recorded yet.</td></tr>`;
-            }
-        }
-
-        async function deleteClient(id) {
-            if (!confirm('Remove this client order?')) return;
-            await supabaseClient.from('checkouts').delete().eq('id', id);
-            loadClients();
         }
 
         // Coaching Applications Handler
@@ -892,6 +926,44 @@
             if (!confirm('Delete lead?')) return;
             await supabaseClient.from('contacts').delete().eq('id', id);
             loadLeads();
+        }
+
+        // Quick Leads (Free Guide / Discovery Call popup) Handler
+        async function loadQuickLeads() {
+            const { data } = await supabaseClient.from('quick_leads').select('*').order('created_at', { ascending: false });
+            quickLeadsCache = data || [];
+            renderQuickLeadsTable();
+            updateNotificationCount();
+        }
+
+        function renderQuickLeadsTable() {
+            const tbody = document.getElementById('quickLeadsTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            if (quickLeadsCache.length > 0) {
+                quickLeadsCache.forEach(item => {
+                    const tr = document.createElement('tr');
+                    const typeLabel = item.type === 'discovery_call' ? 'Discovery Call' : (item.type === 'free_guide' ? 'Free Guide' : (item.type || 'N/A'));
+                    const utmParts = [item.utm_source, item.utm_medium, item.utm_campaign].filter(Boolean).join(' / ');
+                    tr.innerHTML = `
+                        <td><b>${item.name || ''}</b></td>
+                        <td>${item.email || ''}</td>
+                        <td><span class="mono" style="color: var(--gold);">${typeLabel}</span></td>
+                        <td style="font-size: 12px; color: var(--steel);">${utmParts || 'N/A'}</td>
+                        <td>${formatDate(item.created_at)}</td>
+                        <td><button class="btn btn-danger" onclick="deleteQuickLead(${item.id})">Delete</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--steel);">No quick leads found.</td></tr>`;
+            }
+        }
+
+        async function deleteQuickLead(id) {
+            if (!confirm('Delete this lead?')) return;
+            await supabaseClient.from('quick_leads').delete().eq('id', id);
+            loadQuickLeads();
         }
 
         async function loadQuizSubmissions() {
@@ -1061,8 +1133,8 @@
             const list = document.getElementById('notifDropdownList');
             const items = [];
             leadsCache.forEach(l => items.push({ tab: 'leads', title: `${l.first_name || ''} ${l.second_name || ''}`.trim() || 'Contact Inquiry', sub: `Contact &bull; ${formatDate(l.created_at)}` }));
+            quickLeadsCache.forEach(ql => items.push({ tab: 'quickleads', title: ql.name || 'Quick Lead', sub: `${ql.type === 'discovery_call' ? 'Discovery Call' : 'Free Guide'} &bull; ${formatDate(ql.created_at)}` }));
             quizCache.forEach(q => items.push({ tab: 'quiz', title: q.name || 'Quiz Submission', sub: `Quiz &bull; ${formatDate(q.created_at)}` }));
-            checkoutsCache.forEach(c => items.push({ tab: 'clients', title: c.name || 'New Order', sub: `Order &bull; ${formatDate(c.created_at)}` }));
             coachingCache.forEach(co => items.push({ tab: 'coaching', title: co.name || 'Coaching Lead', sub: `Coaching App &bull; ${formatDate(co.created_at)}` }));
 
             if (items.length === 0) {
@@ -1079,7 +1151,7 @@
         }
 
         function updateNotificationCount() {
-            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + checkoutsCache.length + coachingCache.length;
+            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + coachingCache.length + quickLeadsCache.length;
         }
     </script>
 </body>
