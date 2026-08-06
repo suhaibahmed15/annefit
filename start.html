@@ -35,18 +35,22 @@
 
     <!-- Meta Pixel Code -->
     <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!n._s)n._s=!0;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!n._s) n._s = !0; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '2149388885618402');
         fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1435156600129884&ev=PageView&noscript=1"/></noscript>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1435156600129884&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Google Tag Manager / Analytics -->
@@ -95,13 +99,14 @@
             color: var(--text-primary);
             line-height: 1.4;
             min-height: 100vh;
+            min-height: 100dvh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 24px 16px;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: hidden;
         }
 
         /* 3D Canvas Background */
@@ -110,7 +115,7 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100dvh;
             z-index: -1;
             pointer-events: none;
         }
@@ -269,7 +274,7 @@
             position: fixed;
             inset: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100dvh;
             background: rgba(24, 24, 22, 0.55);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
@@ -296,6 +301,8 @@
             box-shadow: 0 30px 60px rgba(24, 24, 22, .25);
             animation: leadModalIn .25s cubic-bezier(0.16, 1, 0.3, 1);
             margin: auto;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes leadModalIn {
@@ -303,6 +310,7 @@
                 opacity: 0;
                 transform: translateY(12px) scale(.98);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -544,15 +552,18 @@
             <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
                 <button type="button" class="lead-modal-close" id="leadModalClose" aria-label="Close">&times;</button>
                 <h3 id="leadModalTitle">The Strength Week</h3>
-                <p class="lead-modal-subtitle" id="leadModalSubtitle">One complete training week. Three sessions of 45 minutes, built for a woman with a full-time job who has been training for years and still cannot see it.</p>
-                
+                <p class="lead-modal-subtitle" id="leadModalSubtitle">One complete training week. Three sessions of 45
+                    minutes, built for a woman with a full-time job who has been training for years and still cannot see
+                    it.</p>
+
                 <ul class="guide-bullet-list">
                     <li>The three mistakes that keep strong women stuck</li>
                     <li>Three full gym sessions, exercise by exercise</li>
                     <li>How to turn one week into eight</li>
                     <li>A one-page training log</li>
                 </ul>
-                <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">Start it on Monday. By Sunday you will know the difference.</p>
+                <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">Start
+                    it on Monday. By Sunday you will know the difference.</p>
 
                 <form id="leadCaptureForm">
                     <div class="lead-form-group">
@@ -565,14 +576,16 @@
                     </div>
                     <div class="lead-checkbox-group">
                         <input type="checkbox" id="leadConsent" required>
-                        <label for="leadConsent">Yes, send me the result and occasional training emails. I can unsubscribe any time.</label>
+                        <label for="leadConsent">Yes, send me the result and occasional training emails. I can
+                            unsubscribe any time.</label>
                     </div>
                     <button type="submit" class="lead-submit-btn" id="leadSubmitBtn">Send me the guide</button>
                     <div class="lead-form-status" id="leadFormStatus"></div>
                 </form>
 
                 <div class="guide-small-print">
-                    This guide is general fitness information, not medical advice. If you have a medical condition, are recovering from injury, or are unsure whether this is right for you, speak to your doctor first.
+                    This guide is general fitness information, not medical advice. If you have a medical condition, are
+                    recovering from injury, or are unsure whether this is right for you, speak to your doctor first.
                 </div>
             </div>
         </div>
