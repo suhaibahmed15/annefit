@@ -33,7 +33,7 @@
     <!-- Three.js for 3D Background Canvas Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Meta Pixel Code (Active on /start per instructions) -->
+    <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -84,13 +84,9 @@
             padding: 0;
         }
 
-        html,
-        body {
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            position: fixed;
-            inset: 0;
+        html {
+            width: 100%;
+            height: 100%;
         }
 
         body {
@@ -98,10 +94,14 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.4;
+            min-height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 16px;
+            padding: 24px 16px;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* 3D Canvas Background */
@@ -125,13 +125,12 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 0;
-            max-height: 100vh;
-            justify-content: center;
+            margin: auto;
         }
 
         .hub-hero {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             width: 100%;
         }
 
@@ -170,7 +169,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .hub-button {
@@ -181,7 +180,7 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-main);
-            padding: 12px 18px;
+            padding: 14px 18px;
             text-decoration: none;
             color: var(--text-primary);
             box-shadow: 0 10px 30px rgba(24, 24, 22, .04);
@@ -258,43 +257,11 @@
         }
 
         .hub-footer {
-            margin-top: 20px;
+            margin-top: 24px;
             text-align: center;
             font-size: 0.8rem;
             color: var(--text-secondary);
             letter-spacing: 0.02em;
-        }
-
-        @media (max-height: 700px) {
-            .hub-hero {
-                margin-bottom: 14px;
-            }
-
-            .profile-avatar {
-                width: 68px;
-                height: 68px;
-                margin-bottom: 8px;
-            }
-
-            .hub-hero h1 {
-                font-size: 1.25rem;
-            }
-
-            .subheadline {
-                font-size: 0.85rem;
-            }
-
-            .hub-cta-stack {
-                gap: 8px;
-            }
-
-            .hub-button {
-                padding: 10px 16px;
-            }
-
-            .hub-footer {
-                margin-top: 14px;
-            }
         }
 
         /* Lead Capture Modal */
@@ -311,6 +278,7 @@
             justify-content: center;
             z-index: 999;
             padding: 16px;
+            overflow-y: auto;
         }
 
         .lead-modal-overlay.open {
@@ -327,6 +295,7 @@
             position: relative;
             box-shadow: 0 30px 60px rgba(24, 24, 22, .25);
             animation: leadModalIn .25s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: auto;
         }
 
         @keyframes leadModalIn {
@@ -334,7 +303,6 @@
                 opacity: 0;
                 transform: translateY(12px) scale(.98);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -541,7 +509,7 @@
             </a>
 
             <!-- 3. Personal Coaching / Discovery Call Funnel -->
-            <a href="coaching.html" class="hub-button" data-event="discovery_call_click">
+            <a href="coaching.html#applicationSection" class="hub-button" data-event="discovery_call_click">
                 <span class="cta-icon">
                     <svg viewBox="0 0 24 24">
                         <path
@@ -571,7 +539,7 @@
 
         </div>
 
-        <!-- Lead Capture Modal (Free Guide with Exact Copy & Consent Checkbox) -->
+        <!-- Lead Capture Modal -->
         <div class="lead-modal-overlay" id="leadModalOverlay">
             <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
                 <button type="button" class="lead-modal-close" id="leadModalClose" aria-label="Close">&times;</button>
@@ -629,7 +597,7 @@
         const mat = new THREE.MeshStandardMaterial({
             color: 0xD96B43,
             roughness: 0.2,
-            metalNess: 0.9,
+            metalness: 0.9,
             wireframe: false
         });
 
@@ -769,7 +737,7 @@
         });
     </script>
 
-    <!-- Supabase Client (used to save Free Guide / Discovery Call leads) -->
+    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script>
         const SUPABASE_URL = 'https://hqgxxaflmduofhcmanio.supabase.co';
@@ -780,7 +748,7 @@
             : null;
     </script>
 
-    <!-- Lead Capture Modal Logic (Free Guide) -->
+    <!-- Lead Capture Modal Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const overlay = document.getElementById('leadModalOverlay');

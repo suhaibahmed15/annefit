@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d97757">
     <title>Admin Dashboard | Anneloes Fit Coaching</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +21,8 @@
             --steel: #6b6a63;
             --line: #e2dfd5;
             --flare: #e63712;
-            --gold: #d49e1f;
-            --gold-light: #b07d0f;
+            --primary: #d97757;       /* Terracotta aligned */
+            --primary-light: #c25e3c; /* Peach / Deep Terracotta tone */
             --max: 1280px;
             --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
         }
@@ -61,7 +62,7 @@
             font-size: 12px;
             letter-spacing: .14em;
             text-transform: uppercase;
-            color: var(--gold);
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -71,7 +72,7 @@
         .eyebrow::before {
             width: 20px;
             height: 1px;
-            background: var(--gold);
+            background: var(--primary);
             display: inline-block;
         }
 
@@ -228,7 +229,6 @@
         }
 
         @media (max-width: 640px) {
-
             .nav-inner {
                 justify-content: space-between;
             }
@@ -333,9 +333,9 @@
         }
 
         .tab-btn.active {
-            background: var(--gold);
+            background: var(--primary);
             color: #ffffff;
-            box-shadow: 0 4px 15px rgba(212, 158, 31, 0.3);
+            box-shadow: 0 4px 15px rgba(217, 119, 87, 0.3);
         }
 
         .content-area {
@@ -431,7 +431,7 @@
 
         .form-group input:focus,
         .form-group textarea:focus {
-            border-color: var(--gold);
+            border-color: var(--primary);
             outline: none;
         }
 
@@ -452,13 +452,13 @@
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--gold), #b07d0f);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: #ffffff;
         }
 
         .btn-gold:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 158, 31, 0.3);
+            box-shadow: 0 10px 25px rgba(217, 119, 87, 0.3);
         }
 
         .btn-danger {
@@ -598,7 +598,7 @@
                     </div>
                 </div>
                 <div class="mono admin-panel-label"
-                    style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--gold);">Admin
+                    style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--primary);">Admin
                     Panel</div>
                 <button class="logout-btn" onclick="handleLogout()">Log Out</button>
             </div>
@@ -859,7 +859,6 @@
             return isNaN(d) ? iso : d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
-        // Coaching Applications Handler
         async function loadCoachingApplications() {
             const { data } = await supabaseClient.from('coaching_applications').select('*').order('created_at', { ascending: false });
             coachingCache = data || [];
@@ -878,7 +877,7 @@
                         <td>${item.email}</td>
                         <td>${item.main_goal}</td>
                         <td>${item.training_experience}</td>
-                        <td><b style="color: var(--gold);">${item.budget_range}</b></td>
+                        <td><b style="color: var(--primary);">${item.budget_range}</b></td>
                         <td>${item.preferred_start_date}</td>
                         <td><button class="btn btn-danger" onclick="deleteCoaching(${item.id})">Delete</button></td>
                     `;
@@ -912,7 +911,7 @@
                         <td><b>${lead.first_name} ${lead.second_name}</b></td>
                         <td>${lead.email}<br><span style="font-size: 12px; color: var(--steel);">${lead.mobile}</span></td>
                         <td>"${lead.message}"</td>
-                        <td><span class="mono" style="color: var(--gold);">Contact Form</span></td>
+                        <td><span class="mono" style="color: var(--primary);">Contact Form</span></td>
                         <td><button class="btn btn-danger" onclick="deleteLead(${lead.id})">Delete</button></td>
                     `;
                     tbody.appendChild(tr);
@@ -928,7 +927,6 @@
             loadLeads();
         }
 
-        // Quick Leads (Free Guide / Discovery Call popup) Handler
         async function loadQuickLeads() {
             const { data } = await supabaseClient.from('quick_leads').select('*').order('created_at', { ascending: false });
             quickLeadsCache = data || [];
@@ -948,7 +946,7 @@
                     tr.innerHTML = `
                         <td><b>${item.name || ''}</b></td>
                         <td>${item.email || ''}</td>
-                        <td><span class="mono" style="color: var(--gold);">${typeLabel}</span></td>
+                        <td><span class="mono" style="color: var(--primary);">${typeLabel}</span></td>
                         <td style="font-size: 12px; color: var(--steel);">${utmParts || 'N/A'}</td>
                         <td>${formatDate(item.created_at)}</td>
                         <td><button class="btn btn-danger" onclick="deleteQuickLead(${item.id})">Delete</button></td>
@@ -982,7 +980,7 @@
                     tr.innerHTML = `
                         <td><b>${quiz.name}</b></td>
                         <td>${quiz.email}<br><span style="font-size: 12px; color: var(--steel);">@${quiz.insta || 'N/A'}</span></td>
-                        <td><b style="color: var(--gold);">${quiz.recommendation}</b></td>
+                        <td><b style="color: var(--primary);">${quiz.recommendation}</b></td>
                         <td>${formatDate(quiz.created_at)}</td>
                         <td><button class="btn btn-danger" onclick="deleteQuiz(${quiz.id})">Delete</button></td>
                     `;
@@ -1080,7 +1078,7 @@
                 await supabaseClient.from('gallery').insert({ image_data: compressed });
                 document.getElementById('galleryForm').reset();
                 loadGallery();
-                statusEl.style.color = 'var(--gold)';
+                statusEl.style.color = 'var(--primary)';
                 statusEl.innerText = 'Image uploaded successfully!';
             } catch (err) {
                 statusEl.style.color = 'var(--flare)';
