@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="auth.js"></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -19,7 +20,6 @@
 </script>
 
     <script>
-        // URL se UTM parameters extract karne ka function
         function captureUTMParams() {
             const urlParams = new URLSearchParams(window.location.search);
             const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
@@ -46,7 +46,6 @@
     <meta name="description"
         content="Explore self-paced strength training programs, glute guides, and cycle-smart nutrition bundles built by Anneloes Fit Coaching.">
 
-    <!-- Twitter/X Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Online Hyrox & Strength Coach for Women | Anneloes Fit Coaching">
     <meta name="twitter:description"
@@ -71,7 +70,6 @@
         rel="stylesheet">
     <style>
         :root {
-            /* Brand Book Alignment: Terracotta and Peach on Off-White */
             --bone: #f7f6f0;
             --chalk: #181816;
             --ink: #181816;
@@ -188,7 +186,6 @@
             background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
         }
 
-        /* Header / Navbar */
         header.site {
             position: sticky;
             top: 0;
@@ -367,7 +364,6 @@
             }
         }
 
-        /* Hero */
         .shop-hero {
             padding: 160px 0 80px;
             text-align: center;
@@ -393,7 +389,6 @@
             border-top: 1px solid var(--line);
         }
 
-        /* Shop Grid */
         .shop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -534,7 +529,6 @@
             transform: scale(1) translateY(0);
         }
 
-        /* Footer */
         footer.site-footer {
             background: var(--surface);
             color: var(--ink);
@@ -604,24 +598,6 @@
             outline: none;
         }
 
-        .newsletter-btn {
-            background: var(--gold);
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11.5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .newsletter-btn:hover {
-            background: var(--gold-light);
-        }
-
         .footer-bottom {
             display: flex;
             justify-content: space-between;
@@ -658,7 +634,6 @@
 
     <div class="grain"></div>
 
-    <!-- Header / Navbar -->
     <header class="site">
         <div class="wrap nav-inner">
             <a href="index.html" class="logo-mark">
@@ -685,7 +660,6 @@
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="./index.html" onclick="closeMobile()">Home</a>
         <a href="./about.html" onclick="closeMobile()">About</a>
@@ -696,7 +670,6 @@
         <a href="./contact.html" onclick="closeMobile()">Contact</a>
     </div>
 
-    <!-- Hero -->
     <section class="shop-hero">
         <div class="wrap">
             <div class="eyebrow" style="justify-content:center;">Guides and programs</div>
@@ -707,7 +680,7 @@
         </div>
     </section>
 
-    <!-- SECTION 0: Free Guide (Email capture first block) -->
+    <!-- SECTION 0: Free Guide (Connected to Supabase quick_leads table) -->
     <section id="freeGuide" style="background: var(--surface);">
         <div class="wrap">
             <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 40px;">
@@ -717,34 +690,37 @@
                 </p>
             </div>
             <div class="wrap" style="max-width: 480px;">
-                <form class="newsletter-form"
-                    onsubmit="event.preventDefault(); alert('Success! The Strength Week guide has been sent to your email.');"
+                <form id="freeGuideForm"
                     style="background: var(--bone); border: 1px solid var(--line); border-radius: 16px; padding: 30px 24px; box-shadow: var(--shadow-soft);">
                     <div style="display: flex; gap: 16px; flex-direction: column;">
                         <div style="display: flex; flex-direction: column; gap: 6px;">
                             <label
                                 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">First
                                 Name*</label>
-                            <input type="text" class="newsletter-input" placeholder="e.g. Emma" required
+                            <input type="text" id="freeGuideName" class="newsletter-input" placeholder="e.g. Emma"
+                                required
                                 style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px;">
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 6px;">
                             <label
                                 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">Email
                                 Address*</label>
-                            <input type="email" class="newsletter-input" placeholder="e.g. emma@example.com" required
+                            <input type="email" id="freeGuideEmail" class="newsletter-input"
+                                placeholder="e.g. emma@example.com" required
                                 style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px;">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-gold"
+                    <button type="submit" id="freeGuideSubmitBtn" class="btn btn-gold"
                         style="margin-top: 20px; width: 100%; justify-content: center; padding: 14px 24px; font-size: 12px;">Get
                         Free Guide (Free) →</button>
+                    <div id="freeGuideMessage"
+                        style="display: none; text-align: center; font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 10px;">
+                    </div>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 0.5: "Not sure where to start?" — 3 problem-labelled routes -->
     <section style="background: var(--bone);">
         <div class="wrap">
             <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
@@ -769,7 +745,8 @@
                         <h3 style="font-size: 22px;">Cycle-Smart Bundle</h3>
                     </div>
                 </a>
-                <a href="checkout.html?program=Complete%20Method%20Bundle&duration=One-Time" class="shop-card pop-reveal"
+                <a href="checkout.html?program=Complete%20Method%20Bundle&duration=One-Time"
+                    class="shop-card pop-reveal"
                     style="text-decoration:none; padding: 32px 28px; transition-delay: 0.3s;">
                     <div>
                         <p style="font-style: italic; color: var(--steel); font-size: 13px; margin-bottom: 6px;">Ready
@@ -781,7 +758,6 @@
         </div>
     </section>
 
-    <!-- SECTION 1: VALUE BUNDLES & TOP SHOP ITEMS -->
     <section style="background: var(--surface);">
         <div class="wrap">
             <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
@@ -790,7 +766,6 @@
             </div>
 
             <div class="shop-grid">
-                <!-- 1. Complete Starter Pack -->
                 <div class="shop-card featured pop-reveal">
                     <div class="featured-tag">Most Popular</div>
                     <div>
@@ -808,7 +783,6 @@
                     </div>
                 </div>
 
-                <!-- 2. Cycle-Smart Peach -->
                 <div class="shop-card pop-reveal" style="transition-delay: 0.15s;">
                     <div class="ribbon-badge">Bundle</div>
                     <div>
@@ -826,7 +800,6 @@
                     </div>
                 </div>
 
-                <!-- 3. Peach Plan Starter ("Strong is no age") -->
                 <div class="shop-card pop-reveal" style="transition-delay: 0.3s;">
                     <div class="featured-tag" style="background: var(--flare);">Start Here</div>
                     <div>
@@ -845,7 +818,6 @@
         </div>
     </section>
 
-    <!-- SECTION 2: INDIVIDUAL GUIDES (Below the fold) -->
     <section style="background: var(--bone);">
         <div class="wrap">
             <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 50px;">
@@ -854,7 +826,6 @@
             </div>
 
             <div class="shop-grid">
-                <!-- Cycle & Training Guide (€29) -->
                 <div class="shop-card pop-reveal">
                     <div>
                         <div class="shop-price">€29 <span>/ One-Time</span></div>
@@ -873,7 +844,6 @@
                     </div>
                 </div>
 
-                <!-- Nutrition Kickstart Guide (€34) -->
                 <div class="shop-card pop-reveal" style="transition-delay: 0.15s;">
                     <div>
                         <div class="shop-price">€34 <span>/ One-Time</span></div>
@@ -891,7 +861,6 @@
                     </div>
                 </div>
 
-                <!-- 6-Week Training & Macro Plan (€89) -->
                 <div class="shop-card pop-reveal" style="transition-delay: 0.3s;">
                     <div>
                         <div class="shop-price">€89 <span>/ One-Time</span></div>
@@ -910,7 +879,6 @@
         </div>
     </section>
 
-    <!-- SECTION 3: Coaching block replacement for removed individual coaching cards -->
     <section style="background: var(--surface);">
         <div class="wrap">
             <div class="section-head pop-reveal" style="text-align: center; margin: 0 auto 40px;">
@@ -929,8 +897,7 @@
         </div>
     </section>
 
-    <!-- Dedicated Newsletter Section (Smaller & Clean) -->
-     <section class="newsletter-section"
+    <section class="newsletter-section"
         style="background: var(--surface); padding: 70px 0; border-top: 1px solid var(--line);">
         <div class="wrap">
             <div style="max-width: 520px; margin: 0 auto; text-align: center;" class="reveal in">
@@ -941,13 +908,9 @@
                     One email most weeks: what I am programming, what is working, and when spots open up.
                 </p>
 
-                <!-- Newsletter Form Connected to Google Sheets Web App Endpoint -->
                 <form id="newsletterForm"
                     style="background: var(--bone); border: 1px solid var(--line); border-radius: 16px; padding: 30px 24px; box-shadow: var(--shadow-soft); text-align: left;">
-
                     <div style="display: flex; flex-direction: column; gap: 16px;">
-
-                        <!-- First Name Field -->
                         <div style="display: flex; flex-direction: column; gap: 6px;">
                             <label for="newsletterFirstName"
                                 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">First
@@ -955,17 +918,14 @@
                             <input type="text" name="firstName" id="newsletterFirstName" placeholder="e.g. Emma"
                                 style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; width: 100%;">
                         </div>
-
-                        <!-- Email Address Field -->
                         <div style="display: flex; flex-direction: column; gap: 6px;">
                             <label for="newsletterEmail"
                                 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--ink);">Email
                                 Address*</label>
-                            <input type="email" name="email" id="newsletterEmail" placeholder="e.g. emma@example.com" required
+                            <input type="email" name="email" id="newsletterEmail" placeholder="e.g. emma@example.com"
+                                required
                                 style="background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; width: 100%;">
                         </div>
-
-                        <!-- GDPR / Consent Checkbox -->
                         <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 2px;">
                             <input type="checkbox" id="newsletterConsentCheck" required
                                 style="margin-top: 3px; accent-color: var(--gold); width: 16px; height: 16px; cursor: pointer;">
@@ -975,30 +935,25 @@
                                 time.
                             </label>
                         </div>
-
-                        <!-- Submit Button -->
                         <div style="text-align: center; margin-top: 6px;">
                             <button type="submit" id="newsletterSubmitBtn" class="btn btn-gold"
                                 style="width: 100%; justify-content: center; padding: 14px 24px; font-size: 12px;">
                                 Join Newsletter →
                             </button>
                         </div>
-                        
-                        <!-- Success Feedback Message Container -->
-                        <div id="newsletterMessage" style="display: none; text-align: center; font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 4px;"></div>
-
+                        <div id="newsletterMessage"
+                            style="display: none; text-align: center; font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 4px;">
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Sticky Mobile Call-To-Action Bar -->
     <div class="sticky-cta">
         <a href="#freeGuide" class="btn btn-gold" style="width: 100%; justify-content: center;">Get the free guide</a>
     </div>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="wrap">
             <div class="footer-grid">
@@ -1036,8 +991,12 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <div style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace;">&copy; 2026
-                    Anneloes Fit Coaching. All rights reserved.</div>
+                <div
+                    style="font-size:12px; color:var(--steel); font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
+                    &copy; 2026 <span style="color: black; font-weight: bold;">Anneloes Fit Coaching</span>. All rights
+                    reserved. | Powered by <a href="https://www.nhcorps.com" target="_blank"
+                        style="color:var(black); text-decoration:underline; font-weight: bold;">NhCorps</a>
+                </div>
                 <div
                     style="display:flex; gap:16px; font-size:12px; font-family:'JetBrains Mono', monospace; letter-spacing:.06em;">
                     <a href="privacy-policy.html" style="color:var(--steel); text-decoration:underline;">Privacy
@@ -1070,23 +1029,69 @@
 
         document.querySelectorAll('.pop-reveal').forEach(el => observer.observe(el));
 
-       // --- Google Sheets Form Handler Integration ---
+        // --- Free Guide Form Database Integration ---
+        const freeGuideForm = document.getElementById('freeGuideForm');
+        if (freeGuideForm) {
+            freeGuideForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const submitBtn = document.getElementById('freeGuideSubmitBtn');
+                const messageEl = document.getElementById('freeGuideMessage');
+                const name = document.getElementById('freeGuideName').value.trim();
+                const email = document.getElementById('freeGuideEmail').value.trim();
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                messageEl.style.display = 'none';
+
+                const storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
+
+                const { error } = await supabaseClient
+                    .from('quick_leads')
+                    .insert([{
+                        name: name,
+                        email: email,
+                        type: 'free_guide',
+                        utm_source: storedUTMs.utm_source || null,
+                        utm_medium: storedUTMs.utm_medium || null,
+                        utm_campaign: storedUTMs.utm_campaign || null
+                    }]);
+
+                if (error) {
+                    console.error('Error saving quick lead:', error);
+                    messageEl.style.display = 'block';
+                    messageEl.style.color = 'var(--flare)';
+                    messageEl.textContent = 'Oops! Something went wrong. Please try again.';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Get Free Guide (Free) →';
+                } else {
+                    messageEl.style.display = 'block';
+                    messageEl.style.color = 'var(--gold)';
+                    messageEl.textContent = 'Success! The guide has been sent to your email.';
+                    freeGuideForm.reset();
+                    submitBtn.textContent = 'Sent Successfully ✓';
+
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Get Free Guide (Free) →';
+                    }, 4000);
+                }
+            });
+        }
+
+        // --- Newsletter Form Handler Integration ---
         const newsletterForm = document.getElementById('newsletterForm');
         const newsletterSubmitBtn = document.getElementById('newsletterSubmitBtn');
         const newsletterMessage = document.getElementById('newsletterMessage');
-
-        // REPLACE THIS URL with your deployed Google Apps Script Web App URL
         const SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzFWnmTMlUwUNGVDezT-LUWU-Ariip1Bzq0-SIfOtdS8d5z2oUN_jNUgCeqT-vsS-Vs5A/exec';
 
-        newsletterForm.addEventListener('submit', function(e) {
+        newsletterForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Disable button to prevent double-submissions and show processing state
             newsletterSubmitBtn.disabled = true;
             newsletterSubmitBtn.textContent = 'Submitting...';
             newsletterMessage.style.display = 'none';
 
-            // Gather form field values & session UTM parameters
             const firstName = document.getElementById('newsletterFirstName').value;
             const email = document.getElementById('newsletterEmail').value;
             const storedUTMs = JSON.parse(sessionStorage.getItem('initial_utm_params') || '{}');
@@ -1102,40 +1107,38 @@
                 utm_content: storedUTMs.utm_content || ''
             };
 
-            // Send data to Google Sheets via Fetch API
             fetch(SHEET_WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Essential for Google Apps Script endpoints to bypass browser CORS blocks
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             })
-            .then(() => {
-                // Success feedback
-                newsletterMessage.style.display = 'block';
-                newsletterMessage.style.color = 'var(--gold)';
-                newsletterMessage.textContent = 'Thank you! You have successfully joined the newsletter.';
-                newsletterForm.reset();
-                newsletterSubmitBtn.textContent = 'Joined Successfully ✓';
-                
-                setTimeout(() => {
+                .then(() => {
+                    newsletterMessage.style.display = 'block';
+                    newsletterMessage.style.color = 'var(--gold)';
+                    newsletterMessage.textContent = 'Thank you! You have successfully joined the newsletter.';
+                    newsletterForm.reset();
+                    newsletterSubmitBtn.textContent = 'Joined Successfully ✓';
+
+                    setTimeout(() => {
+                        newsletterSubmitBtn.disabled = false;
+                        newsletterSubmitBtn.textContent = 'Join Newsletter →';
+                    }, 4000);
+                })
+                .catch(error => {
+                    console.error('Error saving to Google Sheets:', error);
+                    newsletterMessage.style.display = 'block';
+                    newsletterMessage.style.color = 'var(--flare)';
+                    newsletterMessage.textContent = 'Oops! Something went wrong. Please try again.';
                     newsletterSubmitBtn.disabled = false;
                     newsletterSubmitBtn.textContent = 'Join Newsletter →';
-                }, 4000);
-            })
-            .catch(error => {
-                console.error('Error saving to Google Sheets:', error);
-                newsletterMessage.style.display = 'block';
-                newsletterMessage.style.color = 'var(--flare)';
-                newsletterMessage.textContent = 'Oops! Something went wrong. Please try again.';
-                newsletterSubmitBtn.disabled = false;
-                newsletterSubmitBtn.textContent = 'Join Newsletter →';
-            });
+                });
         });
     </script>
 
-<script src="assets/js/afc-chat-widget.js" defer></script>
+    <script src="assets/js/afc-chat-widget.js" defer></script>
 
 </body>
 

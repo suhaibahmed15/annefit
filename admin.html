@@ -22,9 +22,7 @@
             --line: #e2dfd5;
             --flare: #e63712;
             --primary: #d97757;
-            /* Terracotta aligned */
             --primary-light: #c25e3c;
-            /* Peach / Deep Terracotta tone */
             --max: 1280px;
             --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
         }
@@ -103,13 +101,6 @@
             height: 90px;
             flex-wrap: wrap;
             gap: 12px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-inner {
-                height: auto;
-                padding: 16px 0;
-            }
         }
 
         .logo-mark img {
@@ -224,57 +215,6 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-        }
-
-        .notif-label-text {
-            display: inline;
-        }
-
-        @media (max-width: 640px) {
-            .nav-inner {
-                justify-content: space-between;
-            }
-
-            .logo-mark img {
-                height: 36px;
-            }
-
-            .notification-badge-wrapper {
-                padding: 8px 10px;
-                gap: 6px;
-            }
-
-            .notif-bell-icon {
-                display: flex;
-            }
-
-            .notif-label-text {
-                display: none;
-            }
-
-            .notif-wrapper {
-                position: static;
-            }
-
-            .notif-dropdown {
-                position: fixed;
-                top: 84px;
-                left: 12px;
-                right: 12px;
-                width: auto;
-                max-height: calc(100vh - 110px);
-            }
-
-            .admin-panel-label {
-                display: none;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .logout-btn {
-                padding: 8px 12px;
-                font-size: 11px;
-            }
         }
 
         .dashboard-layout {
@@ -623,14 +563,11 @@
         </div>
 
         <div class="content-area">
-            <!-- MODULE 1.5: COACHING APPLICATIONS -->
+            <!-- COACHING APPLICATIONS -->
             <div class="tab-panel active" id="tab-coaching">
                 <div class="eyebrow">1:1 Mentorship Applications</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Coaching Applications</h2>
-
                 <div class="admin-card">
-                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">Submissions from the coaching
-                        page application form.</p>
                     <div class="table-responsive">
                         <table>
                             <thead>
@@ -655,7 +592,7 @@
                 </div>
             </div>
 
-            <!-- MODULE 2: MANAGE ARTICLES -->
+            <!-- MANAGE ARTICLES -->
             <div class="tab-panel" id="tab-articles">
                 <div class="eyebrow">Content Publishing</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Add Latest Articles & Blogs</h2>
@@ -694,11 +631,10 @@
                 </div>
             </div>
 
-            <!-- MODULE 3: LEADS & INQUIRIES -->
+            <!-- LEADS -->
             <div class="tab-panel" id="tab-leads">
                 <div class="eyebrow">Prospects & Submissions</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">All Leads & Contact Inquiries</h2>
-
                 <div class="admin-card">
                     <div class="table-responsive">
                         <table>
@@ -722,15 +658,12 @@
                 </div>
             </div>
 
-            <!-- MODULE 3.5: QUICK LEADS (Free Guide / Discovery Call popup) -->
+            <!-- QUICK LEADS -->
             <div class="tab-panel" id="tab-quickleads">
                 <div class="eyebrow">Link Hub Popup Captures</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Free Guide & Discovery Call Leads
                 </h2>
-
                 <div class="admin-card">
-                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">Name & email captured from
-                        the "Get My Free Guide" and "Book a Free Discovery Call" popups on the start page.</p>
                     <div class="table-responsive">
                         <table>
                             <thead>
@@ -754,15 +687,11 @@
                 </div>
             </div>
 
-            <!-- MODULE 3.6: AI CHAT LEADS (captured by the Coach Anne AI chat widget) -->
+            <!-- AI CHAT LEADS -->
             <div class="tab-panel" id="tab-chatleads">
                 <div class="eyebrow">Coach Anne AI Assistant Captures</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">AI Chat Leads</h2>
-
                 <div class="admin-card">
-                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">Name & email collected
-                        automatically by the website chat assistant during a conversation, with what they were
-                        interested in.</p>
                     <div class="table-responsive">
                         <table>
                             <thead>
@@ -786,11 +715,10 @@
                 </div>
             </div>
 
-            <!-- MODULE 4: GALLERY MANAGER -->
+            <!-- GALLERY MANAGER -->
             <div class="tab-panel" id="tab-gallery">
                 <div class="eyebrow">Visual Asset Management</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Manage Gallery Images</h2>
-
                 <div class="admin-card">
                     <form id="galleryForm" onsubmit="addGalleryImage(event)">
                         <div class="form-group">
@@ -803,18 +731,16 @@
                             style="font-size: 12px; color: var(--steel); margin-top: 12px;"></div>
                     </form>
                 </div>
-
                 <div class="admin-card">
                     <h3 style="font-size: 24px; margin-bottom: 16px;">Gallery Inventory</h3>
                     <div class="gallery-manager-grid" id="adminGalleryContainer"></div>
                 </div>
             </div>
 
-            <!-- MODULE 5: QUIZ SUBMISSIONS -->
+            <!-- QUIZ SUBMISSIONS -->
             <div class="tab-panel" id="tab-quiz">
                 <div class="eyebrow">Diagnostic Quiz Leads</div>
                 <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">Quiz Results & Submissions</h2>
-
                 <div class="admin-card">
                     <div class="table-responsive">
                         <table>
@@ -889,6 +815,7 @@
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_submissions' }, () => loadQuizSubmissions())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'coaching_applications' }, () => loadCoachingApplications())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadGallery())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'articles' }, () => loadArticles())
                 .subscribe();
         }
 
@@ -1071,50 +998,65 @@
             loadQuizSubmissions();
         }
 
-        function addArticle(e) {
-            e.preventDefault();
-            const title = document.getElementById('artTitle').value.trim();
-            const date = document.getElementById('artDate').value.trim();
-            const category = document.getElementById('artCategory').value.trim();
-            const content = document.getElementById('artContent').value.trim();
-
-            let articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
-            articles.push({ title, date, category, content });
-            localStorage.setItem('local_articles', JSON.stringify(articles));
-            document.getElementById('articleForm').reset();
-            loadArticles();
-            alert('Article published locally!');
-        }
-
-        function loadArticles() {
+        // --- Supabase Articles Integration ---
+        async function loadArticles() {
             const list = document.getElementById('publishedArticlesList');
-            const articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
+            const { data: articles, error } = await supabaseClient
+                .from('articles')
+                .select('*')
+                .order('created_at', { ascending: false });
+
             list.innerHTML = '';
-            if (articles.length > 0) {
-                articles.forEach((art, index) => {
+            if (articles && articles.length > 0) {
+                articles.forEach((art) => {
                     const item = document.createElement('div');
                     item.style = "background: var(--bone); padding: 16px 20px; border-radius: 12px; border: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;";
                     item.innerHTML = `
                         <div>
                             <h4 style="font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;">${art.title}</h4>
-                            <span class="mono" style="font-size: 11px; color: var(--steel);">${art.date} &bull; ${art.category || 'General'}</span>
+                            <span class="mono" style="font-size: 11px; color: var(--steel);">${art.publication_date} &bull; ${art.category || 'General'}</span>
                         </div>
-                        <button class="btn btn-danger" onclick="deleteArticle(${index})">Delete</button>
+                        <button class="btn btn-danger" onclick="deleteArticle(${art.id})">Delete</button>
                     `;
-                    list.prepend(item);
+                    list.appendChild(item);
                 });
             } else {
                 list.innerHTML = `<span style="color: var(--steel);">No published articles found.</span>`;
             }
         }
 
-        function deleteArticle(index) {
-            let articles = JSON.parse(localStorage.getItem('local_articles') || '[]');
-            articles.splice(index, 1);
-            localStorage.setItem('local_articles', JSON.stringify(articles));
+        async function addArticle(e) {
+            e.preventDefault();
+            const title = document.getElementById('artTitle').value.trim();
+            const date = document.getElementById('artDate').value.trim();
+            const category = document.getElementById('artCategory').value.trim();
+            const content = document.getElementById('artContent').value.trim();
+
+            const { error } = await supabaseClient
+                .from('articles')
+                .insert([{ title, publication_date: date, category, content }]);
+
+            if (error) {
+                alert('Error publishing article: ' + error.message);
+                return;
+            }
+
+            document.getElementById('articleForm').reset();
+            loadArticles();
+            alert('Article published successfully to the database!');
+        }
+
+        async function deleteArticle(id) {
+            if (!confirm('Delete this article?')) return;
+            const { error } = await supabaseClient.from('articles').delete().eq('id', id);
+            if (error) {
+                alert('Error deleting article: ' + error.message);
+                return;
+            }
             loadArticles();
         }
 
+        // Gallery Functions
         function resizeImageFile(file, maxDimension, quality) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();

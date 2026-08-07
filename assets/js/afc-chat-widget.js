@@ -57,8 +57,8 @@
         // ---------- CONFIG: fill these in ----------
         var OPENROUTER_API_KEY = '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';
         var OPENROUTER_MODEL = 'openai/gpt-4o-mini';
-        var SUPABASE_URL = 'https://hqgxxaflmduofhcmanio.supabase.co'; // e.g. https://xxxxxxxx.supabase.co (same as used in auth.js)
-        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZ3h4YWZsbWR1b2ZoY21hbmlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4NDc0NjcsImV4cCI6MjEwMTQyMzQ2N30.Dryx8ucZK6Ww1GF5tOa0NXhQVa7O1rO6iy-p-PawvUE'; // Supabase anon/public key, safe for client-side use with RLS
+        var SUPABASE_URL = 'https://hqgxxaflmduofhcmanio.supabase.co'; 
+        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZ3h4YWZsbWR1b2ZoY21hbmlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4NDc0NjcsImV4cCI6MjEwMTQyMzQ2N30.Dryx8ucZK6Ww1GF5tOa0NXhQVa7O1rO6iy-p-PawvUE'; 
         // --------------------------------------------
 
         var supabaseClient = null;
@@ -86,7 +86,7 @@
         }];
 
         var SYSTEM_PROMPT = [
-            'You are Coach Anne\'s AI Assistant, the official AI assistant for Anneloes Fitness Coaching (annefit.vercel.app), an online Hyrox and strength coaching service run by Coach Anne, an EREPS Level 4 certified strength and sports nutrition coach with 20+ years of experience.',
+            'You are Coach Anne\'s AI Assistant, the official AI assistant for Anneloes Fitness Coaching (https://anneloesfitcoaching.com/), an online Hyrox and strength coaching service run by Coach Anne, an EREPS Level 4 certified strength and sports nutrition coach with 20+ years of experience.',
             '',
             'ROLE: Help visitors understand Anneloes Fitness Coaching programs, fitness approach, nutrition guidance and services. Guide users toward the correct program based on their goals. Keep every response short, clear, friendly and actionable. Never generate long paragraphs unless the user specifically asks for detailed information. Limit most answers to 2-4 short sentences. Ask one follow-up question when more information is needed.',
             '',
