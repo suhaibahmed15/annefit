@@ -21,8 +21,10 @@
             --steel: #6b6a63;
             --line: #e2dfd5;
             --flare: #e63712;
-            --primary: #d97757;       /* Terracotta aligned */
-            --primary-light: #c25e3c; /* Peach / Deep Terracotta tone */
+            --primary: #d97757;
+            /* Terracotta aligned */
+            --primary-light: #c25e3c;
+            /* Peach / Deep Terracotta tone */
             --max: 1280px;
             --shadow-soft: 0 10px 30px rgba(24, 24, 22, .06);
         }
@@ -614,6 +616,8 @@
             <button class="tab-btn" data-tab="leads" onclick="switchTab('leads', event)">Leads</button>
             <button class="tab-btn" data-tab="quickleads" onclick="switchTab('quickleads', event)">Quick
                 Leads</button>
+            <button class="tab-btn" data-tab="chatleads" onclick="switchTab('chatleads', event)">AI Chat
+                Leads</button>
             <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery', event)">Gallery</button>
             <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz', event)">Quiz</button>
         </div>
@@ -750,6 +754,38 @@
                 </div>
             </div>
 
+            <!-- MODULE 3.6: AI CHAT LEADS (captured by the Coach Anne AI chat widget) -->
+            <div class="tab-panel" id="tab-chatleads">
+                <div class="eyebrow">Coach Anne AI Assistant Captures</div>
+                <h2 style="font-size: clamp(28px, 4vw, 38px); margin-bottom: 24px;">AI Chat Leads</h2>
+
+                <div class="admin-card">
+                    <p style="color: var(--steel); font-size: 15px; margin-bottom: 20px;">Name & email collected
+                        automatically by the website chat assistant during a conversation, with what they were
+                        interested in.</p>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Interest</th>
+                                    <th>Notes</th>
+                                    <th>Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="chatLeadsTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: var(--steel);">No AI chat leads
+                                        found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <!-- MODULE 4: GALLERY MANAGER -->
             <div class="tab-panel" id="tab-gallery">
                 <div class="eyebrow">Visual Asset Management</div>
@@ -823,6 +859,7 @@
             loadArticles();
             loadLeads();
             loadQuickLeads();
+            loadChatLeads();
             loadGallery();
             loadQuizSubmissions();
             setupRealtime();
@@ -839,6 +876,7 @@
         let coachingCache = [];
         let leadsCache = [];
         let quickLeadsCache = [];
+        let chatLeadsCache = [];
         let quizCache = [];
         let galleryCache = [];
 
@@ -847,6 +885,7 @@
                 .channel('admin-dashboard-live')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'contacts' }, () => loadLeads())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'quick_leads' }, () => loadQuickLeads())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'chatbot_leads' }, () => loadChatLeads())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_submissions' }, () => loadQuizSubmissions())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'coaching_applications' }, () => loadCoachingApplications())
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadGallery())
@@ -962,6 +1001,41 @@
             if (!confirm('Delete this lead?')) return;
             await supabaseClient.from('quick_leads').delete().eq('id', id);
             loadQuickLeads();
+        }
+
+        async function loadChatLeads() {
+            const { data } = await supabaseClient.from('chatbot_leads').select('*').order('created_at', { ascending: false });
+            chatLeadsCache = data || [];
+            renderChatLeadsTable();
+            updateNotificationCount();
+        }
+
+        function renderChatLeadsTable() {
+            const tbody = document.getElementById('chatLeadsTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            if (chatLeadsCache.length > 0) {
+                chatLeadsCache.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><b>${item.name || ''}</b></td>
+                        <td>${item.email || ''}</td>
+                        <td><span class="mono" style="color: var(--primary);">${item.interest || 'N/A'}</span></td>
+                        <td style="font-size: 12px; color: var(--steel); max-width: 220px;">${item.notes || ''}</td>
+                        <td>${formatDate(item.created_at)}</td>
+                        <td><button class="btn btn-danger" onclick="deleteChatLead(${item.id})">Delete</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--steel);">No AI chat leads found.</td></tr>`;
+            }
+        }
+
+        async function deleteChatLead(id) {
+            if (!confirm('Delete this AI chat lead?')) return;
+            await supabaseClient.from('chatbot_leads').delete().eq('id', id);
+            loadChatLeads();
         }
 
         async function loadQuizSubmissions() {
@@ -1132,6 +1206,7 @@
             const items = [];
             leadsCache.forEach(l => items.push({ tab: 'leads', title: `${l.first_name || ''} ${l.second_name || ''}`.trim() || 'Contact Inquiry', sub: `Contact &bull; ${formatDate(l.created_at)}` }));
             quickLeadsCache.forEach(ql => items.push({ tab: 'quickleads', title: ql.name || 'Quick Lead', sub: `${ql.type === 'discovery_call' ? 'Discovery Call' : 'Free Guide'} &bull; ${formatDate(ql.created_at)}` }));
+            chatLeadsCache.forEach(cl => items.push({ tab: 'chatleads', title: cl.name || 'AI Chat Lead', sub: `AI Chat &bull; ${cl.interest || 'General enquiry'} &bull; ${formatDate(cl.created_at)}` }));
             quizCache.forEach(q => items.push({ tab: 'quiz', title: q.name || 'Quiz Submission', sub: `Quiz &bull; ${formatDate(q.created_at)}` }));
             coachingCache.forEach(co => items.push({ tab: 'coaching', title: co.name || 'Coaching Lead', sub: `Coaching App &bull; ${formatDate(co.created_at)}` }));
 
@@ -1149,7 +1224,7 @@
         }
 
         function updateNotificationCount() {
-            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + coachingCache.length + quickLeadsCache.length;
+            document.getElementById('notifCount').innerText = leadsCache.length + quizCache.length + coachingCache.length + quickLeadsCache.length + chatLeadsCache.length;
         }
     </script>
 </body>
